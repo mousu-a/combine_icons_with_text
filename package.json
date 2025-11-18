@@ -1,4 +1,9 @@
 {
+  "scripts": {
+    "lint:eslint": "eslint app/javascript --ext .js",
+    "lint:prettier": "prettier --check \"app/javascript/**/*.js\"",
+    "lint": "yarn lint:eslint && yarn lint:prettier"
+  },
   "devDependencies": {
     "eslint": "^9.39.1",
     "prettier": "^3.6.2"
