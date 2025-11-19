@@ -1,0 +1,6 @@
+linters:
+  LineLength:
+    max: 200
+
+exclude:
+  - app/views/pwa/manifest.json.slim

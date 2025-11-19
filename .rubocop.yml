@@ -5,6 +5,9 @@ plugins:
   - rubocop-rspec_rails
   - rubocop-capybara
 
+Style/Documentation:
+  Enabled: false
+
 AllCops:
   NewCops: enable
   Exclude:
@@ -14,6 +17,9 @@ AllCops:
     - node_modules/**/*
     - db/migrate/*
     - db/schema.rb
+    - db/queue_schema.rb
+    - db/cache_schema.rb
+    - db/cable_schema.rb
     - storage/**/*
     - tmp/**/*
     - bin/**/*
