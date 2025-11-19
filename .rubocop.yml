@@ -5,6 +5,9 @@ plugins:
   - rubocop-rspec_rails
   - rubocop-capybara
 
+Style/Documentation:
+  Enabled: false
+
 AllCops:
   NewCops: enable
   Exclude:
