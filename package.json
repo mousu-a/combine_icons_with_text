@@ -1,6 +1,14 @@
 {
+  "scripts": {
+    "lint:eslint": "eslint app/javascript --ext .js",
+    "lint:prettier": "prettier --check \"app/javascript/**/*.js\"",
+    "lint": "yarn lint:eslint && yarn lint:prettier"
+  },
   "devDependencies": {
+    "@eslint/js": "^9.39.1",
     "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^16.5.0",
     "prettier": "^3.6.2"
   }
 }
