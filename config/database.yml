@@ -19,7 +19,6 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch("DB_USERNAME", "tao") %>
 
 development:
   <<: *default
@@ -82,3 +81,4 @@ test:
 production:
   <<: *default
   database: combine_icons_with_text_production
+  username: <%= ENV["DB_USERNAME"] %>
