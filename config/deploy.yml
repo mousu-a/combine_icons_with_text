@@ -13,9 +13,8 @@ proxy:
 registry:
   server: ghcr.io
   username: mousu-a
-
-password:
-  - KAMAL_REGISTRY_PASSWORD
+  password:
+    - KAMAL_REGISTRY_PASSWORD
 
 env:
   secret:
