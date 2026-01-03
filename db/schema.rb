@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_03_021626) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_03_021828) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -58,7 +58,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_03_021626) do
     t.index ["original_icon_id"], name: "index_combined_icons_on_original_icon_id"
   end
 
-  create_table "links", force: :cascade do |t|
+  create_table "icon_change_links", force: :cascade do |t|
     t.string "site_name", null: false
     t.string "url", null: false
     t.datetime "created_at", null: false
