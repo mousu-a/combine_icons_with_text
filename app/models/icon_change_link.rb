@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
 class IconChangeLink < ApplicationRecord
-end
+  validates :site_name, presence: true, uniqueness: true
+  validates :url, presence: true, uniqueness: true
 
+  validates :site_name, uniqueness: { scope: :url }
+end
