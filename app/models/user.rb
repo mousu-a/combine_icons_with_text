@@ -2,4 +2,6 @@
 
 class User < ApplicationRecord
   has_many :original_icons, dependent: :destroy
+
+  validates :uid, uniqueness: { scope: :provider }
 end
