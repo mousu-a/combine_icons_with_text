@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_03_020539) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_03_020903) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -48,6 +48,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_03_020539) do
     t.string "bg_color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["text", "text_color", "bg_color"], name: "index_canvas_presets_on_text_and_colors", unique: true
   end
 
   create_table "combined_icons", force: :cascade do |t|
