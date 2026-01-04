@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_03_022122) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_04_025511) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -63,7 +63,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_03_022122) do
     t.string "url", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["site_name", "url"], name: "index_icon_change_links_on_site_name_and_url", unique: true
     t.index ["site_name"], name: "index_icon_change_links_on_site_name", unique: true
     t.index ["url"], name: "index_icon_change_links_on_url", unique: true
   end
