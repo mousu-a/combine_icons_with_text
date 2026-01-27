@@ -63,6 +63,7 @@ group :development do
   gem 'html2slim', git: 'https://github.com/slim-template/html2slim.git', require: false
   gem 'rubocop', require: false
   gem 'rubocop-capybara', require: false
+  gem 'rubocop-factory_bot', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
