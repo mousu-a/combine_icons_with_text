@@ -1,0 +1,7 @@
+- if links.present?
+  - links.each do |link|
+    = link_to "#{link.site_name}のアイコン変更リンク", link.url
+    / TODO change_guideカラムを追加して置き換え
+    p link.change_guide
+- else
+  linkがありません
