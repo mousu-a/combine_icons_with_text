@@ -54,6 +54,9 @@ export default class extends Controller {
   }
 
   download(e) {
+    e.preventDefault();
+    if (this.downloadLinkTarget.classList.contains("is-disabled")) return;
+
     disableLink(this.downloadLinkTarget);
     const selectedText = this.canvasOutlet.selectedText;
     const previewImageUrl = this.previewOutlet.previewImageUrl;
