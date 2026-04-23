@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  root "welcome#index"
+  # TODO　後で消す　啓発用
+  # root "welcome#index"
+  root "icons#new"
   get "/welcome", to: "welcome#index", as: "welcome"
   resources :icons, only: %i[index new create destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
