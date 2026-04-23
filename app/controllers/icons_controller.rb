@@ -3,10 +3,10 @@
 class IconsController < ApplicationController
   before_action :set_icon_change_links
   def index
+    @saved_icons = {}
     return unless current_user
 
-    @original_icon = OriginalIcon.joins(:image_attachment).find_by(user: current_user)
-    @combined_icons = @original_icon.combined_icons.joins(:image_attachment).with_attached_image
+    @saved_icons = UserIcons.new(current_user).saved_icons
   end
 
   def new
