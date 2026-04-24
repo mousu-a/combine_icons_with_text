@@ -16,7 +16,7 @@ class IconsController < ApplicationController
 
   def create
     save_canvas_preset(canvas_preset_params)
-    render_redirect_path unless current_user
+    return render_redirect_path unless current_user
 
     @user_icons = UserIcons.new(current_user)
     if @user_icons.save_all(original_icon_params, combined_icon_params)
