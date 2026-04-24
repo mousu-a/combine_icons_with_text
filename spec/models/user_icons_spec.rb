@@ -7,10 +7,10 @@ RSpec.describe UserIcons do
 
   let(:user) { create(:user) }
 
-  # TODO: has_oneだった時の名残でhas_one用のテストになっているが、
-  #   サイトに保存した既存のアイコンを元に合成する機能を追加する　で合わせて変更する
   describe '#save_all' do
-    context 'when the user does not have an original_icon' do
+    context 'when params are valid' do
+      subject(:save_all) { user_icons.save_all(original_icon_params, combined_icon_params) }
+
       let(:original_icon_params) do
         attributes_for(:original_icon).merge(
           image: fixture_file_upload('spec/files/dummy_3MB.jpg', 'image/jpeg')
@@ -23,58 +23,20 @@ RSpec.describe UserIcons do
       end
 
       it 'returns true' do
-        expect(user_icons.save_all(original_icon_params, combined_icon_params)).to be true
+        expect(save_all).to be true
       end
 
-      it 'creates an original_icon' do
-        expect do
-          user_icons.save_all(original_icon_params, combined_icon_params)
-        end.to change(OriginalIcon, :count).by(1)
-      end
-
-      it 'creates a combined_icon' do
-        expect do
-          user_icons.save_all(original_icon_params, combined_icon_params)
-        end.to change(CombinedIcon, :count).by(1)
-      end
-    end
-
-    context 'when the user already has an original_icon' do
-      before do
-        create(:original_icon, user: user)
-      end
-
-      let(:original_icon_params) do
-        attributes_for(:original_icon).merge(
-          image: fixture_file_upload('spec/files/dummy_3MB.jpg', 'image/jpeg')
-        )
-      end
-
-      let(:combined_icon_params) do
-        attributes_for(:combined_icon).merge(
-          image: fixture_file_upload('spec/files/dummy_3MB.jpg', 'image/jpeg')
-        )
-      end
-
-      it 'returns true' do
-        expect(user_icons.save_all(original_icon_params, combined_icon_params)).to be true
-      end
-
-      it 'does not create a new original_icon' do
-        expect do
-          user_icons.save_all(original_icon_params, combined_icon_params)
-        end.not_to change(OriginalIcon, :count)
-      end
-
-      it 'creates a combined_icon' do
-        expect do
-          user_icons.save_all(original_icon_params, combined_icon_params)
-        end.to change(CombinedIcon, :count).by(1)
+      it 'creates both an original_icon and a combined_icon' do
+        expect { save_all }
+          .to change(OriginalIcon, :count).by(1)
+          .and change(CombinedIcon, :count).by(1)
       end
     end
 
     context 'when params are invalid' do
-      let(:original_icon_params) do
+      subject(:save_all) { user_icons.save_all(valid_original_icon_params, invalid_combined_icon_params) }
+
+      let(:valid_original_icon_params) do
         attributes_for(:original_icon).merge(
           image: fixture_file_upload('spec/files/dummy_3MB.jpg', 'image/jpeg')
         )
@@ -86,11 +48,11 @@ RSpec.describe UserIcons do
       end
 
       it 'returns false' do
-        expect(user_icons.save_all(original_icon_params, invalid_combined_icon_params)).to be false
+        expect(save_all).to be false
       end
 
       it 'sets the errors' do
-        user_icons.save_all(original_icon_params, invalid_combined_icon_params)
+        save_all
         expect(user_icons.errors[:image]).to include('text/plain は許可されていない形式です')
       end
     end
