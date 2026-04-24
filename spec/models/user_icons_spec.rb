@@ -95,4 +95,31 @@ RSpec.describe UserIcons do
       end
     end
   end
+
+  describe '#saved_icons' do
+    subject(:saved_icons) { user_icons.saved_icons }
+
+    context 'when the user has icons' do
+      let!(:original_icon) { create(:original_icon, user: user) }
+      let!(:combined_icon) { create(:combined_icon, original_icon: original_icon) }
+
+      it 'returns a hash of the user’s icons' do
+        expect(saved_icons).to eql(original_icon => [combined_icon])
+      end
+    end
+
+    context 'when the user has original icons but no combined icons' do
+      let!(:original_icon) { create(:original_icon, user: user) }
+
+      it 'returns a hash with original icons and empty combined icons' do
+        expect(saved_icons).to eql(original_icon => [])
+      end
+    end
+
+    context 'when the user has no original icons' do
+      it 'returns an empty hash' do
+        expect(saved_icons).to eql({})
+      end
+    end
+  end
 end
