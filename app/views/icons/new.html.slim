@@ -26,7 +26,7 @@ div(
     - @canvas_presets.each do |canvas_preset|
       canvas(
           data-action='click->canvas#applyPreset'
-          data-presets-renderer-target='canvasPreset'
+          data-presets-renderer-target='presetCanvas'
           data-text=canvas_preset.text
           data-text-fill-style=canvas_preset.text_color
           data-bg-fill-style=canvas_preset.bg_color

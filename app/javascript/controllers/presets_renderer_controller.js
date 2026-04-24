@@ -1,15 +1,14 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["canvasPreset"];
+  static targets = ["presetCanvas"];
 
   connect() {
     this.presetsRender();
   }
-  // TODO canvasの操作をここでしたくない
-  // renderPlanに書き込み、canvas.renderを実行させたい
+
   presetsRender() {
-    this.canvasPresetTargets.forEach((canvas) => {
+    this.presetCanvasTargets.forEach((canvas) => {
       const ctx = canvas.getContext("2d");
 
       const text = canvas.dataset.text;
