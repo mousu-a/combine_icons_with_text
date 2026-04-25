@@ -39,9 +39,15 @@ function setupFormdata(detail) {
 
   fd.append("original_icon[image]", detail.originalImageFile);
 
-  fd.append("canvas_preset[text]", detail.renderPlan.text.text);
-  fd.append("canvas_preset[text_color]", detail.renderPlan.text.fillStyle);
-  fd.append("canvas_preset[bg_color]", detail.renderPlan.background.fillStyle);
+  fd.append("canvas_preset[text]", detail.renderPlan.text?.text ?? "");
+  fd.append(
+    "canvas_preset[text_color]",
+    detail.renderPlan.text?.fillStyle ?? "",
+  );
+  fd.append(
+    "canvas_preset[bg_color]",
+    detail.renderPlan.background?.fillStyle ?? "",
+  );
 
   return fd;
 }
