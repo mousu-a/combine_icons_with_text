@@ -18,7 +18,7 @@ class OriginalIcon < ApplicationRecord
   private
 
   def limit_per_user
-    return unless original_icon.combined_icons.count >= MAX_ORIGINAL_ICONS_COUNT
+    return unless user.original_icons.count >= MAX_ORIGINAL_ICONS_COUNT
 
     errors.add(:base, :limit_per_user, max_icons_count: MAX_ORIGINAL_ICONS_COUNT)
   end
