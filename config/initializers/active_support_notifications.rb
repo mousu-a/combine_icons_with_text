@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-Rails.application.reloader.to_prepare do
-  ActiveSupport::Notifications.subscribe('icons.create', CanvasPresetCreator.new)
+ActiveSupport::Notifications.subscribe('icons.create') do |name, started, finished, unique_id, payload|
+  CanvasPresetCreator.new.call(name, started, finished, unique_id, payload)
 end
