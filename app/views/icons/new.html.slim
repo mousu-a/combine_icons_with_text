@@ -8,7 +8,7 @@ h2 アイコン合成
 div(
   class='canvas preview'
   data-controller='icons icons-form canvas preview presets-renderer'
-  data-action='icons:setup->preview#setup icons:setup->canvas#setup canvas:render->preview#render icons:download->icons-form#submit'
+  data-action='icons:setup->preview#setup icons:setup->canvas#setup canvas:render->preview#render icons:download->icons-form#submit canvas:textAdded->icons#enableDownload'
   data-icons-canvas-outlet='.canvas'
   data-icons-preview-outlet='.preview'
   )

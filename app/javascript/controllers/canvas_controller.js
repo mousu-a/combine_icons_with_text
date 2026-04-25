@@ -34,6 +34,9 @@ export default class extends Controller {
   }
 
   drawText(e, presetText, presetColor) {
+    const hasText = Object.hasOwn(this.renderPlan, "text");
+    if (!hasText) this.dispatch("textAdded");
+
     this._selectedText = presetText || e.currentTarget.textContent;
     const canvas = this.canvasTarget;
     const y = calcYPosition("text", canvas);

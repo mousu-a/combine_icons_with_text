@@ -22,7 +22,6 @@ export default class extends Controller {
 
     originalImage.onload = () => {
       this.dispatch("setup", { detail: { originalImage } });
-      enableLink(this.downloadLinkTarget);
     };
   }
 
@@ -87,16 +86,21 @@ export default class extends Controller {
       },
     });
   }
-}
 
-function disableLink(link) {
-  link.classList.add("is-disabled");
-  link.setAttribute("aria-disabled", "true");
+  // dispatchでのみ呼ばれる
+  enableDownload() {
+    enableLink(this.downloadLinkTarget);
+  }
 }
 
 function enableLink(link) {
   link.classList.remove("is-disabled");
   link.setAttribute("aria-disabled", "false");
+}
+
+function disableLink(link) {
+  link.classList.add("is-disabled");
+  link.setAttribute("aria-disabled", "true");
 }
 
 function validateByteSize(file) {
