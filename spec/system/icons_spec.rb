@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.feature 'Icons', :js do
+RSpec.describe 'Icons' do
   scenario 'shows the icons page' do
     visit new_icon_path
     assert_text 'アイコン合成'

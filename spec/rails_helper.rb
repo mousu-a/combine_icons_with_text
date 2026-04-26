@@ -42,7 +42,7 @@ RSpec.configure do |config|
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
   ]
-  config.before(:each, :js, type: :system) do
+  config.before(:each, type: :system) do
     driven_by(ENV['HEADFUL'] ? :selenium_chrome : :selenium_chrome_headless)
   end
   config.use_transactional_fixtures = true
