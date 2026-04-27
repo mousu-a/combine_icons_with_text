@@ -10,8 +10,12 @@ RSpec.describe 'Icons' do
 
   scenario 'shows the original image and preview after uploading an image' do
     visit new_icon_path
-    attach_file 'upload-icon', Rails.root.join('spec/files/dummy_3MB.jpg')
 
+    assert_text 'アイコン合成'
+    expect(page).to have_no_css('img.icon-preview', visible: :visible)
+    expect(page).to have_no_css('img.icon', visible: :visible)
+
+    attach_file 'upload-icon', Rails.root.join('spec/files/dummy_3MB.jpg')
     expect(page).to have_css('img.icon-preview', visible: :visible)
     expect(page).to have_css('img.icon', visible: :visible)
   end
