@@ -75,5 +75,7 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
+  # minitestは使用していないが、依存関係でインストールされ、Railsとの互換性でCIが落ちるためバージョンを指定
+  gem 'minitest', '~> 5.0'
   gem 'selenium-webdriver'
 end
