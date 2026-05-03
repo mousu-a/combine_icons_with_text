@@ -455,6 +455,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
+  minitest (~> 5.0)
   pg (~> 1.6)
   propshaft
   puma (>= 5.0)
