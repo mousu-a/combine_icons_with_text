@@ -23,7 +23,7 @@ class IconsController < ApplicationController
       flash[:notice] = '画像を保存しました！'
       render_redirect_path
     else
-      render json: { error: @user_icons.errors.full_messages }, status: :unprocessable_entity
+      render json: { error: @user_icons.errors.full_messages }, status: :unprocessable_content
     end
   end
 
