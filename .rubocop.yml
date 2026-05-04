@@ -6,9 +6,6 @@ plugins:
   - rubocop-capybara
   - rubocop-factory_bot
 
-Style/Documentation:
-  Enabled: false
-
 AllCops:
   NewCops: enable
   Exclude:
@@ -25,3 +22,15 @@ AllCops:
     - tmp/**/*
     - bin/**/*
     - vendor/**/*
+
+Style/Documentation:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Max: 10

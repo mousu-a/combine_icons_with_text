@@ -1,0 +1,27 @@
+ja:
+  activerecord:
+    models:
+      original_icon: 元アイコン
+      combined_icon: 合成アイコン
+    attributes:
+      original_icon:
+        image: 元アイコン
+      combined_icon:
+        image: 合成アイコン
+    errors:
+      models:
+        original_icon:
+          attributes:
+            base:
+              limit_per_user: "元アイコンを保存できるのは%{max_icons_count}個までです"
+            image:
+              file_too_large: "元アイコンは%{max_file_size}MB以下のファイルを選択してください"
+        combined_icon:
+          attributes:
+            base:
+              limit_per_user: "合成アイコンを保存できるのは、1つの元アイコンごとに%{max_icons_count}個までです"
+            image:
+              file_too_large: "申し訳ありません、合成アイコンがサイズ制限を超えてしまっています。\n合成アイコンは%{max_file_size}MB以下のファイルでお願いします。"
+      messages:
+        limit_per_user: "元アイコンを保存できるのは%{max_icons_count}個までです"
+        invalid_content_type: "%{content_type} は許可されていない形式です"

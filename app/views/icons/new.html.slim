@@ -1,0 +1,70 @@
+- if @user_icons&.errors&.any?
+  h3 入力内容にエラーがありました
+    ul
+      - @user_icons.errors.full_messages.each do |msg|
+        li = msg
+
+h2 アイコン合成
+div(
+  class='canvas preview'
+  data-controller='icons icons-form canvas preview presets-renderer'
+  data-action='icons:setup->preview#setup icons:setup->canvas#setup canvas:render->preview#render icons:download->icons-form#submit canvas:textAdded->icons#enableDownload'
+  data-icons-canvas-outlet='.canvas'
+  data-icons-preview-outlet='.preview'
+  )
+  label for='upload-icon' アイコンをアップロード
+  input#upload-icon type='file' accept='image/*' data-icons-target='uploadedIcon' data-action='change->icons#setup'
+  h3 元画像
+  img.icon data-icons-target='originalImage' alt='icon' style='max-width:360px;display:none;'
+  h3 プレビュー画像
+  img.icon-preview data-preview-target='previewImage'  alt='preview icon' style='display:none;max-width:360px;object-fit: cover;'
+
+  canvas data-canvas-target='canvas' width='150' height='150' style='max-width:360px;display:none;'
+
+  - if @canvas_presets.present?
+    h3 他の人が作ったプリセット
+    - @canvas_presets.each do |canvas_preset|
+      canvas(
+          data-action='click->canvas#applyPreset'
+          data-presets-renderer-target='presetCanvas'
+          data-text=canvas_preset.text
+          data-text-fill-style=canvas_preset.text_color
+          data-bg-fill-style=canvas_preset.bg_color
+          width='150'
+          height='50'
+          style='max-width:360px;')
+      br
+
+  h3 テキストを追加
+  button type='button' data-action='click->canvas#drawText' class='border border-gray-600 px-2 py-1 rounded'
+    | ラジオ参加
+  button type='button' data-action='click->canvas#drawText' class='border border-gray-600 px-2 py-1 rounded'
+    | 離席中
+  button type='button' data-action='click->canvas#drawText' class='border border-gray-600 px-2 py-1 rounded'
+    | 画面見れません
+
+  h3 背景を追加
+  button type='button' data-canvas-target='background' data-action='click->canvas#drawBackground' class='border border-gray-600 px-2 py-1 rounded'
+    | 文字の背景をつける
+
+  label for='textColor' 文字色
+  input#textColor type='color' value='#000000' data-action='change->canvas#changeTextColor'
+
+  label for='backgroundColor' 背景色
+  input#backgroundColor type='color' value='#000000' data-action='change->canvas#changeBackgroundColor'
+
+  label
+  | 透明度:
+  input#opacityRange type='range' min='0' max='1' step='0.01' value='1' data-action='change->canvas#changeGlobalOpacity'
+  br
+
+  small ログイン済みの場合、ダウンロードすると画像がサイトに保存されます。
+  br
+  = link_to '画像をダウンロード',
+    '#',
+    download: true,
+    class: 'is-disabled',
+    aria: { disabled: true },
+    data: { action: 'click->icons#download', icons_target: 'downloadLink' }
+
+= render 'icon_change_links', links: @links

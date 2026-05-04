@@ -1,0 +1,15 @@
+- if @saved_icons.blank?
+  p 保存されているアイコンはありません
+- else
+  - @saved_icons.each do |original_icon, combined_icons|
+    h2 オリジナルのアイコン
+    = image_tag url_for(original_icon.image)
+    br
+    h3 合成したアイコン
+    - if combined_icons.present?
+      - combined_icons.each do |combined_icon|
+        = image_tag url_for(combined_icon.image)
+    - else
+      p まだ合成したアイコンがありません
+
+= render 'icon_change_links', links: @links
