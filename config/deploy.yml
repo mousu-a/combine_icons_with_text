@@ -10,6 +10,8 @@ proxy:
   ssl: true
   host: icon-font-mashup.com
 
+deploy_timeout: 60
+
 registry:
   server: ghcr.io
   username: mousu-a
