@@ -13,3 +13,5 @@ p
         method: :post, data: { turbo: false }
 - if current_user
   p ログイン中
+
+= link_to 'ログアウト', logout_path, data: { turbo_method: :delete }

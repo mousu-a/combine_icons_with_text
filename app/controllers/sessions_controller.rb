@@ -12,9 +12,23 @@ class SessionsController < ApplicationController
     end
   end
 
+  def destroy
+    reset_session
+    redirect_to root_path, notice: 'ログアウトしました', status: :see_other
+  end
+
+  def auth_failure
+    reset_session
+    redirect_to root_path, alert: 'Googleログインがキャンセルされました', status: :see_other
+  end
+
   private
 
   def login(user)
     session[:user_id] = user.id
+  end
+
+  def reset_session
+    session.delete(:user_id)
   end
 end
