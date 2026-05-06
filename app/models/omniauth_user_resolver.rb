@@ -19,7 +19,7 @@ class OmniAuthUserResolver
 
   def profile_attributes
     {
-      name: @auth.info.name,
+      name: @auth.info.name.presence || I18n.t('users.guest'),
       avatar_url: @auth.info.image
     }
   end
