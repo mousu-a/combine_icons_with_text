@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     user = OmniAuthUserResolver.find_or_create_user(auth)
     if user.persisted?
       login(user)
-      redirect_to icons_path, alert: 'ログインしました。'
+      redirect_to icons_path, notice: 'ログインしました。'
     else
       redirect_to root_path, alert: '認証に失敗しました。もう一度お試しください。'
     end
