@@ -35,11 +35,6 @@ class IconsController < ApplicationController
     @links = IconChangeLink.all
   end
 
-  # TODO: ログイン処理を作ったら削除
-  def current_user
-    @current_user ||= User.find(1)
-  end
-
   def original_icon_params
     params.expect(original_icon: [:image])
   end

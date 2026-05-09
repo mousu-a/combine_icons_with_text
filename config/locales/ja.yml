@@ -25,3 +25,5 @@ ja:
       messages:
         limit_per_user: "元アイコンを保存できるのは%{max_icons_count}個までです"
         invalid_content_type: "%{content_type} は許可されていない形式です"
+  users:
+    guest: ゲスト

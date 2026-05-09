@@ -23,6 +23,10 @@ AllCops:
     - bin/**/*
     - vendor/**/*
 
+RSpec/SpecFilePathFormat:
+  Exclude:
+    - "spec/models/omniauth_user_resolver_spec.rb"
+
 Style/Documentation:
   Enabled: false
 
@@ -34,3 +38,9 @@ RSpec/MultipleExpectations:
 
 RSpec/ExampleLength:
   Max: 10
+
+Metrics/MethodLength:
+  Max: 20
+
+Metrics/AbcSize:
+  Max: 20
