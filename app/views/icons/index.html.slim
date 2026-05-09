@@ -3,12 +3,12 @@
 - else
   - @saved_icons.each do |original_icon, combined_icons|
     h2 オリジナルのアイコン
-    = image_tag url_for(original_icon.image)
+    = image_tag original_icon.image.variant(:thumb)
     br
     h3 合成したアイコン
     - if combined_icons.present?
       - combined_icons.each do |combined_icon|
-        = image_tag url_for(combined_icon.image)
+        = image_tag combined_icon.image.variant(:thumb)
     - else
       p まだ合成したアイコンがありません
 
