@@ -23,6 +23,10 @@ AllCops:
     - bin/**/*
     - vendor/**/*
 
+RSpec/SpecFilePathFormat:
+  Exclude:
+    - "spec/models/omniauth_user_resolver_spec.rb"
+
 Style/Documentation:
   Enabled: false
 
