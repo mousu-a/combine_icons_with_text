@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class IconsController < ApplicationController
-  before_action :set_icon_change_links
+  before_action :set_icon_change_links, only: %i[index new]
   before_action :set_my_icon, only: :destroy
   def index
     @saved_icons = {}
