@@ -2,6 +2,7 @@
 
 class IconsController < ApplicationController
   before_action :set_icon_change_links
+  before_action :set_my_icon, only: :destroy
   def index
     @saved_icons = {}
     return unless current_user
@@ -27,9 +28,23 @@ class IconsController < ApplicationController
     end
   end
 
-  def destroy; end
+  def destroy
+    @icon.destroy
+    redirect_to icons_url, notice: 'アイコンを削除しました。'
+  end
 
   private
+
+  def set_my_icon
+    original_icon = current_user.original_icons.find(params[:original_icon_id])
+
+    @icon =
+      if params[:combined_icon_id]
+        original_icon.combined_icons.find(params[:combined_icon_id])
+      else
+        original_icon
+      end
+  end
 
   def set_icon_change_links
     @links = IconChangeLink.all
