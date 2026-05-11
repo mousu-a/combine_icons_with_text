@@ -2,7 +2,7 @@
   "scripts": {
     "lint:eslint": "eslint app/javascript --ext .js",
     "lint:prettier": "prettier --check \"app/javascript/**/*.js\"",
-    "lint": "yarn lint:eslint && yarn lint:prettier"
+    "lint": "npm run lint:eslint && npm run lint:prettier"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
