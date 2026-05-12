@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root "icons#new"
   get "/welcome", to: "welcome#index", as: "welcome"
   resources :icons, only: %i[index new create destroy]
+  resources :users, only: :destroy
   get 'auth/:provider/callback', to: 'sessions#create'
   get '/auth/failure', to: 'sessions#auth_failure'
   delete 'logout', to: 'sessions#destroy', as: 'logout'
