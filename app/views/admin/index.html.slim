@@ -2,7 +2,7 @@
   h2 管理画面
 
   h3 文字を追加する
-  = form_with model:  @overlay_text do |f|
+  = form_with model: [:admin, @overlay_text] do |f|
     = render 'layouts/errors', object: @overlay_text
     = f.label :text
     = f.text_field :text
@@ -15,7 +15,7 @@
   hr
 
   h3 リンクを追加する
-  = form_with model: @icon_change_link do |f|
+  = form_with model: [:admin, @icon_change_link] do |f|
     = render 'layouts/errors', object: @icon_change_link
     = f.label :site_name
     = f.text_field :site_name

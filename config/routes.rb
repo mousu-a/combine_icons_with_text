@@ -6,8 +6,10 @@ Rails.application.routes.draw do
   resources :icons, only: %i[index new create destroy]
   resources :users, only: :destroy
   resources :admin, only: :index
-  resources :icon_change_links, only: :create
-  resources :overlay_texts, only: :create
+  namespace :admin do
+    resources :icon_change_links, only: :create
+    resources :overlay_texts, only: :create
+  end
   get 'auth/:provider/callback', to: 'sessions#create'
   get '/auth/failure', to: 'sessions#auth_failure'
   delete 'logout', to: 'sessions#destroy', as: 'logout'
