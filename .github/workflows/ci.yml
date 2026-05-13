@@ -3,77 +3,59 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [ main ]
-
+    branches: [main]
 jobs:
   scan_ruby:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
           bundler-cache: true
-
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
-
   scan_js:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
           bundler-cache: true
-
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
-
   lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
           bundler-cache: true
-
       - name: Set up Node.js
         uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: "npm"
-
       - name: Install JavaScript dependencies
         run: npm ci
-
       - name: Run RuboCop
         run: bin/rubocop -f github
-
       - name: Run Slim Lint
         run: bundle exec slim-lint app/views
-
       - name: Run ESLint
         run: npm run -s lint:eslint
-
       - name: Run Prettier Lint
         run: npm run -s lint:prettier
-
   test:
     runs-on: ubuntu-latest
-
     services:
       postgres:
         image: postgres
@@ -83,25 +65,23 @@ jobs:
         ports:
           - 5432:5432
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
-
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
           bundler-cache: true
-
+      - name: Setup database
+        run: bin/rails db:prepare
+      - name: Assets precompile
+        run: bin/rails assets:precompile
       - name: Run tests
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432
-        run: |
-          bin/rails db:test:prepare
-          bin/rspec
-
+        run: bin/rspec
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v7
         if: failure()
