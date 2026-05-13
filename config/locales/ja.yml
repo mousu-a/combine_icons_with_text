@@ -3,11 +3,19 @@ ja:
     models:
       original_icon: 元アイコン
       combined_icon: 合成アイコン
+      overlay_text: 合成するテキスト
+      icon_change_link: アイコン変更リンク
     attributes:
       original_icon:
         image: 元アイコン
       combined_icon:
         image: 合成アイコン
+      overlay_text:
+        text: 合成するテキスト
+      icon_change_link:
+        site_name: サイト名
+        url: サイトURL
+        change_guide: アイコン変更の動線説明
     errors:
       models:
         original_icon:
@@ -25,5 +33,7 @@ ja:
       messages:
         limit_per_user: "元アイコンを保存できるのは%{max_icons_count}個までです"
         invalid_content_type: "%{content_type} は許可されていない形式です"
+        blank: が空のようです
+        taken: はすでに存在しています
   users:
     guest: ゲスト

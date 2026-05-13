@@ -1,0 +1,35 @@
+- if current_user.admin?
+  h2 管理画面
+
+  h3 文字を追加する
+  = form_with model:  @overlay_text do |f|
+    = render 'layouts/errors', object: @overlay_text
+    = f.label :text
+    = f.text_field :text
+    = f.submit '追加'
+
+  - if @overlay_texts.any?
+    ul
+    - @overlay_texts.each do |overlay_text|
+      li = overlay_text.text
+  hr
+
+  h3 リンクを追加する
+  = form_with model: @icon_change_link do |f|
+    = render 'layouts/errors', object: @icon_change_link
+    = f.label :site_name
+    = f.text_field :site_name
+    = f.label :url
+    = f.text_field :url
+    = f.label :change_guide
+    = f.text_area :change_guide
+    = f.submit '追加'
+
+  - if @icon_change_links.any?
+    - @icon_change_links.each do |link|
+      p
+        = "#{link.site_name}: "
+        = link_to link.url, link.url
+      /TODO: change_guide実装後にコメントアウトを外す
+      / p = link.change_guide
+      hr
