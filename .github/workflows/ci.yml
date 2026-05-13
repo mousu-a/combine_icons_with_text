@@ -94,13 +94,17 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Setup database
+        run: bin/rails db:prepare
+
+      - name: Assets precompile
+        run: bin/rails assets:precompile
+
       - name: Run tests
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432
-        run: |
-          bin/rails db:test:prepare
-          bin/rspec
+        run: bin/rspec
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v7
