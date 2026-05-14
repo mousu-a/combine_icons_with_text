@@ -29,11 +29,12 @@ export default class extends Controller {
     const text = preset.dataset.text;
     const textColor = preset.dataset.textFillStyle;
     const bgColor = preset.dataset.bgFillStyle;
-    this.drawText(null, text, textColor);
-    this.drawBackground(null, bgColor);
+    this.drawText(null, text, textColor, false);
+    this.drawBackground(null, bgColor, false);
+    this.render();
   }
 
-  drawText(e, presetText, presetColor) {
+  drawText(e, presetText, presetColor, render = true) {
     const hasText = Object.hasOwn(this.renderPlan, "text");
     if (!hasText) this.dispatch("textAdded");
 
@@ -49,10 +50,10 @@ export default class extends Controller {
       x: canvas.width / 2,
       y: y,
     };
-    this.render();
+    if (render) this.render();
   }
 
-  drawBackground(_, presetBgColor) {
+  drawBackground(_, presetBgColor, render = true) {
     const canvas = this.canvasTarget;
     const y = calcYPosition("background", canvas);
     this.renderPlan["background"] = {
@@ -62,7 +63,7 @@ export default class extends Controller {
       x: 0,
       y: y,
     };
-    this.render();
+    if (render) this.render();
   }
 
   async render() {
