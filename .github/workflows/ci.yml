@@ -63,11 +63,12 @@ jobs:
           - 5432:5432
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
         env:
+          POSTGRES_DB: combine_icons_with_text_test
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
     env:
       RAILS_ENV: test
-      DATABASE_URL: postgres://rails:password@localhost:5432
+      DATABASE_URL: postgres://rails:password@localhost:5432/combine_icons_with_text_test
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
