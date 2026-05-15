@@ -3,10 +3,8 @@ header.header
     / TODO: ロゴを用意次第差し替え　ロゴ(リンク)にすると良い
     div ロゴ
     - if current_user
-      = image_tag current_user.avatar_url,
-        alt: 'アバター画像',
-        class: 'avatar-icon',
-        data: { dropdown_target: 'avatarIcon', action: 'click->dropdown#toggleLogoutButton' }
+      = button_tag type: 'button', class: 'avatar-icon', data: { dropdown_target: 'avatarIcon', action: 'click->dropdown#toggleLogoutButton' } do
+        = image_tag current_user.avatar_url, alt: 'アバター画像'
       = link_to 'ログアウト', logout_path, data: { turbo_method: :delete, dropdown_target: 'logoutButton' }, class: 'logout is-hidden'
     - else
       = link_to 'ログイン', welcome_path
