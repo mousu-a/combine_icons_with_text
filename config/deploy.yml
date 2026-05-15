@@ -10,7 +10,7 @@ proxy:
   ssl: true
   host: icon-font-mashup.com
 
-deploy_timeout: 60
+deploy_timeout: 120
 
 registry:
   server: ghcr.io
