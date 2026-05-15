@@ -19,6 +19,8 @@ html
     = stylesheet_link_tag :app, 'data-turbo-track': 'reload'
     = javascript_importmap_tags
   body
+    - unless current_page?(welcome_path)
+      = render 'layouts/header'
     #flash
       = render 'layouts/flash'
     = yield
