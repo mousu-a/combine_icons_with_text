@@ -12,6 +12,9 @@ div(
   data-icons-canvas-outlet='.canvas'
   data-icons-preview-outlet='.preview'
   )
+  #toast
+    = render 'layouts/toast'
+
   label for='upload-icon' アイコンをアップロード
   input#upload-icon type='file' accept='image/*' data-icons-target='uploadedIcon' data-action='change->icons#setup'
   h3 元画像
