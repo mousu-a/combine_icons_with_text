@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["uploadedIcon", "originalImage", "toast", "toastMessage"];
+  static targets = ["toast", "toastMessage"];
 
   async submit(event) {
     const fd = setupFormdata(event.detail);
