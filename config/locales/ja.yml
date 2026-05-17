@@ -23,17 +23,17 @@ ja:
             base:
               limit_per_user: "元アイコンを保存できるのは%{max_icons_count}個までです"
             image:
-              file_too_large: "元アイコンは%{max_file_size}MB以下のファイルを選択してください"
+              file_too_large: "は%{max_file_size}MB以下のファイルを選択してください"
         combined_icon:
           attributes:
             base:
               limit_per_user: "合成アイコンを保存できるのは、1つの元アイコンごとに%{max_icons_count}個までです"
             image:
-              file_too_large: "申し訳ありません、合成アイコンがサイズ制限を超えてしまっています。\n合成アイコンは%{max_file_size}MB以下のファイルでお願いします。"
+              file_too_large: "がサイズ制限を超えてしまっています。\n申し訳ありませんが、合成アイコンは%{max_file_size}MB以下になりますようお願いします。"
       messages:
         limit_per_user: "元アイコンを保存できるのは%{max_icons_count}個までです"
         invalid_content_type: "%{content_type} は許可されていない形式です"
-        blank: が空のようです
+        blank: を入力してください
         taken: はすでに存在しています
   users:
     guest: ゲスト

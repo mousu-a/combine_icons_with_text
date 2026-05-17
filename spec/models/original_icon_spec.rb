@@ -36,7 +36,7 @@ RSpec.describe OriginalIcon do
 
       it 'is invalid' do
         expect(original_icon).not_to be_valid
-        expect(original_icon.errors[:image]).to include("元アイコンは#{OriginalIcon::MAX_FILE_SIZE}MB以下のファイルを選択してください")
+        expect(original_icon.errors[:image]).to include("は#{OriginalIcon::MAX_FILE_SIZE}MB以下のファイルを選択してください")
       end
     end
   end

@@ -17,14 +17,13 @@ class IconsController < ApplicationController
 
   def create
     save_canvas_preset(canvas_preset_params)
-    return render_redirect_path unless current_user
+    return render json: { message: '画像をダウンロードしました。' }, status: :ok unless current_user
 
     @user_icons = UserIcons.new(current_user)
     if @user_icons.save_all(original_icon_params, combined_icon_params)
-      flash[:notice] = '画像を保存しました！'
-      render_redirect_path
+      render json: { message: '画像を保存しました。' }, status: :ok
     else
-      render json: { error: @user_icons.errors.full_messages }, status: :unprocessable_content
+      render json: { error_message: @user_icons.errors.full_messages.join("\n") }, status: :unprocessable_content
     end
   end
 
@@ -64,9 +63,5 @@ class IconsController < ApplicationController
 
   def save_canvas_preset(preset_params)
     ActiveSupport::Notifications.instrument('icons.create', canvas_preset_params: preset_params)
-  end
-
-  def render_redirect_path
-    render json: { redirect_url: icons_path }
   end
 end

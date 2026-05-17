@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["uploadedIcon", "originalImage"];
+  static targets = ["toast", "toastMessage"];
 
   async submit(event) {
     const fd = setupFormdata(event.detail);
@@ -17,9 +17,9 @@ export default class extends Controller {
       });
       const responseData = await response.json();
       if (response.ok) {
-        window.location.href = responseData.redirect_url;
+        this.displayToast(responseData.message);
       } else {
-        alert(responseData.error || "画像の保存に失敗しました。");
+        alert(responseData.error_message);
         // TODO: ユーザーのネクストアクションを誘導する
         // https://github.com/mousu-a/combine_icons_with_text/issues/127
       }
@@ -29,6 +29,15 @@ export default class extends Controller {
       // TODO: ユーザーのネクストアクションを誘導する
       // https://github.com/mousu-a/combine_icons_with_text/issues/127
     }
+  }
+
+  displayToast(message) {
+    this.toastMessageTarget.textContent = message;
+    this.toastTarget.classList.remove("is-hidden");
+
+    setTimeout(() => {
+      this.toastTarget.classList.add("is-hidden");
+    }, 3000);
   }
 }
 
