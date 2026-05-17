@@ -19,7 +19,7 @@ export default class extends Controller {
       if (response.ok) {
         this.displayToast(responseData.message);
       } else {
-        alert(responseData.message);
+        alert(responseData.error_message);
         // TODO: ユーザーのネクストアクションを誘導する
         // https://github.com/mousu-a/combine_icons_with_text/issues/127
       }
