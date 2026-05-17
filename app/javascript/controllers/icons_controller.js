@@ -64,8 +64,10 @@ export default class extends Controller {
     e.currentTarget.download = combinedIconName;
 
     this.triggerSubmit(combinedIconName);
-    enableLink(this.downloadLinkTarget);
 
+    setTimeout(() => {
+      enableLink(this.downloadLinkTarget);
+    }, 3000);
     setTimeout(() => {
       URL.revokeObjectURL(this.baseImageUrl);
       URL.revokeObjectURL(previewImageUrl);
