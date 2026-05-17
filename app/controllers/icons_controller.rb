@@ -23,7 +23,7 @@ class IconsController < ApplicationController
     if @user_icons.save_all(original_icon_params, combined_icon_params)
       render json: { message: '画像を保存しました。' }, status: :ok
     else
-      render json: { message: @user_icons.errors.full_messages }, status: :unprocessable_content
+      render json: { message: @user_icons.errors.full_messages.join("\n") }, status: :unprocessable_content
     end
   end
 
