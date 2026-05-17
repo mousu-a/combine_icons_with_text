@@ -66,7 +66,7 @@ RSpec.describe CombinedIcon do
 
     it 'is invalid' do
       expect(combined_icon).not_to be_valid
-      expect(combined_icon.errors[:image]).to include("申し訳ありません、合成アイコンがサイズ制限を超えてしまっています。\n合成アイコンは#{CombinedIcon::MAX_FILE_SIZE}MB以下のファイルでお願いします。")
+      expect(combined_icon.errors[:image]).to include("がサイズ制限を超えてしまっています。\n申し訳ありませんが、合成アイコンは#{CombinedIcon::MAX_FILE_SIZE}MB以下になりますようお願いします。")
     end
   end
 end
