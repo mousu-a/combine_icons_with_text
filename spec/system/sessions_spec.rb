@@ -9,19 +9,19 @@ RSpec.describe 'Sessions' do
     scenario 'logs in' do
       sign_in_with_google user
 
-      expect(page).to have_content 'ログインしました'
+      expect(page).to have_text 'ログインしました'
     end
 
     scenario 'cancels logging in' do
       visit auth_failure_path
 
-      expect(page).to have_content 'Googleログインがキャンセルされました'
+      expect(page).to have_text 'Googleログインがキャンセルされました'
     end
 
     scenario 'signs up with no name' do
       sign_in_with_google user, name: ''
 
-      expect(page).to have_content 'ログインしました'
+      expect(page).to have_text 'ログインしました'
     end
   end
 
@@ -33,7 +33,7 @@ RSpec.describe 'Sessions' do
       visit welcome_path
       click_on 'ログアウト'
 
-      expect(page).to have_content 'ログアウトしました'
+      expect(page).to have_text 'ログアウトしました'
     end
   end
 end

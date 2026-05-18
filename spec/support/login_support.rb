@@ -14,6 +14,6 @@ module LoginSupport
     visit welcome_path
     click_on 'Googleアカウントでログイン'
 
-    expect(page).to have_content 'ログインしました'
+    expect(page).to have_text 'ログインしました'
   end
 end
