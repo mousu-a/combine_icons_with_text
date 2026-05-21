@@ -3,20 +3,24 @@ import { Controller } from "@hotwired/stimulus";
 const MAX_FILE_SIZE_MB = 5;
 
 export default class extends Controller {
-  static targets = ["uploadedIcon", "originalImage", "downloadLink"];
+  static targets = [
+    "uploadedIcon",
+    "originalImage",
+    "downloadLink",
+    "existingIcon",
+  ];
   static outlets = ["preview", "canvas"];
 
-  setup() {
-    const file = this.uploadedIconTarget.files[0];
-
-    if (!this.validateFile(file)) {
-      alert(`${this.errorMessage}`);
-      return;
+  connect() {
+    if (this.hasExistingIconTarget) {
+      this.hasExistingIcon = true;
+      this.setup();
     }
+  }
 
-    this.baseImageUrl = URL.createObjectURL(file);
+  setup() {
+    this.baseImageUrl = this.setupOriginalImageUrl();
     const originalImage = this.originalImageTarget;
-
     originalImage.src = this.baseImageUrl;
     originalImage.style.display = "inline";
 
@@ -25,9 +29,22 @@ export default class extends Controller {
     };
   }
 
+  setupOriginalImageUrl() {
+    if (this.hasExistingIcon)
+      return this.existingIconTarget.dataset.originalIconUrl;
+
+    const file = this.uploadedIconTarget.files[0];
+    if (!this.validateFile(file)) {
+      alert(`${this.errorMessage}`);
+      throw new Error(this.errorMessage);
+    }
+    return URL.createObjectURL(file);
+  }
+
   validateFile(file) {
     this.errorMessage = null;
     const allowedExtensions = [".jpg", ".jpeg", ".png", ".webp"];
+    // file.nameがない？
     const fileExtension = file.name.split(".").pop().toLowerCase();
 
     if (fileExtension === "heic" || fileExtension === "heif") {
@@ -75,17 +92,18 @@ export default class extends Controller {
   }
 
   async triggerSubmit(combinedImageName) {
-    const originalImageFile = this.uploadedIconTarget.files[0];
-    const renderPlan = this.canvasOutlet.renderPlan;
-    let combinedImageFile = this.canvasOutlet.canvasBlob;
+    const params = {};
+    if (this.hasExistingIcon) {
+      params.originalImageId = this.existingIconTarget.dataset.originalIconId;
+    } else {
+      params.originalImageFile = this.uploadedIconTarget.files[0];
+    }
+    params.combinedImageFile = this.canvasOutlet.canvasBlob;
+    params.combinedImageName = combinedImageName;
+    params.renderPlan = this.canvasOutlet.renderPlan;
 
     this.dispatch("download", {
-      detail: {
-        originalImageFile,
-        combinedImageFile,
-        combinedImageName,
-        renderPlan,
-      },
+      detail: { params },
     });
   }
 

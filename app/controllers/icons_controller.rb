@@ -13,6 +13,7 @@ class IconsController < ApplicationController
   def new
     @canvas_presets = CanvasPreset.order(created_at: :desc).limit(5)
     @user_icons = nil
+    @original_icon = current_user.original_icons.find(params[:original_icon_id]) if params[:original_icon_id]
   end
 
   def create
@@ -50,7 +51,7 @@ class IconsController < ApplicationController
   end
 
   def original_icon_params
-    params.expect(original_icon: [:image])
+    params.expect(original_icon: %i[id image])
   end
 
   def combined_icon_params

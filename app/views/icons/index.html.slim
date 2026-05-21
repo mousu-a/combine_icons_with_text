@@ -6,6 +6,8 @@
     = image_tag original_icon.image.variant(:thumb)
     = link_to icon_path(original_icon, original_icon_id: original_icon.id), data: { turbo_method: :delete, turbo_confirm: 'オリジナルアイコンを削除すると関連する合成アイコンも削除されます。本当によろしいですか？' } do
       | 削除
+    = link_to new_icon_path(original_icon_id: original_icon.id)
+      | 合成
     br
     h3 合成したアイコン
     - if combined_icons.present?
