@@ -4,7 +4,7 @@ const MAX_FILE_SIZE_MB = 5;
 
 export default class extends Controller {
   static targets = [
-    "uploadedIcon",
+    "uploadedImage",
     "originalImage",
     "downloadLink",
     "existingIcon",
@@ -12,16 +12,13 @@ export default class extends Controller {
   static outlets = ["preview", "canvas"];
 
   connect() {
-    if (this.hasExistingIconTarget) {
-      this.hasExistingIcon = true;
-      this.setup();
-    }
+    if (this.hasExistingIconTarget) this.setup(null, this.existingIconTarget);
   }
 
-  setup() {
-    this.baseImageUrl = this.setupOriginalImageUrl();
+  setup(_, existingIcon) {
+    this.originalImageUrl = this.setupOriginalImageUrl(existingIcon);
     const originalImage = this.originalImageTarget;
-    originalImage.src = this.baseImageUrl;
+    originalImage.src = this.originalImageUrl;
     originalImage.style.display = "inline";
 
     originalImage.onload = () => {
@@ -29,11 +26,10 @@ export default class extends Controller {
     };
   }
 
-  setupOriginalImageUrl() {
-    if (this.hasExistingIcon)
-      return this.existingIconTarget.dataset.originalIconUrl;
+  setupOriginalImageUrl(existingIcon) {
+    if (existingIcon) return existingIcon.dataset.imageUrl;
 
-    const file = this.uploadedIconTarget.files[0];
+    const file = this.uploadedImageTarget.files[0];
     if (!this.validateFile(file)) {
       alert(`${this.errorMessage}`);
       throw new Error(this.errorMessage);
@@ -44,7 +40,6 @@ export default class extends Controller {
   validateFile(file) {
     this.errorMessage = null;
     const allowedExtensions = [".jpg", ".jpeg", ".png", ".webp"];
-    // file.nameがない？
     const fileExtension = file.name.split(".").pop().toLowerCase();
 
     if (fileExtension === "heic" || fileExtension === "heif") {
@@ -86,20 +81,20 @@ export default class extends Controller {
       enableLink(this.downloadLinkTarget);
     }, 3000);
     setTimeout(() => {
-      URL.revokeObjectURL(this.baseImageUrl);
+      URL.revokeObjectURL(this.originalImageUrl);
       URL.revokeObjectURL(previewImageUrl);
     }, 100);
   }
 
-  async triggerSubmit(combinedImageName) {
+  async triggerSubmit(combinedIconName) {
     const params = {};
-    if (this.hasExistingIcon) {
-      params.originalImageId = this.existingIconTarget.dataset.originalIconId;
+    if (this.hasExistingIconTarget) {
+      params.originalIconId = this.existingIconTarget.dataset.id;
     } else {
-      params.originalImageFile = this.uploadedIconTarget.files[0];
+      params.originalIconFile = this.uploadedImageTarget.files[0];
     }
-    params.combinedImageFile = this.canvasOutlet.canvasBlob;
-    params.combinedImageName = combinedImageName;
+    params.combinedIconFile = this.canvasOutlet.canvasBlob;
+    params.combinedIconName = combinedIconName;
     params.renderPlan = this.canvasOutlet.renderPlan;
 
     this.dispatch("download", {

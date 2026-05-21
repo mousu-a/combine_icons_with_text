@@ -20,8 +20,8 @@ div(
   - if @original_icon
     div(
       data-icons-target='existingIcon'
-      data-original-icon-url=url_for(@original_icon.image)
-      data-original-icon-id=@original_icon.id
+      data-image-url=url_for(@original_icon.image)
+      data-id=@original_icon.id
       )
 
   label for='upload-icon' アイコンをアップロード

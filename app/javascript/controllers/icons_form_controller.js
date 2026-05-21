@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ["toast", "toastMessage"];
 
   async submit(event) {
-    const fd = setupFormdata(event.detail.params)
+    const fd = setupFormdata(event.detail.params);
     const token = document.querySelector('meta[name="csrf-token"]').content;
     try {
       const response = await fetch("/icons", {
@@ -43,13 +43,13 @@ export default class extends Controller {
 
 function setupFormdata(params) {
   const fd = new FormData();
-  fd.append("combined_icon[image]", params.combinedImageFile);
-  fd.append("combined_icon[name]", params.combinedImageName);
+  fd.append("combined_icon[image]", params.combinedIconFile);
+  fd.append("combined_icon[name]", params.combinedIconName);
 
-  if (params.originalImageId) {
-    fd.append("original_icon[id]", params.originalImageId);
+  if (params.originalIconId) {
+    fd.append("original_icon[id]", params.originalIconId);
   } else {
-    fd.append("original_icon[image]", params.originalImageFile);
+    fd.append("original_icon[image]", params.originalIconFile);
   }
 
   fd.append("canvas_preset[text]", params.renderPlan.text?.text ?? "");
