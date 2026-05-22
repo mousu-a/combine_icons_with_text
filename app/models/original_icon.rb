@@ -11,6 +11,7 @@ class OriginalIcon < ApplicationRecord
     attachable.variant :thumb, resize_to_limit: [200, 200], preprocessed: true
   end
 
+  validates :image, presence: true
   validates :image, image_content: { max_file_size: MAX_FILE_SIZE }
   # TODO　動作確認のためコメントアウトしている 後で直す(issue起票済み)
   # validate :limit_per_user, on: :create
