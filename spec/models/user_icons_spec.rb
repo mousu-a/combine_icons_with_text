@@ -8,9 +8,9 @@ RSpec.describe UserIcons do
   let(:user) { create(:user) }
 
   describe '#save_all' do
-    context 'when params are valid' do
-      subject(:save_all) { user_icons.save_all(original_icon_params, combined_icon_params) }
+    subject(:save_all) { user_icons.save_all(original_icon_params, combined_icon_params) }
 
+    context 'when creating a new original_icon' do
       let(:original_icon_params) do
         attributes_for(:original_icon).merge(
           image: fixture_file_upload('spec/files/dummy_3MB.jpg', 'image/jpeg')
@@ -33,10 +33,30 @@ RSpec.describe UserIcons do
       end
     end
 
-    context 'when params are invalid' do
-      subject(:save_all) { user_icons.save_all(valid_original_icon_params, invalid_combined_icon_params) }
+    context 'when using an existing original_icon' do
+      let!(:original_icon) { create(:original_icon, user:) }
+      let(:original_icon_params) { { id: original_icon.id } }
+      let(:combined_icon_params) do
+        attributes_for(:combined_icon).merge(
+          image: fixture_file_upload('spec/files/dummy_3MB.jpg', 'image/jpeg')
+        )
+      end
 
-      let(:valid_original_icon_params) do
+      it 'returns true' do
+        expect(save_all).to be true
+      end
+
+      it 'creates a combined_icon associated with the found original_icon' do
+        expect { save_all }
+          .to not_change(OriginalIcon, :count)
+          .and change(CombinedIcon, :count).by(1)
+      end
+    end
+
+    context 'when params are invalid' do
+      subject(:save_all) { user_icons.save_all(original_icon_params, invalid_combined_icon_params) }
+
+      let(:original_icon_params) do
         attributes_for(:original_icon).merge(
           image: fixture_file_upload('spec/files/dummy_3MB.jpg', 'image/jpeg')
         )
