@@ -12,11 +12,25 @@ export default class extends Controller {
   static outlets = ["preview", "canvas"];
 
   connect() {
-    if (this.hasExistingIconTarget) this.setup(null, this.existingIconTarget);
+    if (this.hasExistingIconTarget)
+      this.setup({ existingIcon: this.existingIconTarget });
   }
 
-  setup(_, existingIcon) {
-    this.originalImageUrl = this.setupOriginalImageUrl(existingIcon);
+  upload() {
+    const uploadFile = this.uploadedImageTarget.files[0];
+    if (!this.validateFile(uploadFile)) {
+      alert(`${this.errorMessage}`);
+      throw new Error(this.errorMessage);
+    }
+
+    this.setup({ uploadFile });
+  }
+
+  setup({ uploadFile, existingIcon }) {
+    this.originalImageUrl = this.setupOriginalImageUrl(
+      uploadFile,
+      existingIcon,
+    );
     const originalImage = this.originalImageTarget;
     originalImage.src = this.originalImageUrl;
     originalImage.style.display = "inline";
@@ -26,15 +40,10 @@ export default class extends Controller {
     };
   }
 
-  setupOriginalImageUrl(existingIcon) {
-    if (existingIcon) return existingIcon.dataset.imageUrl;
+  setupOriginalImageUrl(uploadFile, existingIcon) {
+    if (uploadFile) return URL.createObjectURL(uploadFile);
 
-    const file = this.uploadedImageTarget.files[0];
-    if (!this.validateFile(file)) {
-      alert(`${this.errorMessage}`);
-      throw new Error(this.errorMessage);
-    }
-    return URL.createObjectURL(file);
+    if (existingIcon) return existingIcon.dataset.imageUrl;
   }
 
   validateFile(file) {
@@ -88,10 +97,11 @@ export default class extends Controller {
 
   async triggerSubmit(combinedIconName) {
     const params = {};
-    if (this.hasExistingIconTarget) {
+    const uploadedFile = this.uploadedImageTarget.files?.[0];
+    if (uploadedFile) {
+      params.originalIconFile = uploadedFile;
+    } else if (this.hasExistingIconTarget) {
       params.originalIconId = this.existingIconTarget.dataset.id;
-    } else {
-      params.originalIconFile = this.uploadedImageTarget.files[0];
     }
     params.combinedIconFile = this.canvasOutlet.canvasBlob;
     params.combinedIconName = combinedIconName;
