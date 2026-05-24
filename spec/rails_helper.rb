@@ -51,3 +51,4 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   config.infer_spec_type_from_file_location!
 end
+RSpec::Matchers.define_negated_matcher :not_change, :change

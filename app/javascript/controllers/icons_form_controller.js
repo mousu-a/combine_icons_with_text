@@ -4,7 +4,7 @@ export default class extends Controller {
   static targets = ["toast", "toastMessage"];
 
   async submit(event) {
-    const fd = setupFormdata(event.detail);
+    const fd = setupFormdata(event.detail.params);
     const token = document.querySelector('meta[name="csrf-token"]').content;
     try {
       const response = await fetch("/icons", {
@@ -41,21 +41,25 @@ export default class extends Controller {
   }
 }
 
-function setupFormdata(detail) {
+function setupFormdata(params) {
   const fd = new FormData();
-  fd.append("combined_icon[image]", detail.combinedImageFile);
-  fd.append("combined_icon[name]", detail.combinedImageName);
+  fd.append("combined_icon[image]", params.combinedIconFile);
+  fd.append("combined_icon[name]", params.combinedIconName);
 
-  fd.append("original_icon[image]", detail.originalImageFile);
+  if (params.originalIconId) {
+    fd.append("original_icon[id]", params.originalIconId);
+  } else {
+    fd.append("original_icon[image]", params.originalIconFile);
+  }
 
-  fd.append("canvas_preset[text]", detail.renderPlan.text?.text ?? "");
+  fd.append("canvas_preset[text]", params.renderPlan.text?.text ?? "");
   fd.append(
     "canvas_preset[text_color]",
-    detail.renderPlan.text?.fillStyle ?? "",
+    params.renderPlan.text?.fillStyle ?? "",
   );
   fd.append(
     "canvas_preset[bg_color]",
-    detail.renderPlan.background?.fillStyle ?? "",
+    params.renderPlan.background?.fillStyle ?? "",
   );
 
   return fd;

@@ -3,26 +3,47 @@ import { Controller } from "@hotwired/stimulus";
 const MAX_FILE_SIZE_MB = 5;
 
 export default class extends Controller {
-  static targets = ["uploadedIcon", "originalImage", "downloadLink"];
+  static targets = [
+    "uploadedImage",
+    "originalImage",
+    "downloadLink",
+    "existingIcon",
+  ];
   static outlets = ["preview", "canvas"];
 
-  setup() {
-    const file = this.uploadedIconTarget.files[0];
+  connect() {
+    if (this.hasExistingIconTarget)
+      this.setup({ existingIcon: this.existingIconTarget });
+  }
 
-    if (!this.validateFile(file)) {
+  upload() {
+    const uploadFile = this.uploadedImageTarget.files[0];
+    if (!this.validateFile(uploadFile)) {
       alert(`${this.errorMessage}`);
-      return;
+      throw new Error(this.errorMessage);
     }
 
-    this.baseImageUrl = URL.createObjectURL(file);
-    const originalImage = this.originalImageTarget;
+    this.setup({ uploadFile });
+  }
 
-    originalImage.src = this.baseImageUrl;
+  setup({ uploadFile, existingIcon }) {
+    this.originalImageUrl = this.setupOriginalImageUrl(
+      uploadFile,
+      existingIcon,
+    );
+    const originalImage = this.originalImageTarget;
+    originalImage.src = this.originalImageUrl;
     originalImage.style.display = "inline";
 
     originalImage.onload = () => {
       this.dispatch("setup", { detail: { originalImage } });
     };
+  }
+
+  setupOriginalImageUrl(uploadFile, existingIcon) {
+    if (uploadFile) return URL.createObjectURL(uploadFile);
+
+    if (existingIcon) return existingIcon.dataset.imageUrl;
   }
 
   validateFile(file) {
@@ -69,23 +90,25 @@ export default class extends Controller {
       enableLink(this.downloadLinkTarget);
     }, 3000);
     setTimeout(() => {
-      URL.revokeObjectURL(this.baseImageUrl);
+      URL.revokeObjectURL(this.originalImageUrl);
       URL.revokeObjectURL(previewImageUrl);
     }, 100);
   }
 
-  async triggerSubmit(combinedImageName) {
-    const originalImageFile = this.uploadedIconTarget.files[0];
-    const renderPlan = this.canvasOutlet.renderPlan;
-    let combinedImageFile = this.canvasOutlet.canvasBlob;
+  async triggerSubmit(combinedIconName) {
+    const params = {};
+    const uploadedFile = this.uploadedImageTarget.files?.[0];
+    if (uploadedFile) {
+      params.originalIconFile = uploadedFile;
+    } else if (this.hasExistingIconTarget) {
+      params.originalIconId = this.existingIconTarget.dataset.id;
+    }
+    params.combinedIconFile = this.canvasOutlet.canvasBlob;
+    params.combinedIconName = combinedIconName;
+    params.renderPlan = this.canvasOutlet.renderPlan;
 
     this.dispatch("download", {
-      detail: {
-        originalImageFile,
-        combinedImageFile,
-        combinedImageName,
-        renderPlan,
-      },
+      detail: { params },
     });
   }
 

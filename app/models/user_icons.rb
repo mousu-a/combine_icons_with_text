@@ -9,7 +9,8 @@ class UserIcons
 
   def save_all(original_icon_params, combined_icon_params)
     ActiveRecord::Base.transaction do
-      @original_icon = @user.original_icons.create!(original_icon_params)
+      @original_icon = @user.original_icons.find_by(id: original_icon_params[:id]) ||
+                       @user.original_icons.create!(original_icon_params.except(:id))
       @combined_icon = @original_icon.combined_icons.create!(combined_icon_params)
     end
     true
