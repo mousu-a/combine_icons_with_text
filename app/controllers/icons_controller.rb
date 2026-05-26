@@ -13,7 +13,7 @@ class IconsController < ApplicationController
   def new
     @canvas_presets = CanvasPreset.order(created_at: :desc).limit(5)
     @user_icons = nil
-    @original_icon = current_user.original_icons.find(params[:original_icon_id]) if params[:original_icon_id]
+    @original_icon = current_user.original_icons.find_by(id: params[:original_icon_id])
     @limit_reached = current_user&.icons_limit_reached?(target_icon: @original_icon)
   end
 
