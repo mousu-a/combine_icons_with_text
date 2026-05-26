@@ -4,6 +4,16 @@
       - @user_icons.errors.full_messages.each do |msg|
         li = msg
 
+- if @limit_reached
+  p
+    | すでにサイト上に、アイコンが上限まで保存されております。
+    br
+    | 合成やダウンロードは問題なくご使用いただけますが、新たにアイコンを保存することはできませんのでご注意ください。
+    br
+    | 新しく保存したい場合は、お手数ですが、先に既にあるアイコンを
+    = link_to 'アイコン一覧', icons_path
+    | にて削除していただければと思います。
+
 = link_to 'アイコン一覧へ', icons_path
 
 h2 アイコン合成
