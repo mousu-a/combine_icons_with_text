@@ -14,11 +14,12 @@ class IconsController < ApplicationController
     @canvas_presets = CanvasPreset.order(created_at: :desc).limit(5)
     @user_icons = nil
     @original_icon = current_user.original_icons.find(params[:original_icon_id]) if params[:original_icon_id]
+    @limit_reached = current_user&.icons_limit_reached?(target_icon: @original_icon)
   end
 
   def create
     save_canvas_preset(canvas_preset_params)
-    return render json: { message: '画像をダウンロードしました。' }, status: :ok unless current_user
+    return render json: { message: '画像をダウンロードしました。' }, status: :ok unless current_user&.saveable?(original_icon_params)
 
     @user_icons = UserIcons.new(current_user)
     if @user_icons.save_all(original_icon_params, combined_icon_params)
