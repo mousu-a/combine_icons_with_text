@@ -15,7 +15,7 @@ module ApplicationHelper
         # TODO: ロゴを用意し次第変更
         # image: image_url('ogp.png'),
         url: 'https://icon-font-mashup.com',
-        local: 'ja_JP'
+        locale: 'ja_JP'
       },
       twitter: {
         card: 'summary_large_image',
