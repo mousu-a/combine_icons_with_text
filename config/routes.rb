@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   # root "home#welcome"
   root "icons#new"
   get 'welcome', to: 'home#welcome'
+  get 'terms', to: 'home#terms'
+  get 'privacy', to: 'home#privacy'
   resources :icons, only: %i[index new create destroy]
   resources :users, only: :destroy
   resources :admin, only: :index
