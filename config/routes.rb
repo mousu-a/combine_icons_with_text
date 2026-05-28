@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   # TODO　後で消す　啓発用
-  # root "welcome#index"
+  # root "home#welcome"
   root "icons#new"
-  get "/welcome", to: "welcome#index", as: "welcome"
+  get 'welcome', to: 'home#welcome'
+  get 'terms', to: 'home#terms'
+  get 'privacy', to: 'home#privacy'
   resources :icons, only: %i[index new create destroy]
   resources :users, only: :destroy
   resources :admin, only: :index
