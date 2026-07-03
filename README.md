@@ -1,5 +1,5 @@
 
-![logo](app/assets/images/ogp.png)
+![logo](app/assets/images/logo.png)
 
 ## 概要
 
