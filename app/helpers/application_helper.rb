@@ -12,8 +12,7 @@ module ApplicationHelper
         type: 'website',
         site_name: '文字入りアイコンメーカー',
         description: :description,
-        # TODO: ロゴを用意し次第変更
-        # image: image_url('ogp.png'),
+        image: image_url('logo.png'),
         url: 'https://icon-font-mashup.com',
         locale: 'ja_JP'
       },
