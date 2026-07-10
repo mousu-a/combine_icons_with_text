@@ -8,6 +8,7 @@ export default class extends Controller {
     "originalImage",
     "downloadLink",
     "existingIcon",
+    "originalImageFrame",
   ];
   static outlets = ["preview", "canvas"];
 
@@ -33,6 +34,12 @@ export default class extends Controller {
     );
     const originalImage = this.originalImageTarget;
     originalImage.src = this.originalImageUrl;
+
+    const originalImageFrame =
+      this.originalImageFrameTarget.getBoundingClientRect();
+    originalImage.width = originalImageFrame.width - 20;
+    originalImage.height = originalImageFrame.height - 20;
+
     originalImage.style.display = "inline";
 
     originalImage.onload = () => {

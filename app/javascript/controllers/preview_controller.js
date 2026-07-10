@@ -1,15 +1,22 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["previewImage"];
+  static targets = ["previewImage", "previewImageFrame"];
 
   get previewImageUrl() {
     return this.previewImageTarget.src;
   }
 
   setup(event) {
-    this.previewImageTarget.src = event.detail.originalImage.src;
-    this.previewImageTarget.style.display = "inline";
+    const previewImage = this.previewImageTarget;
+    previewImage.src = event.detail.originalImage.src;
+
+    const previewImageFrame =
+      this.previewImageFrameTarget.getBoundingClientRect();
+    previewImage.width = previewImageFrame.width - 20;
+    previewImage.height = previewImageFrame.height - 20;
+
+    previewImage.style.display = "inline";
   }
 
   render(event) {

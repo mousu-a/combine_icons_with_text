@@ -56,7 +56,9 @@
     .grid.grid-cols-2.gap-6.border-t.border-gray-100.py-6.lg:grid-cols-3
       div
         h2.mb-2.text-center.text-sm.font-semibold.text-gray-800 元画像
-        .mx-auto.flex.aspect-square.w-full.max-w-40.items-center.justify-center.rounded-xl.border.border-gray-200.bg-gray-50.p-3
+        .mx-auto.flex.aspect-square.w-full.max-w-40.items-center.justify-center.rounded-xl.border.border-gray-200.bg-gray-50.p-3(
+          data-icons-target='originalImageFrame'
+        )
           / TODO 直にstyleを当てている
           img.icon.max-w-full.rounded-md(
             data-icons-target='originalImage'
@@ -66,7 +68,9 @@
 
       div
         h2.mb-2.text-center.text-sm.font-semibold.text-gray-800 プレビュー画像
-        .mx-auto.flex.aspect-square.w-full.max-w-52.items-center.justify-center.rounded-xl.border.border-gray-200.bg-gray-50.p-3
+        .mx-auto.flex.aspect-square.w-full.max-w-52.items-center.justify-center.rounded-xl.border.border-gray-200.bg-gray-50.p-3(
+          data-preview-target='previewImageFrame'
+        )
           / TODO 直にstyleを当てている
           img.icon-preview.max-w-full.rounded-md(
             data-preview-target='previewImage'
