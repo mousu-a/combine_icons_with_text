@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+@layer components {
+  .section-heading {
+    @apply mb-2 text-center text-sm font-semibold text-gray-800;
+  }
+
+  .option-heading {
+    @apply mb-2 text-xs font-medium text-gray-500;
+  }
+
+  .btn-text-option {
+    @apply cursor-pointer rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700;
+  }
+
+  .color-picker-label {
+    @apply text-sm font-medium text-gray-800;
+  }
+
+  .color-picker {
+    @apply h-8 w-12 cursor-pointer rounded-lg border border-gray-200 bg-white hover:border-indigo-300 hover:bg-indigo-50;
+  }
+}
