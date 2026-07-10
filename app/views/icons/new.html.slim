@@ -5,7 +5,9 @@
   .flex.items-center.justify-between.border-b.border-gray-200.py-4.mb-4
     h1.text-center.text-2xl.font-bold.tracking-tight.text-indigo-700
       | アイコン合成
-    = link_to 'アイコン一覧へ', icons_path, class: 'inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition before:content-["←"] before:mr-1 hover:border-gray-300 hover:bg-gray-50'
+    - back_to_list_class = 'inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition ' \
+        'hover:border-gray-300 hover:bg-gray-50'
+    = link_to '← アイコン一覧へ', icons_path, class: back_to_list_class
 
   - if @user_icons&.errors&.any?
     .mb-4.rounded-xl.border.border-red-200.bg-red-50.p-4 role='alert'
@@ -53,12 +55,14 @@
       data-icons-target='uploadedImage'
       data-action='change->icons#upload'
       )
-    label.inline-flex.cursor-pointer.items-center.justify-center.gap-2.rounded-lg.mb-3.text-white.font-bold.bg-indigo-600.px-4.py-2.5.text-sm.font-semibold.transition.hover:bg-indigo-700.peer-focus-visible:ring-2.peer-focus-visible:ring-indigo-700.peer-focus-visible:ring-offset-2 for='upload-icon'
+    - upload_button_class = 'inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg mb-3 text-white font-bold bg-indigo-600 px-4 py-2.5 text-sm font-semibold transition ' \
+        'hover:bg-indigo-700 peer-focus-visible:ring-2 peer-focus-visible:ring-indigo-700 peer-focus-visible:ring-offset-2'
+    label(class=upload_button_class for='upload-icon')
       | アイコンを選択
 
     .grid.grid-cols-2.gap-6.border-t.border-gray-100.py-6.lg:grid-cols-3
       div
-        h2.mb-2.text-center.text-sm.font-semibold.text-gray-800
+        h2.section-heading
           | 元画像
         .mx-auto.flex.aspect-square.w-full.max-w-40.items-center.justify-center.rounded-xl.border.border-gray-200.bg-gray-50.p-3(
           data-icons-target='originalImageFrame'
@@ -71,7 +75,7 @@
             )
 
       div
-        h2.mb-2.text-center.text-sm.font-semibold.text-gray-800
+        h2.section-heading
           | プレビュー画像
         .mx-auto.flex.aspect-square.w-full.max-w-52.items-center.justify-center.rounded-xl.border.border-gray-200.bg-gray-50.p-3(
           data-preview-target='previewImageFrame'
@@ -95,36 +99,35 @@
           | 加工オプション
 
         .mb-4
-          h3.mb-2.text-xs.font-medium.text-gray-500
+          h3.option-heading
             | テキストを追加
           div(class='flex flex-wrap gap-2' role='group' aria-label='テキストを追加')
-            button(
+            button.btn-text-option(
               type='button'
               data-action='click->canvas#drawText'
-              class='cursor-pointer rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700'
               )
               | ラジオ参加
-            button(
+            button.btn-text-option(
               type='button'
               data-action='click->canvas#drawText'
-              class='cursor-pointer rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700'
               )
               | 離席中
-            button(
+            button.btn-text-option(
               type='button'
               data-action='click->canvas#drawText'
-              class='cursor-pointer rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700'
               )
               | 画面見れません
 
         .mb-4
-          h3.mb-2.text-xs.font-medium.text-gray-500
+          h3.option-heading
             | 背景を追加
+          - bg_button_class = 'w-full rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:border-indigo-300 ' \
+              'hover:bg-indigo-50 hover:text-indigo-700 cursor-pointer'
           button(
             type='button'
             data-canvas-target='background'
             data-action='click->canvas#drawBackground'
-            class='w-full rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700 cursor-pointer'
+            class=bg_button_class
             )
             | 文字の背景をつける
 
@@ -132,21 +135,19 @@
           legend.mb-2.text-xs.font-medium.text-gray-500.p-0
             | カラー
           .mb-2.flex.items-center.justify-start.gap-4
-            label.text-sm.font-medium.text-gray-800 for='textColor'
+            label.color-picker-label for='textColor'
               | 文字色
-            input#textColor(
+            input#textColor.color-picker(
               type='color'
               value='#000000'
-              class='h-8 w-12 cursor-pointer rounded-lg border border-gray-200 bg-white hover:border-indigo-300 hover:bg-indigo-50'
               data-action='change->canvas#changeTextColor'
               )
           .flex.items-center.justify-start.gap-4
-            label.text-sm.font-medium.text-gray-800 for='backgroundColor'
+            label.color-picker-label for='backgroundColor'
               | 背景色
-            input#backgroundColor(
+            input#backgroundColor.color-picker(
               type='color'
               value='#000000'
-              class='h-8 w-12 cursor-pointer rounded-lg border border-gray-200 bg-white hover:border-indigo-300 hover:bg-indigo-50'
               data-action='change->canvas#changeBackgroundColor'
               )
 
@@ -184,10 +185,12 @@
     .border-t.border-b.border-gray-100.py-5
       small.mb-3.block.text-xs.text-gray-500
         | ログイン済みの場合、ダウンロードすると画像がサイトに保存されます。
+      - download_link_class = 'is-disabled inline-flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 ' \
+          'aria-disabled:cursor-not-allowed aria-disabled:bg-gray-300 aria-disabled:hover:bg-gray-300'
       = link_to '画像をダウンロード',
         '#',
         download: true,
-        class: 'is-disabled inline-flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 aria-disabled:cursor-not-allowed aria-disabled:bg-gray-300 aria-disabled:hover:bg-gray-300',
+        class: download_link_class,
         aria: { disabled: true },
         data: { action: 'click->icons#download', icons_target: 'downloadLink' }
 
