@@ -12,11 +12,11 @@ RSpec.describe 'Icons' do
     visit new_icon_path
 
     assert_text 'アイコン合成'
-    expect(page).to have_no_css('img.icon-preview', visible: :visible)
-    expect(page).to have_no_css('img.icon', visible: :visible)
+    expect(page).to have_no_css('#icon-preview', visible: :visible)
+    expect(page).to have_no_css('#icon', visible: :visible)
 
     attach_file 'upload-icon', Rails.root.join('spec/files/dummy_3MB.jpg')
-    expect(page).to have_css('img.icon-preview', visible: :visible)
-    expect(page).to have_css('img.icon', visible: :visible)
+    expect(page).to have_css('#icon-preview', visible: :visible)
+    expect(page).to have_css('#icon', visible: :visible)
   end
 end
