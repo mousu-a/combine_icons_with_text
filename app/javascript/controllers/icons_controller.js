@@ -98,7 +98,7 @@ export default class extends Controller {
     setTimeout(() => {
       URL.revokeObjectURL(this.originalImageUrl);
       URL.revokeObjectURL(previewImageUrl);
-    }, 100);
+    }, 3000);
   }
 
   async triggerSubmit(combinedIconName) {
