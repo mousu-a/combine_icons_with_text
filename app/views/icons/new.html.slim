@@ -3,12 +3,14 @@
 
 .mx-auto.max-w-5xl.pb-5
   .flex.items-center.justify-between.border-b.border-gray-200.py-4.mb-4
-    h1.text-center.text-2xl.font-bold.tracking-tight.text-indigo-700 アイコン合成
+    h1.text-center.text-2xl.font-bold.tracking-tight.text-indigo-700
+      | アイコン合成
     = link_to 'アイコン一覧へ', icons_path, class: 'inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition before:content-["←"] before:mr-1 hover:border-gray-300 hover:bg-gray-50'
 
   - if @user_icons&.errors&.any?
     .mb-4.rounded-xl.border.border-red-200.bg-red-50.p-4 role='alert'
-      p.mb-2.font-semibold.text-red-800 入力内容にエラーがありました
+      p.mb-2.font-semibold.text-red-800
+        | 入力内容にエラーがありました
       ul.list-inside.list-disc.text-sm.text-red-700
         - @user_icons.errors.full_messages.each do |msg|
           li.mb-1 = msg
@@ -43,7 +45,8 @@
         data-id=@original_icon.id
         )
 
-    label.block.text-base.font-bold.text-gray-800.mb-2 for='upload-icon' まずはアイコンをアップロードしましょう
+    label.block.text-base.font-bold.text-gray-800.mb-2 for='upload-icon'
+      | まずはアイコンをアップロードしましょう
     input#upload-icon.peer.sr-only(
       type='file'
       accept='image/*'
@@ -55,41 +58,43 @@
 
     .grid.grid-cols-2.gap-6.border-t.border-gray-100.py-6.lg:grid-cols-3
       div
-        h2.mb-2.text-center.text-sm.font-semibold.text-gray-800 元画像
+        h2.mb-2.text-center.text-sm.font-semibold.text-gray-800
+          | 元画像
         .mx-auto.flex.aspect-square.w-full.max-w-40.items-center.justify-center.rounded-xl.border.border-gray-200.bg-gray-50.p-3(
           data-icons-target='originalImageFrame'
         )
-          / TODO 直にstyleを当てている
-          img.icon.max-w-full.rounded-md(
+          img(
+            class='max-w-[360px] hidden rounded-md'
             data-icons-target='originalImage'
             alt='icon'
-            style='max-width:360px;display:none;'
             )
 
       div
-        h2.mb-2.text-center.text-sm.font-semibold.text-gray-800 プレビュー画像
+        h2.mb-2.text-center.text-sm.font-semibold.text-gray-800
+          | プレビュー画像
         .mx-auto.flex.aspect-square.w-full.max-w-52.items-center.justify-center.rounded-xl.border.border-gray-200.bg-gray-50.p-3(
           data-preview-target='previewImageFrame'
         )
-          / TODO 直にstyleを当てている
-          img.icon-preview.max-w-full.rounded-md(
+          img(
+            class='max-w-[360px] hidden rounded-md object-cover'
             data-preview-target='previewImage'
             alt='preview icon'
-            style='display:none;max-width:360px;object-fit: cover;'
             )
 
       canvas(
+        class='max-w-[360px] hidden'
         data-canvas-target='canvas'
         width='150'
         height='150'
-        style='max-width:360px;display:none;'
         )
 
       .col-span-2.lg:col-span-1
-        h2.mb-4.text-sm.font-semibold.text-gray-800 加工オプション
+        h2.mb-4.text-sm.font-semibold.text-gray-800
+          | 加工オプション
 
         .mb-4
-          h3.mb-2.text-xs.font-medium.text-gray-500 テキストを追加
+          h3.mb-2.text-xs.font-medium.text-gray-500
+            | テキストを追加
           div(class='flex flex-wrap gap-2' role='group' aria-label='テキストを追加')
             button(
               type='button'
@@ -111,7 +116,8 @@
               | 画面見れません
 
         .mb-4
-          h3.mb-2.text-xs.font-medium.text-gray-500 背景を追加
+          h3.mb-2.text-xs.font-medium.text-gray-500
+            | 背景を追加
           button(
             type='button'
             data-canvas-target='background'
@@ -121,9 +127,11 @@
             | 文字の背景をつける
 
         fieldset.mb-4.border-0.p-0.m-0
-          legend.mb-2.text-xs.font-medium.text-gray-500.p-0 カラー
+          legend.mb-2.text-xs.font-medium.text-gray-500.p-0
+            | カラー
           .mb-2.flex.items-center.justify-start.gap-4
-            label.text-sm.font-medium.text-gray-800 for='textColor' 文字色
+            label.text-sm.font-medium.text-gray-800 for='textColor'
+              | 文字色
             input#textColor(
               type='color'
               value='#000000'
@@ -131,7 +139,8 @@
               data-action='change->canvas#changeTextColor'
               )
           .flex.items-center.justify-start.gap-4
-            label.text-sm.font-medium.text-gray-800 for='backgroundColor' 背景色
+            label.text-sm.font-medium.text-gray-800 for='backgroundColor'
+              | 背景色
             input#backgroundColor(
               type='color'
               value='#000000'
@@ -154,12 +163,13 @@
 
     - if @canvas_presets.present?
       .border-t.border-gray-100.py-4
-        h2.mb-3.text-sm.font-semibold.text-gray-800 他の人が作ったプリセット
+        h2.mb-3.text-sm.font-semibold.text-gray-800
+          | 他の人が作ったプリセット
         ul.flex.flex-nowrap.gap-3.overflow-x-auto.list-none.p-0.m-0
           - @canvas_presets.each do |canvas_preset|
             li
               canvas(
-                class='w-32 shrink-0 cursor-pointer rounded-lg border border-gray-200 bg-white shadow-sm transition hover:border-indigo-300 hover:shadow-md'
+                class='w-32 max-w-[360px] shrink-0 cursor-pointer rounded-lg border border-gray-200 bg-white shadow-sm transition hover:border-indigo-300 hover:shadow-md'
                 data-action='click->canvas#applyPreset'
                 data-presets-renderer-target='presetCanvas'
                 data-text=canvas_preset.text
@@ -167,11 +177,11 @@
                 data-bg-fill-style=canvas_preset.bg_color
                 width='150'
                 height='50'
-                style='max-width:360px;'
                 )
 
     .border-t.border-b.border-gray-100.py-5
-      small.mb-3.block.text-xs.text-gray-500 ログイン済みの場合、ダウンロードすると画像がサイトに保存されます。
+      small.mb-3.block.text-xs.text-gray-500
+        | ログイン済みの場合、ダウンロードすると画像がサイトに保存されます。
       = link_to '画像をダウンロード',
         '#',
         download: true,
