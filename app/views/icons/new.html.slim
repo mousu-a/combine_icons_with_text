@@ -1,16 +1,14 @@
 - set_meta_tags title: 'アイコン合成'
 - set_meta_tags description: 'アイコンにテキストを合成するページです。'
 
-.mx-auto.max-w-5xl.pb-5
-  .flex.items-center.justify-between.border-b.border-gray-200.py-4.mb-4
-    h1.text-center.text-2xl.font-bold.tracking-tight.text-indigo-700
-      | アイコン合成
-    - back_to_list_class = 'inline-flex items-center gap-1 rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition ' \
-        'hover:border-gray-300 hover:bg-gray-50'
-    = link_to '← アイコン一覧へ', icons_path, class: back_to_list_class
+header.flex.items-center.justify-between.divider-b.bg-white.px-6.mb-4(class='h-[4.4375rem]')
+  h1.text-center.text-2xl.font-bold.tracking-tight.text-primary
+    | アイコン合成
+  = link_to '← アイコン一覧へ', icons_path, class: 'link-button'
 
+.mx-auto.max-w-5xl.rounded-md.p-6.bg-white
   - if @user_icons&.errors&.any?
-    .mb-4.rounded-xl.border.border-red-200.bg-red-50.p-4 role='alert'
+    .mb-4.rounded-lg.border.border-red-200.bg-red-50.p-4 role='alert'
       p.mb-2.font-semibold.text-red-800
         | 入力内容にエラーがありました
       ul.list-inside.list-disc.text-sm.text-red-700
@@ -18,7 +16,7 @@
           li.mb-1 = msg
 
   - if @limit_reached
-    .mb-6.rounded-xl.border.border-amber-200.bg-amber-50.p-4.text-sm.leading-relaxed.text-amber-900 role='status'
+    .mb-6.rounded-lg.border.border-amber-200.bg-amber-50.p-4.text-sm.leading-relaxed.text-amber-900 role='status'
       p
         | すでにサイト上に、アイコンが上限まで保存されております。
         br
@@ -55,21 +53,21 @@
       data-icons-target='uploadedImage'
       data-action='change->icons#upload'
       )
-    - upload_button_class = 'inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg mb-3 text-white font-bold bg-indigo-600 px-4 py-2.5 text-sm font-semibold transition ' \
+    - upload_button_class = 'inline-flex cursor-pointer items-center justify-center gap-2 rounded-md mb-3 text-white font-bold bg-indigo-600 px-4 py-2.5 text-sm font-semibold transition ' \
         'hover:bg-indigo-700 peer-focus-visible:ring-2 peer-focus-visible:ring-indigo-700 peer-focus-visible:ring-offset-2'
     label(class=upload_button_class for='upload-icon')
       | アイコンを選択
 
-    .grid.grid-cols-2.gap-6.border-t.border-gray-100.py-6.lg:grid-cols-3
+    .grid.grid-cols-2.gap-6.divider-t.py-6.lg:grid-cols-3
       div
         h2.section-heading
           | 元画像
-        .mx-auto.flex.aspect-square.w-full.max-w-40.items-center.justify-center.rounded-xl.border.border-gray-200.bg-gray-50.p-3(
+        .mx-auto.flex.aspect-square.w-full.max-w-40.items-center.justify-center.frame-border.bg-gray-50.p-3(
           data-icons-target='originalImageFrame'
         )
           img(
             id='icon'
-            class='max-w-[360px] hidden rounded-md'
+            class='max-w-[360px] hidden rounded'
             data-icons-target='originalImage'
             alt='icon'
             )
@@ -77,12 +75,12 @@
       div
         h2.section-heading
           | プレビュー画像
-        .mx-auto.flex.aspect-square.w-full.max-w-52.items-center.justify-center.rounded-xl.border.border-gray-200.bg-gray-50.p-3(
+        .mx-auto.flex.aspect-square.w-full.max-w-52.items-center.justify-center.frame-border.bg-gray-50.p-3(
           data-preview-target='previewImageFrame'
         )
           img(
             id='icon-preview'
-            class='max-w-[360px] hidden rounded-md object-cover'
+            class='max-w-[360px] hidden rounded object-cover'
             data-preview-target='previewImage'
             alt='preview icon'
             )
@@ -121,7 +119,7 @@
         .mb-4
           h3.option-heading
             | 背景を追加
-          - bg_button_class = 'w-full rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:border-indigo-300 ' \
+          - bg_button_class = 'w-full rounded-md border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:border-indigo-300 ' \
               'hover:bg-indigo-50 hover:text-indigo-700 cursor-pointer'
           button(
             type='button'
@@ -165,14 +163,14 @@
             )
 
     - if @canvas_presets.present?
-      .border-t.border-gray-100.py-4
+      .divider-t.py-4
         h2.mb-3.text-sm.font-semibold.text-gray-800
           | 他の人が作ったプリセット
         ul.flex.flex-nowrap.gap-3.overflow-x-auto.list-none.p-0.m-0
           - @canvas_presets.each do |canvas_preset|
             li
               canvas(
-                class='w-32 max-w-[360px] shrink-0 cursor-pointer rounded-lg border border-gray-200 bg-white shadow-sm transition hover:border-indigo-300 hover:shadow-md'
+                class='w-32 max-w-[360px] shrink-0 cursor-pointer rounded-md border border-gray-200 bg-white shadow-sm transition hover:border-indigo-300 hover:shadow-md'
                 data-action='click->canvas#applyPreset'
                 data-presets-renderer-target='presetCanvas'
                 data-text=canvas_preset.text
@@ -185,7 +183,7 @@
     .border-t.border-b.border-gray-100.py-5
       small.mb-3.block.text-xs.text-gray-500
         | ログイン済みの場合、ダウンロードすると画像がサイトに保存されます。
-      - download_link_class = 'is-disabled inline-flex items-center justify-center rounded-lg bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 ' \
+      - download_link_class = 'is-disabled inline-flex items-center justify-center rounded-md bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 ' \
           'aria-disabled:cursor-not-allowed aria-disabled:bg-gray-300 aria-disabled:hover:bg-gray-300'
       = link_to '画像をダウンロード',
         '#',

@@ -16,10 +16,10 @@ html
     = stylesheet_link_tag 'tailwind', 'data-turbo-track': 'reload'
     = javascript_importmap_tags
     = display_meta_tags default_meta_tags
-  body
+  body.bg-gray-100
     - unless current_page?(welcome_path)
       = render 'layouts/header'
-    main
+    main.min-h-screen
       #flash
         = render 'layouts/flash'
       = yield

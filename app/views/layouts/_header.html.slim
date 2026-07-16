@@ -1,11 +1,11 @@
 header.header
-  .mx-auto.max-w-5xl.border-b.border-gray-200
+  .px-6.pb-4.divider-b.bg-white
     div(class='flex items-center justify-between' data-controller='dropdown')
-      = link_to image_tag('logo.png', class: 'w-20 h-20', alt: '文字入りアイコンメーカーのロゴ'), root_path
+      = link_to image_tag('logo.png', class: 'w-20 h-20 rounded-md', alt: '文字入りアイコンメーカーのロゴ'), root_path
       - if current_user
         .flex.items-center.gap-3
           = button_tag type: 'button', class: 'avatar-icon', data: { dropdown_target: 'avatarIcon', action: 'click->dropdown#toggleLogoutButton' } do
-            = image_tag current_user.avatar_url, alt: 'アバター画像'
+            = image_tag current_user.avatar_url, alt: 'アバター画像', class: 'w-20 h-20 rounded-md'
           = link_to 'ログアウト', logout_path, data: { turbo_method: :delete, dropdown_target: 'logoutButton' }, class: 'logout is-hidden'
       - else
         = link_to 'ログイン', welcome_path, class: 'text-sm font-medium text-gray-700 hover:text-gray-900'
