@@ -36,4 +36,8 @@
   .frame-border {
     @apply rounded-lg border border-gray-200;
   }
+
+  .text-primary {
+    @apply text-indigo-600;
+  }
 }
