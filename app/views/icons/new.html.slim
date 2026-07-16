@@ -1,7 +1,7 @@
 - set_meta_tags title: 'アイコン合成'
 - set_meta_tags description: 'アイコンにテキストを合成するページです。'
 
-header.flex.items-center.justify-between.border-b.border-gray-200.bg-white.px-6.mb-4(class='h-[4.4375rem]')
+header.flex.items-center.justify-between.divider-b.bg-white.px-6.mb-4(class='h-[4.4375rem]')
   h1.text-center.text-2xl.font-bold.tracking-tight.text-indigo-700
     | アイコン合成
   = link_to '← アイコン一覧へ', icons_path, class: 'link-button'
@@ -58,11 +58,11 @@ header.flex.items-center.justify-between.border-b.border-gray-200.bg-white.px-6.
     label(class=upload_button_class for='upload-icon')
       | アイコンを選択
 
-    .grid.grid-cols-2.gap-6.border-t.border-gray-100.py-6.lg:grid-cols-3
+    .grid.grid-cols-2.gap-6.divider-t.py-6.lg:grid-cols-3
       div
         h2.section-heading
           | 元画像
-        .mx-auto.flex.aspect-square.w-full.max-w-40.items-center.justify-center.rounded-lg.border.border-gray-200.bg-gray-50.p-3(
+        .mx-auto.flex.aspect-square.w-full.max-w-40.items-center.justify-center.frame-border.bg-gray-50.p-3(
           data-icons-target='originalImageFrame'
         )
           img(
@@ -75,7 +75,7 @@ header.flex.items-center.justify-between.border-b.border-gray-200.bg-white.px-6.
       div
         h2.section-heading
           | プレビュー画像
-        .mx-auto.flex.aspect-square.w-full.max-w-52.items-center.justify-center.rounded-lg.border.border-gray-200.bg-gray-50.p-3(
+        .mx-auto.flex.aspect-square.w-full.max-w-52.items-center.justify-center.frame-border.bg-gray-50.p-3(
           data-preview-target='previewImageFrame'
         )
           img(
@@ -163,7 +163,7 @@ header.flex.items-center.justify-between.border-b.border-gray-200.bg-white.px-6.
             )
 
     - if @canvas_presets.present?
-      .border-t.border-gray-100.py-4
+      .divider-t.py-4
         h2.mb-3.text-sm.font-semibold.text-gray-800
           | 他の人が作ったプリセット
         ul.flex.flex-nowrap.gap-3.overflow-x-auto.list-none.p-0.m-0

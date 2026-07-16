@@ -19,7 +19,7 @@ html
   body.bg-gray-100
     - unless current_page?(welcome_path)
       = render 'layouts/header'
-    main.min-h-screen.border-gray-200
+    main.min-h-screen
       #flash
         = render 'layouts/flash'
       = yield

@@ -1,7 +1,7 @@
 - set_meta_tags title: 'アイコン一覧'
 - set_meta_tags description: 'サイトに保存したアイコンを一覧表示するページです。'
 
-header.flex.items-center.justify-between.border-b.border-gray-200.bg-white.px-6.mb-6(class='h-[4.4375rem]')
+header.flex.items-center.justify-between.divider-b.bg-white.px-6.mb-6(class='h-[4.4375rem]')
   h1.text-2xl.font-bold.tracking-tight.text-indigo-700
     | アイコン一覧
   = link_to new_icon_path, class: 'link-button' do
@@ -9,17 +9,17 @@ header.flex.items-center.justify-between.border-b.border-gray-200.bg-white.px-6.
 
 .mx-auto.max-w-5xl.rounded-md.px-6.py-6
   - if @saved_icons.blank?
-    .rounded-lg.border.border-gray-200.bg-gray-50.p-8.text-center
+    .frame-border.bg-gray-50.p-8.text-center
       p.text-sm.text-gray-500
         | 保存されているアイコンはありません
   - else
     div class="grid gap-6 grid-cols-[repeat(auto-fit,minmax(22rem,1fr))]"
       - @saved_icons.each do |original_icon, combined_icons|
-        section.rounded-lg.border.border-gray-200.bg-white.p-6.shadow-sm
+        section.frame-border.bg-white.p-6.shadow-sm
           h2.mb-3.pl-2.text-sm.font-semibold.text-gray-800
             | 元アイコン
-          .flex.flex-wrap.items-center.gap-4.border-b.border-gray-100.pb-6.mb-6
-            figure.m-0.flex.aspect-square.w-32.shrink-0.items-center.justify-center.rounded-lg.border.border-gray-200.bg-gray-50.p-2
+          .flex.flex-wrap.items-center.gap-4.divider-b.pb-6.mb-6
+            figure.m-0.flex.aspect-square.w-32.shrink-0.items-center.justify-center.frame-border.bg-gray-50.p-2
               = image_tag original_icon.image.variant(:thumb), class: 'max-w-full rounded'
             .flex.h-32.flex-col.items-start.gap-2
               .flex.flex-row.items-start.gap-2
@@ -39,7 +39,7 @@ header.flex.items-center.justify-between.border-b.border-gray-200.bg-white.px-6.
               - icon_frame_padding_x = 'px-2'
               - combined_icons.each do |combined_icon|
                 li.flex.flex-col.gap-1
-                  figure(class="m-0 flex aspect-square w-full items-center justify-center rounded-lg border border-gray-200 bg-gray-50 py-2 #{icon_frame_padding_x}")
+                  figure(class="m-0 flex aspect-square w-full items-center justify-center frame-border bg-gray-50 py-2 #{icon_frame_padding_x}")
                     = image_tag combined_icon.image.variant(:thumb), class: 'max-w-full rounded'
                   div(class="flex items-center justify-end gap-2 #{icon_frame_padding_x}")
                     = link_to rails_blob_path(combined_icon.image.variant(:thumb), disposition: 'attachment'), class: 'inline-flex items-center justify-center whitespace-nowrap rounded px-2 py-1 text-xs font-semibold text-indigo-600 transition hover:bg-indigo-50' do
@@ -52,7 +52,7 @@ header.flex.items-center.justify-between.border-b.border-gray-200.bg-white.px-6.
             p.text-sm.text-gray-500
               | まだ合成したアイコンがありません
 
-  section.border-t.border-gray-100.pt-6
+  section.divider-t.pt-6
     h2.mb-3.text-sm.font-semibold.text-gray-800
       | 各リンク
     = render 'icon_change_links', links: @links
