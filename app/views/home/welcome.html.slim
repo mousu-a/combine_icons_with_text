@@ -1,20 +1,33 @@
 - set_meta_tags title: 'ウェルカム'
 - set_meta_tags description: 'サイトの説明とログインをするためのページです。'
 
-/ TODO: サービス名を検討する
-h1
-  | 文字入りアイコンメーカー
-p
-  | ”文字入りアイコンメーカー”はオンラインイベントで自分がラジオ参加していることを発言せずに伝えることができない問題を解決するための画像合成サービスです。
-  | 自分のアイコン画像に「今日はラジオ参加」などの文字を簡単に合成することができ、
-  | RemoやDiscordなどの、アイコン画像変更へのリンクが備わっているのですぐに合成したアイコンに変更することが出来ます。
-/ TODO: 利用規約ページ作成後、変更する
-- if current_user
-  p ログイン中
-  = link_to 'ログアウト', logout_path, data: { turbo_method: :delete }
-- else
-  p
-    = link_to '利用規約', 'https://example.com'
-    | に同意して
+.mx-auto.flex.max-w-2xl.flex-col.items-center.px-6.py-16.text-center
+  header.mb-8.flex.flex-col.items-center
+    = image_tag('logo.png', class: 'mb-6 h-24 w-24 rounded-md', alt: '文字入りアイコンメーカーのロゴ')
+    h1.mb-6.text-2xl.font-extrabold.tracking-tight.text-gray-900.sm:text-3xl.md:text-4xl
+      | オンラインイベントで
+      br
+      | 「ラジオ参加」を発言せずに伝える
+    p.text-lg.leading-relaxed.text-gray-500
+      | 自分のアイコン画像に「今日はラジオ参加」などのテキストを1クリックで合成し、ダウンロードすることができます。
+      br
+      | 主要なサービスのアイコン変更リンク、ガイドが揃っているのですぐにアイコンを変更することができます。
+
+  blockquote.mb-8.w-full.rounded-md.border-indigo-500.bg-indigo-50.pl-7.pr-4.py-4.text-left.shadow-sm
+    h3.mb-2.border-b.border-indigo-200.pb-2.text-lg.font-semibold.text-primary
+      | 登録なしですぐに使えます！
+    ul.list-inside.list-disc.space-y-1.text-base.text-gray-700.pl-2
+      li
+        | ログインせずにアイコンにテキストを追加、ダウンロードすることができます。
+      li
+        | 合成したアイコンをサイトに保存したい場合はログインが必要です。
+
+  section.flex.w-full.flex-col.items-center.gap-3
+    - button_class = 'inline-flex w-full max-w-xs items-center justify-center rounded-md px-5 py-3 ' \
+        'text-base font-semibold transition'
+    = link_to 'アイコンに文字を合成する', new_icon_path,
+        class: "#{button_class} bg-indigo-500 text-white hover:bg-indigo-600"
     = button_to 'Googleアカウントでログイン', '/auth/google_oauth2',
-        method: :post, data: { turbo: false }
+        method: :post, data: { turbo: false },
+        class: "#{button_class} cursor-pointer border border-gray-300 bg-white text-primary hover:bg-indigo-50",
+        form_class: 'mb-1 w-full max-w-xs'
