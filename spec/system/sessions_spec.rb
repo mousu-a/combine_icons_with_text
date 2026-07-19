@@ -29,8 +29,7 @@ RSpec.describe 'Sessions' do
     before { sign_in_with_google user }
 
     scenario 'logs out' do
-      # TODO: ログインボタンのヘッダー化後削除
-      visit welcome_path
+      find_by_id('avatar-icon').click
       click_on 'ログアウト'
 
       expect(page).to have_text 'ログアウトしました'
