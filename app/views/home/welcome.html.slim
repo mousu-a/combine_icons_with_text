@@ -27,7 +27,8 @@
         'text-base font-semibold transition'
     = link_to 'アイコンに文字を合成する', new_icon_path,
         class: "#{button_class} bg-indigo-500 text-white hover:bg-indigo-600"
-    = button_to 'Googleアカウントでログイン', '/auth/google_oauth2',
-        method: :post, data: { turbo: false },
-        class: "#{button_class} cursor-pointer border border-gray-300 bg-white text-primary hover:bg-indigo-50",
-        form_class: 'mb-1 w-full max-w-xs'
+    - unless current_user
+      = button_to 'Googleアカウントでログイン', '/auth/google_oauth2',
+          method: :post, data: { turbo: false },
+          class: "#{button_class} cursor-pointer border border-gray-300 bg-white text-primary hover:bg-indigo-50",
+          form_class: 'mb-1 w-full max-w-xs'
