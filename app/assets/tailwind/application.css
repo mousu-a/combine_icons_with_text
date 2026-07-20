@@ -46,7 +46,15 @@
   }
 
   .flash-message {
-    @apply fixed top-2 right-4 z-50 rounded-lg border border-indigo-200 bg-indigo-50/75 px-5 py-3 text-sm font-medium text-indigo-600 shadow-md backdrop-blur-sm pointer-events-none;
+    @apply fixed top-2 right-4 z-50 rounded-lg border px-5 py-3 text-sm font-medium shadow-md backdrop-blur-sm pointer-events-none;
+  }
+
+  .flash-message--notice {
+    @apply border-indigo-200 bg-indigo-50/75 text-indigo-600;
+  }
+
+  .flash-message--alert {
+    @apply border-red-200 bg-red-50/75 text-red-700;
   }
 
   .section-title {
