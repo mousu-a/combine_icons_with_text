@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @layer components {
-  .section-heading {
+  .frame-label {
     @apply mb-2 text-center text-sm font-semibold text-gray-800;
   }
 
