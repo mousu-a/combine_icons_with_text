@@ -1,9 +1,8 @@
 - if object.errors.any?
-  .errors
-    h3.errors__title
+  .mb-3.rounded-lg.border.border-red-200.bg-red-50.p-4 role='alert'
+    p.mb-2.font-semibold.text-red-800
       | 入力内容にエラーがありました
-    .errors__body
-      ul.errors__items
-        - object.errors.full_messages.each do |msg|
-          li.errors__item
-            = msg
+    ul.list-inside.list-disc.text-sm.text-red-700
+      - object.errors.full_messages.each do |msg|
+        li.mb-1
+          = msg
