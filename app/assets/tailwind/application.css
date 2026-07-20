@@ -29,6 +29,10 @@
     @apply border-b border-gray-200;
   }
 
+  .page-header {
+    @apply flex h-[4.2rem] items-center justify-between border-b border-gray-200 bg-white px-6 mb-6;
+  }
+
   .divider-t {
     @apply border-t border-gray-200;
   }
