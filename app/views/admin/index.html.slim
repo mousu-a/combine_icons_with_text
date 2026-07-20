@@ -59,7 +59,8 @@
               li.py-2
                 .flex.flex-wrap.items-baseline.gap-x-2
                   span.text-sm.font-medium.text-gray-800 = link.site_name
-                  = link_to link.url, link.url, class: 'text-sm text-primary underline hover:text-indigo-700 break-all'
+                  span.text-sm.text-primary.underline.hover:text-indigo-700.break-all
+                    = link_to link.url, link.url
                 / TODO: change_guide実装後にコメントアウトを外す
                 / p.text-xs.text-gray-500.mt-1 = link.change_guide
         - else
