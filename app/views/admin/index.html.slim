@@ -1,35 +1,67 @@
+- set_meta_tags title: '管理画面'
+
 - if current_user.admin?
-  h2 管理画面
+  - input_class = 'w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 ' \
+      'focus:border-indigo-300 focus:outline-none focus:ring-1 focus:ring-indigo-300'
+  - button_class = 'cursor-pointer rounded-md border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 ' \
+      'transition hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700'
 
-  h3 文字を追加する
-  = form_with model: [:admin, @overlay_text] do |f|
-    = render 'layouts/errors', object: @overlay_text
-    = f.label :text
-    = f.text_field :text
-    = f.submit '追加'
+  header.flex.items-center.justify-between.divider-b.bg-white.px-6.mb-6(class='h-[4.4375rem]')
+    h1.text-2xl.font-bold.tracking-tight.text-primary
+      | 管理画面
+    .flex.items-center.gap-3
+      = link_to new_icon_path, class: 'link-button' do
+        | アイコンに文字合成画面へ
+      = link_to icons_path, class: 'link-button' do
+        | 一覧画面へ
 
-  - if @overlay_texts.any?
-    ul
-      - @overlay_texts.each do |overlay_text|
-        li = overlay_text.text
-  hr
+  .mx-auto.max-w-5xl.rounded-md.px-6.py-6
+    .grid.gap-10.lg:grid-cols-2
+      section
+        h2.section-title
+          | 文字を追加する
+        = form_with model: [:admin, @overlay_text], class: 'flex items-end gap-2 mb-4' do |f|
+          .flex-1
+            = render 'layouts/errors', object: @overlay_text
+            = f.label :text, class: 'block text-sm font-medium text-gray-800 mb-1'
+            = f.text_field :text, class: input_class
+          = f.submit '追加', class: "shrink-0 #{button_class}"
 
-  h3 リンクを追加する
-  = form_with model: [:admin, @icon_change_link] do |f|
-    = render 'layouts/errors', object: @icon_change_link
-    = f.label :site_name
-    = f.text_field :site_name
-    = f.label :url
-    = f.text_field :url
-    = f.label :change_guide
-    = f.text_area :change_guide
-    = f.submit '追加'
+        - if @overlay_texts.any?
+          ul.list-disc.space-y-1.pl-5.text-sm.text-gray-700
+            - @overlay_texts.each do |overlay_text|
+              li = overlay_text.text
+        - else
+          p.text-sm.text-gray-500
+            | 追加された文字はまだありません
 
-  - if @icon_change_links.any?
-    - @icon_change_links.each do |link|
-      p
-        = "#{link.site_name}: "
-        = link_to link.url, link.url
-      /TODO: change_guide実装後にコメントアウトを外す
-      / p = link.change_guide
-      hr
+      section
+        h2.section-title
+          | リンクを追加する
+        = form_with model: [:admin, @icon_change_link], class: 'space-y-2 mb-4' do |f|
+          = render 'layouts/errors', object: @icon_change_link
+          .grid.gap-2.sm:grid-cols-2
+            div
+              = f.label :site_name, class: 'block text-sm font-medium text-gray-800 mb-1'
+              = f.text_field :site_name, class: input_class
+            div
+              = f.label :url, class: 'block text-sm font-medium text-gray-800 mb-1'
+              = f.text_field :url, class: input_class
+          div
+            /TODO change_guideカラムを作り次第jaymlに翻訳を追加する
+            = f.label :change_guide, class: 'block text-sm font-medium text-gray-800 mb-1'
+            = f.text_area :change_guide, rows: 2, class: input_class
+          = f.submit '追加', class: button_class
+
+        - if @icon_change_links.any?
+          ul.divide-y.divide-gray-100
+            - @icon_change_links.each do |link|
+              li.py-2
+                .flex.flex-wrap.items-baseline.gap-x-2
+                  span.text-sm.font-medium.text-gray-800 = link.site_name
+                  = link_to link.url, link.url, class: 'text-sm text-primary underline hover:text-indigo-700 break-all'
+                / TODO: change_guide実装後にコメントアウトを外す
+                / p.text-xs.text-gray-500.mt-1 = link.change_guide
+        - else
+          p.text-sm.text-gray-500
+            | 追加されたリンクはまだありません
