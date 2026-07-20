@@ -1,7 +1,7 @@
 - set_meta_tags title: 'アイコン合成'
 - set_meta_tags description: 'アイコンにテキストを合成するページです。'
 
-header.flex.items-center.justify-between.divider-b.bg-white.px-6.mb-4(class='h-[4.4375rem]')
+header.page-header
   h1.text-center.text-2xl.font-bold.tracking-tight.text-primary
     | アイコン合成
   = link_to '← アイコン一覧へ', icons_path, class: 'link-button'
@@ -60,7 +60,7 @@ header.flex.items-center.justify-between.divider-b.bg-white.px-6.mb-4(class='h-[
 
     .grid.grid-cols-2.gap-6.divider-t.py-6.lg:grid-cols-3
       div
-        h2.section-heading
+        h2.frame-label
           | 元画像
         .mx-auto.flex.aspect-square.w-full.max-w-40.items-center.justify-center.frame-border.bg-gray-50.p-3(
           data-icons-target='originalImageFrame'
@@ -73,7 +73,7 @@ header.flex.items-center.justify-between.divider-b.bg-white.px-6.mb-4(class='h-[
             )
 
       div
-        h2.section-heading
+        h2.frame-label
           | プレビュー画像
         .mx-auto.flex.aspect-square.w-full.max-w-52.items-center.justify-center.frame-border.bg-gray-50.p-3(
           data-preview-target='previewImageFrame'

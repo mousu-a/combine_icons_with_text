@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @layer components {
-  .section-heading {
+  .frame-label {
     @apply mb-2 text-center text-sm font-semibold text-gray-800;
   }
 
@@ -29,6 +29,10 @@
     @apply border-b border-gray-200;
   }
 
+  .page-header {
+    @apply flex h-[4.2rem] items-center justify-between border-b border-gray-200 bg-white px-6 mb-6;
+  }
+
   .divider-t {
     @apply border-t border-gray-200;
   }
@@ -39,5 +43,31 @@
 
   .text-primary {
     @apply text-indigo-600;
+  }
+
+  .flash-message {
+    @apply fixed top-2 right-4 z-50 rounded-lg border px-5 py-3 text-sm font-medium shadow-md backdrop-blur-sm pointer-events-none;
+  }
+
+  .flash-message--notice {
+    @apply border-indigo-200 bg-indigo-50/75 text-indigo-600;
+  }
+
+  .flash-message--alert {
+    @apply border-red-200 bg-red-50/75 text-red-700;
+  }
+
+  .section-title {
+    @apply mb-1.5 border-b border-indigo-100 pb-0.5 text-lg font-semibold text-gray-900;
+  }
+
+  .alpha-list {
+    @apply mt-1 space-y-1 pl-6;
+    list-style-type: lower-alpha;
+  }
+
+  .roman-list {
+    @apply mt-1 space-y-1 pl-6;
+    list-style-type: lower-roman;
   }
 }
