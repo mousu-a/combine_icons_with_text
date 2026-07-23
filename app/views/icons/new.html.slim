@@ -45,18 +45,18 @@ header.page-header
         data-id=@original_icon.id
         )
 
-    label.block.text-base.font-bold.text-gray-800.mb-2 for='upload-icon'
+    p.font-bold.text-gray-800.mb-2
       | まずはアイコンをアップロードしましょう
-    input#upload-icon.peer.sr-only(
+    - upload_button_class = 'inline-flex cursor-pointer items-center justify-center gap-2 rounded-md mb-3 text-white font-bold bg-indigo-600 px-4 py-2.5 text-sm font-semibold transition ' \
+      'hover:bg-indigo-700'
+    label(class=upload_button_class for='upload-icon')
+      | アイコンを選択
+    input#upload-icon.sr-only(
       type='file'
       accept='image/*'
       data-icons-target='uploadedImage'
       data-action='change->icons#upload'
       )
-    - upload_button_class = 'inline-flex cursor-pointer items-center justify-center gap-2 rounded-md mb-3 text-white font-bold bg-indigo-600 px-4 py-2.5 text-sm font-semibold transition ' \
-        'hover:bg-indigo-700 peer-focus-visible:ring-2 peer-focus-visible:ring-indigo-700 peer-focus-visible:ring-offset-2'
-    label(class=upload_button_class for='upload-icon')
-      | アイコンを選択
 
     .grid.grid-cols-2.gap-6.divider-t.py-6.lg:grid-cols-3
       div
