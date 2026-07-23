@@ -45,18 +45,18 @@ header.page-header
         data-id=@original_icon.id
         )
 
-    p.font-bold.text-gray-800.mb-2
-      | まずはアイコンをアップロードしましょう
-    - upload_button_class = 'inline-flex cursor-pointer items-center justify-center gap-2 rounded-md mb-3 text-white font-bold bg-indigo-600 px-4 py-2.5 text-sm font-semibold transition ' \
-      'hover:bg-indigo-700'
-    label(class=upload_button_class for='upload-icon')
-      | アイコンを選択
-    input#upload-icon.sr-only(
-      type='file'
-      accept='image/*'
-      data-icons-target='uploadedImage'
-      data-action='change->icons#upload'
-      )
+    div data-controller='ui-state'
+      p class='instruction-text mb-2' data-ui-state-target='instructionText'
+        | まずはアイコンをアップロードしましょう
+      - upload_button_class = 'upload-button inline-flex cursor-pointer items-center justify-center gap-2 rounded-md mb-3 text-white font-bold px-4 py-2.5 text-sm font-semibold transition'
+      label(class=upload_button_class for='upload-icon' data-ui-state-target='uploadButton')
+        | アイコンを選択
+      input#upload-icon.sr-only(
+        type='file'
+        accept='image/*'
+        data-icons-target='uploadedImage'
+        data-action='change->icons#upload change->ui-state#change'
+        )
 
     .grid.grid-cols-2.gap-6.divider-t.py-6.lg:grid-cols-3
       div
