@@ -45,24 +45,24 @@ header.page-header
         data-id=@original_icon.id
         )
 
-    label.block.text-base.font-bold.text-gray-800.mb-2 for='upload-icon'
-      | まずはアイコンをアップロードしましょう
-    input#upload-icon.peer.sr-only(
-      type='file'
-      accept='image/*'
-      data-icons-target='uploadedImage'
-      data-action='change->icons#upload'
-      )
-    - upload_button_class = 'inline-flex cursor-pointer items-center justify-center gap-2 rounded-md mb-3 text-white font-bold bg-indigo-600 px-4 py-2.5 text-sm font-semibold transition ' \
-        'hover:bg-indigo-700 peer-focus-visible:ring-2 peer-focus-visible:ring-indigo-700 peer-focus-visible:ring-offset-2'
-    label(class=upload_button_class for='upload-icon')
-      | アイコンを選択
+    div data-controller='ui-state'
+      p class='instruction-text mb-2' data-ui-state-target='instructionText'
+        | まずはアイコンをアップロードしましょう
+      - upload_button_class = 'upload-button inline-flex cursor-pointer items-center justify-center gap-2 rounded-md mb-3 text-white font-bold px-4 py-2.5 text-sm font-semibold transition'
+      label(class=upload_button_class for='upload-icon' data-ui-state-target='uploadButton')
+        | アイコンを選択
+      input#upload-icon.sr-only(
+        type='file'
+        accept='image/*'
+        data-icons-target='uploadedImage'
+        data-action='change->icons#upload change->ui-state#change'
+        )
 
-    .grid.grid-cols-2.gap-6.divider-t.py-6.lg:grid-cols-3
+    div class='grid grid-cols-2 gap-2 divider-t py-6 lg:grid-cols-[3fr_3fr_4fr]'
       div
         h2.frame-label
           | 元画像
-        .mx-auto.flex.aspect-square.w-full.max-w-40.items-center.justify-center.frame-border.bg-gray-50.p-3(
+        .mx-auto.flex.aspect-square.w-full.max-w-40.frame-border.bg-gray-50.p-3(
           data-icons-target='originalImageFrame'
         )
           img(
@@ -75,7 +75,7 @@ header.page-header
       div
         h2.frame-label
           | プレビュー画像
-        .mx-auto.flex.aspect-square.w-full.max-w-52.items-center.justify-center.frame-border.bg-gray-50.p-3(
+        .mx-auto.flex.aspect-square.w-full.max-w-52.frame-border.bg-gray-50.p-3(
           data-preview-target='previewImageFrame'
         )
           img(
@@ -93,7 +93,7 @@ header.page-header
         )
 
       .col-span-2.lg:col-span-1
-        h2.mb-4.text-sm.font-semibold.text-gray-800
+        h2.frame-label
           | 加工オプション
 
         .mb-4
@@ -166,7 +166,7 @@ header.page-header
       .divider-t.py-4
         h2.mb-3.text-sm.font-semibold.text-gray-800
           | 他の人が作ったプリセット
-        ul.flex.flex-nowrap.gap-3.overflow-x-auto.list-none.p-0.m-0
+        ul.flex.flex-wrap.gap-3.list-none.p-0.m-0
           - @canvas_presets.each do |canvas_preset|
             li
               canvas(
