@@ -166,7 +166,7 @@ header.page-header
       .divider-t.py-4
         h2.mb-3.text-sm.font-semibold.text-gray-800
           | 他の人が作ったプリセット
-        ul.flex.flex-nowrap.gap-3.overflow-x-auto.list-none.p-0.m-0
+        ul.flex.flex-wrap.gap-3.list-none.p-0.m-0
           - @canvas_presets.each do |canvas_preset|
             li
               canvas(
