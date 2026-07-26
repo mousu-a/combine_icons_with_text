@@ -48,9 +48,8 @@
               = f.label :url, class: 'block text-sm font-medium text-gray-800 mb-1'
               = f.text_field :url, class: input_class
           div
-            /TODO change_guideカラムを作り次第jaymlに翻訳を追加する
-            = f.label :change_guide, class: 'block text-sm font-medium text-gray-800 mb-1'
-            = f.text_area :change_guide, rows: 2, class: input_class
+            = f.label :guide_text, class: 'block text-sm font-medium text-gray-800 mb-1'
+            = f.text_area :guide_text, rows: 2, class: input_class
           = f.submit '追加', class: button_class
 
         - if @icon_change_links.any?
