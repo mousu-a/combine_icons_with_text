@@ -18,8 +18,7 @@ module Admin
     private
 
     def icon_change_link_params
-      # TODO: カラムを追加次第、change_guideを追加
-      params.expect(icon_change_link: %i[url site_name])
+      params.expect(icon_change_link: %i[url site_name guide_text])
     end
 
     def set_admin_managed_resources

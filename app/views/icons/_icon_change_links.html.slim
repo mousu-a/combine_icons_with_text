@@ -1,7 +1,16 @@
-- if links.present?
-  - links.each do |link|
-    = link_to "#{link.site_name}のアイコン変更リンク", link.url
-    / TODO change_guideカラムを追加して置き換え
-    p link.change_guide
-- else
-  p linkがありません
+section.divider-t.pt-7
+  h2.section-title.mb-2
+    | アイコン変更リンク集
+  - if links.present?
+    ul.grid.list-none.gap-4.p-0.m-0(class="grid-cols-[repeat(auto-fit,minmax(16rem,1fr))]")
+      - links.each do |link|
+        li.frame-border.bg-white.p-5.shadow-sm
+          h3
+            = link_to link.site_name, link.url, target: '_blank', rel: 'noopener noreferrer',
+              class: 'mb-2 block break-all text-sm text-primary underline hover:text-indigo-700'
+          ol.list-decimal.space-y-1.pl-5.text-xs.leading-relaxed.text-gray-600
+            - link.guide_text.each_line do |line|
+              li = line
+  - else
+    p.text-sm.text-gray-500
+      | 対応しているリンクはまだ登録されていません
