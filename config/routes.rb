@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
-  # TODO　後で消す　啓発用
-  # root "home#welcome"
-  root "icons#new"
+  root "home#welcome"
   get 'welcome', to: 'home#welcome'
   get 'terms', to: 'home#terms'
   get 'privacy', to: 'home#privacy'
