@@ -48,9 +48,13 @@ header.page-header
     div data-controller='ui-state'
       p class='instruction-text mb-2' data-ui-state-target='instructionText'
         | まずはアイコンをアップロードしましょう
-      - upload_button_class = 'upload-button inline-flex cursor-pointer items-center justify-center gap-2 rounded-md mb-3 text-white font-bold px-4 py-2.5 text-sm font-semibold transition'
-      label(class=upload_button_class for='upload-icon' data-ui-state-target='uploadButton')
-        | アイコンを選択
+      - upload_button_class = 'upload-button inline-flex cursor-pointer items-center justify-center gap-2 rounded-md text-white font-bold px-4 py-2.5 text-sm font-semibold transition'
+      .mb-3.flex.flex-wrap.items-center.gap-3
+        label(class=upload_button_class for='upload-icon' data-ui-state-target='uploadButton')
+          | アイコンを選択
+        ol.list-inside.list-decimal.text-xs.leading-relaxed.text-gray-500
+          li 合成できるアイコンのサイズは6MBまでとなっております。
+          li ファイル形式は JPG, JPEG, PNG, WEBP にのみ対応しています。
       input#upload-icon.sr-only(
         type='file'
         accept='image/*'
