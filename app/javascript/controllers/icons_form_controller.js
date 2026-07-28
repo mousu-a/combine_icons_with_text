@@ -20,16 +20,12 @@ export default class extends Controller {
         this.displayToast(responseData.message);
       } else {
         alert(responseData.error_message);
-        // TODO: ユーザーのネクストアクションを誘導する
-        // https://github.com/mousu-a/combine_icons_with_text/issues/127
       }
     } catch (error) {
       console.error("Upload error:", error);
       alert(
         "通信エラーが発生したため画像を保存出来ませんでした。\n画像を保存したい場合は時間を置いて再度ダウンロードボタンを押してください。",
       );
-      // TODO: ユーザーのネクストアクションを誘導する
-      // https://github.com/mousu-a/combine_icons_with_text/issues/127
     }
   }
 
