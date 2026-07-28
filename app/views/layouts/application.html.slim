@@ -17,8 +17,7 @@ html
     = javascript_importmap_tags
     = display_meta_tags default_meta_tags
   body.bg-gray-50
-    - unless current_page?(welcome_path)
-      = render 'layouts/header'
+    = render 'layouts/header'
     main.min-h-screen
       #flash
         = render 'layouts/flash'
