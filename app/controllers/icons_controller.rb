@@ -56,7 +56,7 @@ class IconsController < ApplicationController
   end
 
   def combined_icon_params
-    params.expect(combined_icon: %i[image])
+    params.expect(combined_icon: %i[image name])
   end
 
   def canvas_preset_params

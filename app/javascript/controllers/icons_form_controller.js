@@ -41,11 +41,8 @@ export default class extends Controller {
 
 function setupFormdata(params) {
   const fd = new FormData();
-  fd.append(
-    "combined_icon[image]",
-    params.combinedIconFile,
-    params.combinedIconName,
-  );
+  fd.append("combined_icon[image]", params.combinedIconFile);
+  fd.append("combined_icon[name]", params.combinedIconName);
 
   if (params.originalIconId) {
     fd.append("original_icon[id]", params.originalIconId);
