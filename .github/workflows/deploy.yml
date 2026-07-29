@@ -29,6 +29,8 @@ jobs:
           echo "RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }}" >> .kamal/secrets
           echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .kamal/secrets
           echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .kamal/secrets
+          echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .kamal/secrets
+          echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .kamal/secrets
 
       - name: Deploy with Kamal
         run: bin/kamal deploy
