@@ -46,7 +46,6 @@ function setupFormdata(params) {
     params.combinedIconFile,
     params.combinedIconName,
   );
-  fd.append("combined_icon[name]", params.combinedIconName);
 
   if (params.originalIconId) {
     fd.append("original_icon[id]", params.originalIconId);
