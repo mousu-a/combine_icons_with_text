@@ -3,7 +3,6 @@
 FactoryBot.define do
   factory :combined_icon do
     original_icon
-    name { 'ラジオ参加' }
 
     after(:build) do |combined_icon, evaluator|
       if evaluator.io
