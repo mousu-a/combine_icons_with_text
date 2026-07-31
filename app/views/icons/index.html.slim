@@ -20,7 +20,7 @@ header.page-header
             | 元アイコン
           .flex.flex-wrap.items-center.gap-4.divider-b.pb-6.mb-6
             figure.m-0.flex.aspect-square.w-32.shrink-0.items-center.justify-center.frame-border.bg-gray-50.p-2
-              = image_tag original_icon.image.variant(:thumb), class: 'max-w-full rounded'
+              = image_tag original_icon.image.variant(:thumb), class: 'max-w-full rounded', alt: '元アイコン画像'
             .flex.h-32.flex-col.items-start.gap-2
               .flex.flex-row.items-start.gap-2
                 - icon_action_link_class = 'inline-flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold text-primary shadow-sm transition hover:bg-indigo-50'
@@ -42,7 +42,7 @@ header.page-header
               - combined_icons.each do |combined_icon|
                 li.flex.flex-col.gap-1
                   figure(class="m-0 flex aspect-square w-full items-center justify-center frame-border bg-gray-50 py-2 #{icon_frame_padding_x_class}")
-                    = image_tag combined_icon.image.variant(:thumb), class: 'max-w-full rounded'
+                    = image_tag combined_icon.image.variant(:thumb), class: 'max-w-full rounded', alt: '合成したアイコン画像'
                   div(class="flex items-center justify-end gap-2 #{icon_frame_padding_x_class}")
                     = link_to rails_blob_path(combined_icon.image, disposition: 'attachment'), class: combined_icon_download_class do
                       | ダウンロード
