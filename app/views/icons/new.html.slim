@@ -71,7 +71,7 @@ header.page-header
         )
           img(
             id='icon'
-            class='max-w-[360px] hidden rounded'
+            class='hidden rounded'
             data-icons-target='originalImage'
             alt='アップロードしたアイコン画像'
             )
@@ -84,7 +84,7 @@ header.page-header
         )
           img(
             id='icon-preview'
-            class='max-w-[360px] hidden rounded object-cover'
+            class='hidden rounded object-cover'
             data-preview-target='previewImage'
             alt='テキストを合成したアイコンのプレビュー画像'
             )
@@ -92,8 +92,6 @@ header.page-header
       canvas(
         class='max-w-[360px] hidden'
         data-canvas-target='canvas'
-        width='150'
-        height='150'
         )
 
       .col-span-2.lg:col-span-1
@@ -174,7 +172,7 @@ header.page-header
           - @canvas_presets.each do |canvas_preset|
             li
               canvas(
-                class='w-32 max-w-[360px] shrink-0 cursor-pointer rounded-md border border-gray-200 bg-white shadow-sm transition hover:border-indigo-300 hover:shadow-md'
+                class='w-32 shrink-0 cursor-pointer rounded-md border border-gray-200 bg-white shadow-sm transition hover:border-indigo-300 hover:shadow-md'
                 data-action='click->canvas#applyPreset'
                 data-presets-renderer-target='presetCanvas'
                 data-text=canvas_preset.text
