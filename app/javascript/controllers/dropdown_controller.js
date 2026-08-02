@@ -4,6 +4,6 @@ export default class extends Controller {
   static targets = ["avatarIcon", "logoutButton"];
 
   toggleLogoutButton() {
-    this.logoutButtonTarget.classList.toggle("is-hidden");
+    this.logoutButtonTarget.classList.toggle("hidden");
   }
 }
