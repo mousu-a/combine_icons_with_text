@@ -13,7 +13,7 @@ header.page-header
       p.text-sm.text-gray-500
         | 保存されているアイコンはありません
   - else
-    div class="grid gap-6 grid-cols-[repeat(auto-fill,minmax(22rem,1fr))]"
+    div class="grid grid-cols-1 gap-6 sm:grid-cols-[repeat(auto-fill,minmax(22rem,1fr))]"
       - @saved_icons.each do |original_icon, combined_icons|
         section.frame-border.bg-white.p-6.shadow-sm
           h2.mb-3.text-sm.font-semibold.text-gray-800
