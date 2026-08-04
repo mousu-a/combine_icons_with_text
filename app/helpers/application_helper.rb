@@ -22,4 +22,13 @@ module ApplicationHelper
       }
     }
   end
+
+  def flash_attributes(flash_type)
+    case flash_type
+    when 'alert'
+      { role: 'alert', aria_live: 'assertive' }
+    else
+      { role: 'status', aria_live: 'polite' }
+    end
+  end
 end
