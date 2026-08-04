@@ -16,7 +16,7 @@ header.page-header
     div class="grid gap-6 grid-cols-[repeat(auto-fill,minmax(22rem,1fr))]"
       - @saved_icons.each do |original_icon, combined_icons|
         section.frame-border.bg-white.p-6.shadow-sm
-          h2.mb-3.pl-2.text-sm.font-semibold.text-gray-800
+          h2.mb-3.text-sm.font-semibold.text-gray-800
             | 元アイコン
           .flex.flex-wrap.items-start.gap-4.divider-b.pb-6.mb-6
             figure.m-0.flex.aspect-square.w-32.shrink-0.items-center.justify-center.frame-border.bg-gray-50.p-2
@@ -33,7 +33,7 @@ header.page-header
                 class: 'inline-flex items-center gap-1 rounded-md px-4 py-2 text-sm font-medium text-gray-400 underline transition hover:text-gray-500' do
                 | 削除
 
-          h3.mb-3.pl-2.text-sm.font-semibold.text-gray-800
+          h3.mb-3.text-sm.font-semibold.text-gray-800
             | 合成したアイコン一覧
           - if combined_icons.present?
             ul class="grid gap-4 grid-cols-[repeat(auto-fit,minmax(6rem,8rem))]"
