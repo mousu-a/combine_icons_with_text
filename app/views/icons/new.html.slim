@@ -45,7 +45,7 @@ header.page-header
         data-id=@original_icon.id
         )
 
-    div data-controller='ui-state'
+    div data-controller='ui-state' data-action='icons:setup@window->ui-state#change'
       p class='instruction-text mb-2' data-ui-state-target='instructionText'
         | まずはアイコンをアップロードしましょう
       - upload_button_class = 'upload-button inline-flex cursor-pointer items-center justify-center gap-2 rounded-md text-white font-bold px-4 py-2.5 text-sm font-semibold transition'
@@ -53,16 +53,16 @@ header.page-header
         label(class=upload_button_class for='upload-icon' data-ui-state-target='uploadButton')
           | アイコンを選択
         ol.list-inside.list-decimal.text-xs.leading-relaxed.text-gray-500
-          li 合成できるアイコンのサイズは6MBまでとなっております。
+          li 合成できるアイコンのサイズは5MBまでとなっております。
           li ファイル形式は JPG, JPEG, PNG, WEBP にのみ対応しています。
       input#upload-icon.sr-only(
         type='file'
         accept='image/jpeg,image/png,image/webp'
         data-icons-target='uploadedImage'
-        data-action='change->icons#upload change->ui-state#change'
+        data-action='change->icons#upload'
         )
 
-    div class='grid grid-cols-2 gap-2 divider-t py-6 lg:grid-cols-[3fr_3fr_4fr]'
+    div class='grid grid-cols-2 gap-2 divider-t py-6 lg:grid-cols-[2fr_3fr_4fr]'
       div
         h2.frame-label
           | 元画像
@@ -71,34 +71,32 @@ header.page-header
         )
           img(
             id='icon'
-            class='max-w-[360px] hidden rounded'
+            class='hidden rounded'
             data-icons-target='originalImage'
-            alt='icon'
+            alt='アップロードしたアイコン画像'
             )
 
       div
         h2.frame-label
-          | プレビュー画像
+          | プレビュー
         .mx-auto.flex.aspect-square.w-full.max-w-52.frame-border.bg-gray-50.p-3(
           data-preview-target='previewImageFrame'
         )
           img(
             id='icon-preview'
-            class='max-w-[360px] hidden rounded object-cover'
+            class='hidden rounded object-cover'
             data-preview-target='previewImage'
-            alt='preview icon'
+            alt='テキストを合成したアイコンのプレビュー画像'
             )
 
       canvas(
         class='max-w-[360px] hidden'
         data-canvas-target='canvas'
-        width='150'
-        height='150'
         )
 
       .col-span-2.lg:col-span-1
         h2.frame-label
-          | 加工オプション
+          | 合成オプション
 
         .mb-4
           h3.option-heading
@@ -174,7 +172,7 @@ header.page-header
           - @canvas_presets.each do |canvas_preset|
             li
               canvas(
-                class='w-32 max-w-[360px] shrink-0 cursor-pointer rounded-md border border-gray-200 bg-white shadow-sm transition hover:border-indigo-300 hover:shadow-md'
+                class='w-32 shrink-0 cursor-pointer rounded-md border border-gray-200 bg-white shadow-sm transition hover:border-indigo-300 hover:shadow-md'
                 data-action='click->canvas#applyPreset'
                 data-presets-renderer-target='presetCanvas'
                 data-text=canvas_preset.text

@@ -18,4 +18,14 @@ RSpec.describe ApplicationHelper do
       expect(meta_tags[:twitter][:card]).to eq('summary_large_image')
     end
   end
+
+  describe '#flash_attributes' do
+    it 'returns alert attributes when flash_type is alert' do
+      expect(helper.flash_attributes('alert')).to eq(role: 'alert', aria_live: 'assertive')
+    end
+
+    it 'returns default attributes when flash_type is not alert' do
+      expect(helper.flash_attributes('notice')).to eq(role: 'status', aria_live: 'polite')
+    end
+  end
 end

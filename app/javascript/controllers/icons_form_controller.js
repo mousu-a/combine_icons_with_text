@@ -31,10 +31,10 @@ export default class extends Controller {
 
   displayToast(message) {
     this.toastMessageTarget.textContent = message;
-    this.toastTarget.classList.remove("is-hidden");
+    this.toastTarget.classList.remove("hidden");
 
     setTimeout(() => {
-      this.toastTarget.classList.add("is-hidden");
+      this.toastTarget.classList.add("hidden");
     }, 3000);
   }
 }
