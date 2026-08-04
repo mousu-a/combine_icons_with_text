@@ -45,7 +45,7 @@ header.page-header
         data-id=@original_icon.id
         )
 
-    div data-controller='ui-state'
+    div data-controller='ui-state' data-action='icons:setup@window->ui-state#change'
       p class='instruction-text mb-2' data-ui-state-target='instructionText'
         | まずはアイコンをアップロードしましょう
       - upload_button_class = 'upload-button inline-flex cursor-pointer items-center justify-center gap-2 rounded-md text-white font-bold px-4 py-2.5 text-sm font-semibold transition'
@@ -59,7 +59,7 @@ header.page-header
         type='file'
         accept='image/jpeg,image/png,image/webp'
         data-icons-target='uploadedImage'
-        data-action='change->icons#upload change->ui-state#change'
+        data-action='change->icons#upload'
         )
 
     div class='grid grid-cols-2 gap-2 divider-t py-6 lg:grid-cols-[2fr_3fr_4fr]'
