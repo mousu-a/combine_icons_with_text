@@ -97,7 +97,6 @@ header.page-header
       .col-span-2.lg:col-span-1
         h2.frame-label
           | 合成オプション
-
         .mb-4
           h3.option-heading
             | テキストを追加
@@ -117,7 +116,6 @@ header.page-header
               data-action='click->canvas#drawText'
               )
               | 画面見れません
-
         .mb-4
           h3.option-heading
             | 背景を追加
@@ -131,7 +129,7 @@ header.page-header
             )
             | 文字の背景をつける
 
-        fieldset.mb-4.border-0.p-0.m-0
+        fieldset.mb-2.border-0.p-0.m-0
           legend.mb-2.text-xs.font-medium.text-gray-500.p-0
             | カラー設定
           .mb-2.flex.items-center.justify-start.gap-4
@@ -142,7 +140,7 @@ header.page-header
               value='#000000'
               data-action='change->canvas#changeTextColor'
               )
-          .flex.items-center.justify-start.gap-4
+          .mb-2.flex.items-center.justify-start.gap-4
             label.color-picker-label for='backgroundColor'
               | 背景色
             input#backgroundColor.color-picker(
