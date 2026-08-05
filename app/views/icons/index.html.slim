@@ -37,13 +37,12 @@ header.page-header
             | 合成したアイコン一覧
           - if combined_icons.present?
             ul class="grid gap-4 grid-cols-[repeat(auto-fit,minmax(6rem,8rem))]"
-              - icon_frame_padding_x_class = 'px-2'
               - combined_icon_download_class = 'inline-flex items-center justify-center whitespace-nowrap rounded px-2 py-1 text-xs font-semibold text-primary transition hover:bg-indigo-50'
               - combined_icons.each do |combined_icon|
                 li.flex.flex-col.gap-1
-                  figure(class="m-0 flex aspect-square w-full items-center justify-center frame-border bg-gray-50 py-2 #{icon_frame_padding_x_class}")
+                  figure.m-0.flex.aspect-square.w-full.items-center.justify-center.frame-border.bg-gray-50.py-2.px-2
                     = image_tag combined_icon.image.variant(:thumb), class: 'max-w-full rounded', alt: '合成したアイコン画像'
-                  div(class="flex items-center justify-end gap-2 #{icon_frame_padding_x_class}")
+                  .flex.items-center.justify-end.gap-2.px-2
                     = link_to rails_blob_path(combined_icon.image, disposition: 'attachment'), class: combined_icon_download_class do
                       | ダウンロード
                     = link_to icon_path(combined_icon, original_icon_id: original_icon.id, combined_icon_id: combined_icon.id),
