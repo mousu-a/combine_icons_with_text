@@ -1,5 +1,5 @@
 
-![logo](app/assets/images/logo.png)
+<img src="app/assets/images/logo.png" alt="logo" width="300">
 
 ## 概要
 
@@ -11,7 +11,6 @@
 - RemoやDiscordなどの、アイコン画像変更のリンク、ガイドが備わっているので、すぐに合成したアイコンに変更することが出来ます。
 
 ## URL
-
 https://icon-font-mashup.com
 
 ## 使い方
@@ -22,42 +21,52 @@ UPした自分のアイコンに「今日はラジオ参加」などの文字を
 合成したアイコンはダウンロードでき、サイト上に保存されます（ログイン時のみ）
 
 - UPしたアイコンを元に編集
-一覧ページから、UPしたアイコンを元に合成を行えます。
+一覧ページから、以前に保存したアイコンを元に合成を行えます。
 
-## 環境
+- ページ下部に表示されている各サービスのリンクからアイコンを変更する
+
+
+### 技術スタック
 
 - Ruby 3.4.5
 - Ruby on Rails 8.1.3
 - Stimulus
 
-## 開発環境
 
-### セットアップ、起動
-
-- セットアップ
+### 環境構築
+1. 任意のディレクトリにこのリポジトリのクローンを保存します。
 
 ```bash
-$ git clone https://github.com/mousu-a/combine_icons_with_text.git
-$ cd combine_icons_with_text
-$ bin/setup
+git clone https://github.com/mousu-a/combine_icons_with_text.git
 ```
 
-- 起動
+2. リポジトリに移動します。
 
 ```bash
-$ bin/dev
+cd combine_icons_with_text
 ```
 
-- 起動後
+3. Google Cloud で Google ログインに必要な `client_id` と `client_secret` を取得し、`.env` ファイルに設定します。
 
-  - 通常ログイン：下記URLからログインします（しなくても使えます）
-    http://localhost:3000/
+- `.env`ファイルを作成します。`.env` は環境変数を管理するファイルです（gitには含めません）。
 
-  - お好きなアイコンをアップロードし、テキストを挿入してみましょう
-    http://localhost:3000/icons/new
+```bash
+touch .env
+```
 
-  - ログインしていれば、保存後一覧ページにアイコンが保存されていることを確認できます
-    http://localhost:3000/icons/index
+- Google Cloud で取得した `client_id` と` client_secret` を `.env`ファイルに設定します。
+
+```dotenv
+GOOGLE_CLIENT_ID=取得したclient_id
+GOOGLE_CLIENT_SECRET=取得したclient_secret
+```
+
+4. セットアップを実行します。
+
+```bash
+bin/setup
+```
+
 
 ### Lint、Test
 

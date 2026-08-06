@@ -1,6 +1,7 @@
 - set_meta_tags title: '管理画面'
 
 - if current_user.admin?
+  - label_class = 'block text-sm font-medium text-gray-800 mb-1'
   - input_class = 'w-full rounded-md border border-gray-200 bg-white px-3 py-2 text-sm text-gray-700 ' \
       'focus:border-indigo-300 focus:outline-none focus:ring-1 focus:ring-indigo-300'
   - button_class = 'cursor-pointer rounded-md border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 ' \
@@ -23,7 +24,7 @@
         = form_with model: [:admin, @overlay_text], class: 'flex items-end gap-2 mb-4' do |f|
           .flex-1
             = render 'layouts/errors', object: @overlay_text
-            = f.label :text, class: 'block text-sm font-medium text-gray-800 mb-1'
+            = f.label :text, class: label_class
             = f.text_field :text, class: input_class
           = f.submit '追加', class: "shrink-0 #{button_class}"
 
@@ -42,14 +43,13 @@
           = render 'layouts/errors', object: @icon_change_link
           .grid.gap-2.sm:grid-cols-2
             div
-              = f.label :site_name, class: 'block text-sm font-medium text-gray-800 mb-1'
+              = f.label :site_name, class: label_class
               = f.text_field :site_name, class: input_class
             div
-              = f.label :url, class: 'block text-sm font-medium text-gray-800 mb-1'
+              = f.label :url, class: label_class
               = f.text_field :url, class: input_class
-          div
-            = f.label :guide_text, class: 'block text-sm font-medium text-gray-800 mb-1'
-            = f.text_area :guide_text, rows: 2, class: input_class
+          = f.label :guide_text, class: label_class
+          = f.text_area :guide_text, rows: 2, class: input_class
           = f.submit '追加', class: button_class
 
     = render 'icons/icon_change_links', links: @icon_change_links

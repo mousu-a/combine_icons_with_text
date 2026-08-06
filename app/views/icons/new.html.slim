@@ -62,7 +62,7 @@ header.page-header
         data-action='change->icons#upload'
         )
 
-    div class='grid grid-cols-2 gap-2 divider-t py-6 lg:grid-cols-[2fr_3fr_4fr]'
+    div class='grid grid-cols-2 gap-2 border-t-gray py-6 lg:grid-cols-[2fr_3fr_4fr]'
       div
         h2.frame-label
           | 元画像
@@ -97,7 +97,6 @@ header.page-header
       .col-span-2.lg:col-span-1
         h2.frame-label
           | 合成オプション
-
         .mb-4
           h3.option-heading
             | テキストを追加
@@ -117,7 +116,6 @@ header.page-header
               data-action='click->canvas#drawText'
               )
               | 画面見れません
-
         .mb-4
           h3.option-heading
             | 背景を追加
@@ -131,9 +129,9 @@ header.page-header
             )
             | 文字の背景をつける
 
-        fieldset.mb-4.border-0.p-0.m-0
+        fieldset.mb-2.border-0.p-0.m-0
           legend.mb-2.text-xs.font-medium.text-gray-500.p-0
-            | カラー
+            | カラー設定
           .mb-2.flex.items-center.justify-start.gap-4
             label.color-picker-label for='textColor'
               | 文字色
@@ -142,7 +140,7 @@ header.page-header
               value='#000000'
               data-action='change->canvas#changeTextColor'
               )
-          .flex.items-center.justify-start.gap-4
+          .mb-2.flex.items-center.justify-start.gap-4
             label.color-picker-label for='backgroundColor'
               | 背景色
             input#backgroundColor.color-picker(
@@ -165,24 +163,28 @@ header.page-header
             )
 
     - if @canvas_presets.present?
-      .divider-t.py-4
+      .border-t-gray.py-4
         h2.mb-3.text-sm.font-semibold.text-gray-800
           | 他の人が作ったプリセット
         ul.flex.flex-wrap.gap-3.list-none.p-0.m-0
           - @canvas_presets.each do |canvas_preset|
             li
-              canvas(
-                class='w-32 shrink-0 cursor-pointer rounded-md border border-gray-200 bg-white shadow-sm transition hover:border-indigo-300 hover:shadow-md'
-                data-action='click->canvas#applyPreset'
-                data-presets-renderer-target='presetCanvas'
-                data-text=canvas_preset.text
-                data-text-fill-style=canvas_preset.text_color
-                data-bg-fill-style=canvas_preset.bg_color
-                width='150'
-                height='50'
+              button(
+                type='button'
+                class='rounded-md border border-transparent p-1 transition cursor-pointer hover:border-indigo-300 hover:bg-indigo-50'
+              )
+                canvas(
+                  class='block w-32 rounded'
+                  data-presets-renderer-target='presetCanvas'
+                  data-action='click->canvas#applyPreset'
+                  data-text=canvas_preset.text
+                  data-text-fill-style=canvas_preset.text_color
+                  data-bg-fill-style=canvas_preset.bg_color
+                  width='150'
+                  height='50'
                 )
 
-    .border-t.border-gray-100.py-5
+    .border-t-gray.py-5
       small.mb-3.block.text-xs.text-gray-500
         | ログイン済みの場合、ダウンロードすると画像がサイトに保存されます。
       - download_link_class = 'is-disabled inline-flex items-center justify-center rounded-md bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 ' \
