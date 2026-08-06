@@ -169,15 +169,19 @@ header.page-header
         ul.flex.flex-wrap.gap-3.list-none.p-0.m-0
           - @canvas_presets.each do |canvas_preset|
             li
-              canvas(
-                class='w-32 shrink-0 cursor-pointer rounded-md border border-gray-200 bg-white shadow-sm transition hover:border-indigo-300 hover:shadow-md'
-                data-action='click->canvas#applyPreset'
-                data-presets-renderer-target='presetCanvas'
-                data-text=canvas_preset.text
-                data-text-fill-style=canvas_preset.text_color
-                data-bg-fill-style=canvas_preset.bg_color
-                width='150'
-                height='50'
+              button(
+                type='button'
+                class='rounded-md border border-transparent p-1 transition cursor-pointer hover:border-indigo-300 hover:bg-indigo-50'
+              )
+                canvas(
+                  class='block w-32 rounded'
+                  data-presets-renderer-target='presetCanvas'
+                  data-action='click->canvas#applyPreset'
+                  data-text=canvas_preset.text
+                  data-text-fill-style=canvas_preset.text_color
+                  data-bg-fill-style=canvas_preset.bg_color
+                  width='150'
+                  height='50'
                 )
 
     .border-t-gray.py-5
