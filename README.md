@@ -66,10 +66,10 @@ GOOGLE_CLIENT_ID=取得したclient_id
 GOOGLE_CLIENT_SECRET=取得したclient_secret
 ```
 
-4. セットアップを実行します。
+4. セットアップを実行し、サーバーを起動します。
 
 ```bash
-bin/setup
+bin/dev
 ```
 
 
@@ -78,11 +78,11 @@ bin/setup
 - Lint
 
 ```bash
-$ bin/lint
+bin/lint
 ```
 
 - Test
 
 ```bash
-$ bundle exec rspec
+bundle exec rspec
 ```
