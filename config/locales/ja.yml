@@ -37,3 +37,5 @@ ja:
         taken: はすでに存在しています
   users:
     guest: ゲスト
+  errors:
+    format: "%{attribute}%{message}"
