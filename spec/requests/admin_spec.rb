@@ -7,7 +7,7 @@ RSpec.describe 'Admin' do
     context 'when logged in as an admin' do
       let(:admin) { create(:user, admin: true) }
 
-      before { login(admin) }
+      before { login admin }
 
       it 'returns http success' do
         get admin_index_path
@@ -19,7 +19,7 @@ RSpec.describe 'Admin' do
     context 'when not an admin' do
       let(:user) { create(:user) }
 
-      before { login(user) }
+      before { login user }
 
       it 'redirects to the icons page' do
         get admin_index_path
@@ -34,7 +34,7 @@ RSpec.describe 'Admin' do
   describe 'POST /admin/icon_change_links' do
     let(:admin) { create(:user, admin: true) }
 
-    before { login(admin) }
+    before { login admin }
 
     context 'with valid parameters' do
       it 'adds a new icon change link' do
@@ -67,7 +67,7 @@ RSpec.describe 'Admin' do
   describe 'POST /admin/overlay_texts' do
     let(:admin) { create(:user, admin: true) }
 
-    before { login(admin) }
+    before { login admin }
 
     context 'with valid parameters' do
       it 'adds a new overlay text' do

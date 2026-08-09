@@ -7,7 +7,7 @@ RSpec.describe 'Home' do
     context 'when logged in' do
       let(:user) { create(:user) }
 
-      before { login(user) }
+      before { login user }
 
       it 'redirects to the new icon page' do
         get welcome_path

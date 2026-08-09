@@ -6,7 +6,7 @@ RSpec.describe 'User' do
   describe 'DELETE /logout' do
     let(:user) { create(:user) }
 
-    before { login(user) }
+    before { login user }
 
     it 'logs out' do
       delete logout_path
@@ -20,7 +20,7 @@ RSpec.describe 'User' do
   describe 'DELETE /users/:id' do
     let(:user) { create(:user) }
 
-    before { login(user) }
+    before { login user }
 
     it 'deletes a user account' do
       expect do

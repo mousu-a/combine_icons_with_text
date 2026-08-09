@@ -23,7 +23,7 @@ RSpec.describe 'Icons' do
     let(:user) { create(:user) }
     let(:original_icon) { create(:original_icon, user:) }
 
-    before { login(user) }
+    before { login user }
 
     it 'saves the combined icon' do
       expect do
@@ -43,7 +43,7 @@ RSpec.describe 'Icons' do
     let(:user) { create(:user) }
     let(:original_icon) { create(:original_icon, user:) }
 
-    before { login(user) }
+    before { login user }
 
     it 'deletes the icon' do
       original_icon_id = original_icon.id
