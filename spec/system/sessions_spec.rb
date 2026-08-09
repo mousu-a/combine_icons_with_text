@@ -7,7 +7,7 @@ RSpec.describe 'Sessions' do
 
   context 'when logged out' do
     scenario 'logs in' do
-      sign_in_with_google user
+      login user
 
       expect(page).to have_text 'ログインしました'
     end
@@ -19,14 +19,14 @@ RSpec.describe 'Sessions' do
     end
 
     scenario 'signs up with no name' do
-      sign_in_with_google user, name: ''
+      login user, name: ''
 
       expect(page).to have_text 'ログインしました'
     end
   end
 
   context 'when logged in' do
-    before { sign_in_with_google user }
+    before { login user }
 
     scenario 'logs out' do
       find_by_id('avatar-icon').click

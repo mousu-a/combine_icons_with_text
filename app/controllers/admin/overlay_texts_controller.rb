@@ -4,6 +4,7 @@ module Admin
   class OverlayTextsController < ApplicationController
     before_action :require_admin, only: :create
     before_action :set_admin_managed_resources, only: :create
+
     def create
       @overlay_text = OverlayText.new(overlay_text_params)
       if @overlay_text.save
