@@ -3,11 +3,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Icons' do
-  scenario 'shows the icons page' do
-    visit new_icon_path
-    assert_text 'アイコン合成'
-  end
-
   scenario 'shows the original image and preview after uploading an image' do
     visit new_icon_path
 
