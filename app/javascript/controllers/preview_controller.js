@@ -21,7 +21,9 @@ export default class extends Controller {
   }
 
   render(event) {
-    let url = URL.createObjectURL(event.detail.canvasBlob);
-    this.previewImageTarget.src = url;
+    if (this.renderedImageUrl) URL.revokeObjectURL(this.renderedImageUrl);
+
+    this.renderedImageUrl = URL.createObjectURL(event.detail.canvasBlob);
+    this.previewImageTarget.src = this.renderedImageUrl;
   }
 }

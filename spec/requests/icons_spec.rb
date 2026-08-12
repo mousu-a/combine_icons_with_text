@@ -9,6 +9,21 @@ RSpec.describe 'Icons' do
 
       expect(response).to have_http_status(:ok)
     end
+
+    it 'hides the icon list link when logged out' do
+      get new_icon_path
+
+      expect(response.body).not_to include('← アイコン一覧へ')
+      expect(response.body).to include('Googleアカウントでログインする')
+    end
+
+    it 'shows the icon list link when logged in' do
+      login create(:user)
+
+      get new_icon_path
+
+      expect(response.body).to include('← アイコン一覧へ')
+    end
   end
 
   describe 'GET /icons' do

@@ -10,7 +10,7 @@ module LoginSupport
         info: { name:, image: user.avatar_url }
       )
       visit welcome_path
-      click_on 'Googleアカウントでログイン'
+      click_on 'Googleアカウントでログインして作る'
 
       expect(page).to have_text 'ログインしました'
     end
