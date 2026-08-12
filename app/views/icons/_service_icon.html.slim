@@ -3,20 +3,12 @@
 
 span.service-icon class="service-icon--#{service_key}" aria-hidden='true'
   - case service_key
+  - when 'remo'
+    = image_tag 'remo-logo.svg', class: 'remo-logo', alt: ''
   - when 'zoom'
-    svg.service-logo-svg fill='none' viewBox='0 0 24 24'
-      rect x='3.5' y='6' width='11.5' height='12' rx='3' fill='currentColor'
-      path d='m15 10 5-3v10l-5-3z' fill='currentColor'
+    = image_tag 'zoom-logo.svg', class: 'zoom-logo', alt: ''
   - when 'slack'
-    svg.service-logo-svg viewBox='0 0 24 24'
-      rect x='10' y='2' width='4' height='9' rx='2' fill='#36C5F0'
-      rect x='13' y='10' width='9' height='4' rx='2' fill='#2EB67D'
-      rect x='10' y='13' width='4' height='9' rx='2' fill='#ECB22E'
-      rect x='2' y='10' width='9' height='4' rx='2' fill='#E01E5A'
-      circle cx='8' cy='8' r='2' fill='#36C5F0'
-      circle cx='16' cy='8' r='2' fill='#2EB67D'
-      circle cx='16' cy='16' r='2' fill='#ECB22E'
-      circle cx='8' cy='16' r='2' fill='#E01E5A'
+    = image_tag 'slack-logo.svg', class: 'service-logo-svg', alt: ''
   - when 'discord'
     - discord_path = 'M7.2 7.2c3.1-1.5 6.5-1.5 9.6 0 1.4 2 2.2 4.4 2.4 6.9-1.7 1.4-3.4 2.2-5.2 2.6l-.7-1.1' \
       'c.8-.2 1.6-.6 2.3-1-2.3 1.1-4.9 1.1-7.2 0 .7.4 1.5.8 2.3 1l-.7 1.1c-1.8-.4-3.5-1.2-5.2-2.6' \
