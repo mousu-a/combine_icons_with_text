@@ -46,12 +46,12 @@
       section.start-options-section aria-labelledby='start-options-title'
         h2#start-options-title.text-2xl.font-bold.text-gray-900 どちらの方法で始めますか？
         .start-options-actions
+          = link_to 'ログインせずに始める', new_icon_path, class: 'secondary-cta w-full sm:w-80'
           = button_to 'Googleアカウントでログイン', '/auth/google_oauth2',
             method: :post,
             data: { turbo: false },
             class: 'primary-cta w-full',
             form_class: 'w-full sm:w-80'
-          = link_to 'ログインせずに始める', new_icon_path, class: 'secondary-cta w-full sm:w-80'
 
     section.mt-16.sm:mt-24 aria-labelledby='benefits-title'
       .mx-auto.max-w-2xl.text-center
