@@ -41,4 +41,25 @@ RSpec.describe 'Icons' do
     uncheck '文字に背景をつける'
     expect(page).to have_field('背景色', disabled: true)
   end
+
+  scenario 'restores the original image when the background becomes transparent' do
+    visit new_icon_path
+    attach_file 'upload-icon', Rails.root.join('spec/files/dummy_3MB.jpg')
+    expect(page).to have_css('#icon-preview[src^="blob:"]', visible: :visible)
+    original_pixel = canvas_pixel
+
+    check '文字に背景をつける'
+    find_by_id('opacityRange').set(0)
+
+    expect(canvas_pixel).to eq(original_pixel)
+  end
+
+  def canvas_pixel
+    page.evaluate_script(<<~JS)
+      (() => {
+        const canvas = document.querySelector('[data-canvas-target="canvas"]');
+        return Array.from(canvas.getContext('2d').getImageData(10, canvas.height - 10, 1, 1).data);
+      })()
+    JS
+  end
 end
