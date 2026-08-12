@@ -43,43 +43,37 @@
     canvas.hidden(data-canvas-target='canvas')
 
     div(data-controller='ui-state' data-action='icons:setup@window->ui-state#change')
-      section.border-b-gray.p-5.sm:p-7
-        p.step-label STEP 1
-        h2.instruction-heading(data-ui-state-target='instructionText') アイコンをアップロード
-        p.mb-4.text-base.text-gray-600 使用する画像を選択してください。
-        .flex.flex-wrap.items-center.gap-3
-          label.upload-button(for='upload-icon' data-ui-state-target='uploadButton') アイコンを選択
-          span.text-sm.text-gray-600(data-icons-target='fileName') 画像はまだ選択されていません
-        input#upload-icon.sr-only(
-          type='file'
-          accept='image/jpeg,image/png,image/webp'
-          data-icons-target='uploadedImage'
-          data-action='change->icons#upload'
-        )
-        dl.mt-4.flex.flex-wrap.gap-x-6.gap-y-1.text-sm.text-gray-500
-          .flex.gap-1
-            dt.font-medium 最大ファイルサイズ：
-            dd 5MB
-          .flex.gap-1
-            dt.font-medium 対応形式：
-            dd JPG、JPEG、PNG、WEBP
-
       div(class='grid gap-8 p-5 sm:p-7 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,1fr)]')
         section
-          p.step-label プレビュー
-          h2.mb-4.text-xl.font-bold.text-gray-900 完成イメージ
+          p.step-label STEP 1
+          h2.mb-4.text-xl.font-bold.text-gray-900 アイコンをドラッグ
           .preview-frame(
             data-preview-target='previewImageFrame'
             data-icons-target='dropZone'
             data-action='dragover->icons#dragOver dragenter->icons#dragEnter dragleave->icons#dragLeave drop->icons#drop'
           )
             .px-5.text-center.text-base.leading-relaxed.text-gray-400(data-preview-target='placeholder')
-              | 画像を選ぶか、ここにドラッグ＆ドロップすると、文字入りアイコンの完成イメージが表示されます
+              | ここに画像をドラッグ＆ドロップ
             img#icon-preview.hidden.rounded.object-cover(
               data-preview-target='previewImage'
               alt='テキストを合成したアイコンのプレビュー画像'
             )
-          p.mt-3.text-center.text-sm.text-gray-500 設定の変更はすぐにプレビューへ反映されます
+          .mt-4.flex.flex-col.items-center.gap-2.text-center
+            label.upload-button(for='upload-icon' data-ui-state-target='uploadButton') またはアイコンを選択
+            span.text-sm.text-gray-600(data-icons-target='fileName') 画像はまだ選択されていません
+          input#upload-icon.sr-only(
+            type='file'
+            accept='image/jpeg,image/png,image/webp'
+            data-icons-target='uploadedImage'
+            data-action='change->icons#upload'
+          )
+          dl.mt-4.space-y-1.text-sm.text-gray-500
+            .flex.gap-1
+              dt.font-medium 最大ファイルサイズ：
+              dd 5MB
+            .flex.gap-1
+              dt.font-medium 対応形式：
+              dd JPG、JPEG、PNG、WEBP
 
         fieldset.is-disabled-controls.border-0.p-0.m-0(disabled data-ui-state-target='editControls')
           legend.sr-only 合成オプション
