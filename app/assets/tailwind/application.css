@@ -50,8 +50,16 @@
     @apply text-left;
   }
 
+  .hero-heading-row {
+    @apply grid grid-cols-[4rem_minmax(0,1fr)] items-center gap-3 sm:grid-cols-[7rem_minmax(0,1fr)] sm:gap-5;
+  }
+
+  .hero-logo {
+    @apply inline-flex w-full;
+  }
+
   .hero-title {
-    @apply max-w-3xl text-3xl font-extrabold leading-[1.4] tracking-tight text-gray-950 sm:text-4xl lg:text-[2.65rem];
+    @apply max-w-3xl text-2xl font-extrabold leading-[1.4] tracking-tight text-gray-950 sm:text-4xl lg:text-[2.65rem];
   }
 
   .hero-description {
