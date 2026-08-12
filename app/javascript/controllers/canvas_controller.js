@@ -35,8 +35,8 @@ export default class extends Controller {
   }
 
   drawText(e, presetText, presetColor, render = true) {
-    const hasText = Object.hasOwn(this.renderPlan, "text");
-    if (!hasText) this.dispatch("textAdded");
+    const isFirstUpdate = !Object.hasOwn(this.renderPlan, "text");
+    if (isFirstUpdate) this.dispatch("updated");
 
     this._selectedText = presetText || e.currentTarget.textContent;
     const canvas = this.canvasTarget;
