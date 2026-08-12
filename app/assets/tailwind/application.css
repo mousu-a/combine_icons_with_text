@@ -346,7 +346,12 @@
   }
 
   .preview-frame {
-    @apply mx-auto flex aspect-square w-full max-w-md items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50 p-4;
+    @apply mx-auto flex aspect-square w-full max-w-md items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50 p-4 transition;
+  }
+
+  .preview-frame.is-dragging {
+    border-color: var(--brand);
+    background: var(--brand-soft);
   }
 
   .preview-frame img {
