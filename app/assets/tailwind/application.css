@@ -91,7 +91,7 @@
   }
 
   .example-card {
-    @apply w-full max-w-48 rounded-2xl border border-gray-200 bg-white p-3 shadow-sm sm:p-4;
+    @apply w-full max-w-48 rounded-2xl border border-gray-200 bg-white p-3 sm:p-4;
   }
 
   .example-card--after {
