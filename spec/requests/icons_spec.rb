@@ -39,6 +39,7 @@ RSpec.describe 'Icons' do
         expect(response.body).to include("class=\"#{service_key}-logo\"")
       end
       expect(response.body).to include('slack-logo-')
+      expect(response.body).to include('discord-logo-')
     end
   end
 
