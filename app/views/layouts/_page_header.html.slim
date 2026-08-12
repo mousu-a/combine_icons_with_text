@@ -7,7 +7,10 @@ header.page-header
   h1.header-title = title
 
   - if actions.present? || current_user
-    .page-header-navigation(data-controller=('dropdown' if current_user))
+    nav.page-header-navigation(
+      aria-label='ページナビゲーション'
+      data-controller=('dropdown' if current_user)
+    )
       - actions.each do |action|
         = link_to action.fetch(:label), action.fetch(:path), class: 'link-button'
 

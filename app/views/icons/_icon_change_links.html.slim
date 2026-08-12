@@ -1,7 +1,7 @@
-section.guide-card
+section.guide-card aria-labelledby='service-guides-title'
   .mb-5
     p.step-label 次のステップ
-    h2.mb-2.text-2xl.font-bold.text-gray-900 各サービスでアイコンを変更する
+    h2#service-guides-title.mb-2.text-2xl.font-bold.text-gray-900 各サービスでアイコンを変更する
     p.text-base.leading-relaxed.text-gray-600 利用しているサービスを選ぶと、アイコンの変更手順を確認できます。
   - if links.present?
     ul.divide-y.divide-gray-200.list-none.p-0.m-0

@@ -7,48 +7,51 @@
 
 .mx-auto.max-w-5xl.rounded-md.px-6.py-6
   - if @saved_icons.blank?
-    .frame-border.bg-gray-50.p-8.text-center
+    section.frame-border.bg-gray-50.p-8.text-center aria-label='保存したアイコン'
       p.text-base.text-gray-500
         | 保存されているアイコンはありません
   - else
-    div class="grid grid-cols-1 gap-6 sm:grid-cols-[repeat(auto-fill,minmax(22rem,1fr))]"
+    ul class="grid list-none grid-cols-1 gap-6 sm:grid-cols-[repeat(auto-fill,minmax(22rem,1fr))]" aria-label='保存したアイコン'
       - @saved_icons.each do |original_icon, combined_icons|
-        section.frame-border.bg-white.p-6.shadow-sm
-          h2.mb-3.text-lg.font-semibold.text-gray-800
-            | 元アイコン
-          .flex.flex-wrap.items-start.gap-4.border-b-gray.pb-6.mb-6
-            figure.m-0.flex.aspect-square.w-32.shrink-0.items-center.justify-center.frame-border.bg-gray-50.p-2
-              = image_tag original_icon.image.variant(:thumb), class: 'max-w-full rounded', alt: '元アイコン画像'
-            .flex.flex-col.items-start.gap-2
-              .flex.flex-row.items-start.gap-2
-                - icon_action_link_class = 'icon-action-link'
-                = link_to new_icon_path(original_icon_id: original_icon.id), class: icon_action_link_class do
-                  | 合成する
-                = link_to rails_blob_path(original_icon.image, disposition: 'attachment'), class: icon_action_link_class do
-                  | ダウンロード
-              = link_to icon_path(original_icon, original_icon_id: original_icon.id),
-                data: { turbo_method: :delete, turbo_confirm: 'オリジナルアイコンを削除すると関連する合成アイコンも削除されます。本当によろしいですか？' },
-                class: 'inline-flex min-h-11 items-center gap-1 rounded-md px-4 py-2 text-base font-medium text-gray-500 underline transition hover:text-gray-700' do
-                | 削除
+        li
+          article.frame-border.bg-white.p-6.shadow-sm
+            h2.mb-3.text-lg.font-semibold.text-gray-800
+              | 元アイコン
+            .flex.flex-wrap.items-start.gap-4.border-b-gray.pb-6.mb-6
+              figure.m-0.flex.aspect-square.w-32.shrink-0.items-center.justify-center.frame-border.bg-gray-50.p-2
+                = image_tag original_icon.image.variant(:thumb), class: 'max-w-full rounded', alt: '元アイコン画像'
+                figcaption.sr-only 元アイコン
+              .flex.flex-col.items-start.gap-2
+                .flex.flex-row.items-start.gap-2
+                  - icon_action_link_class = 'icon-action-link'
+                  = link_to new_icon_path(original_icon_id: original_icon.id), class: icon_action_link_class do
+                    | 合成する
+                  = link_to rails_blob_path(original_icon.image, disposition: 'attachment'), class: icon_action_link_class do
+                    | ダウンロード
+                = link_to icon_path(original_icon, original_icon_id: original_icon.id),
+                  data: { turbo_method: :delete, turbo_confirm: 'オリジナルアイコンを削除すると関連する合成アイコンも削除されます。本当によろしいですか？' },
+                  class: 'inline-flex min-h-11 items-center gap-1 rounded-md px-4 py-2 text-base font-medium text-gray-500 underline transition hover:text-gray-700' do
+                  | 削除
 
-          h3.mb-3.text-lg.font-semibold.text-gray-800
-            | 合成したアイコン一覧
-          - if combined_icons.present?
-            ul class="grid gap-4 grid-cols-[repeat(auto-fit,minmax(6rem,8rem))]"
-              - combined_icon_download_class = 'compact-action'
-              - combined_icons.each do |combined_icon|
-                li.flex.flex-col.gap-1
-                  figure.m-0.flex.aspect-square.w-full.items-center.justify-center.frame-border.bg-gray-50.py-2.px-2
-                    = image_tag combined_icon.image.variant(:thumb), class: 'max-w-full rounded', alt: '合成したアイコン画像'
-                  .flex.items-center.justify-end.gap-2.px-2
-                    = link_to rails_blob_path(combined_icon.image, disposition: 'attachment'), class: combined_icon_download_class do
-                      | ダウンロード
-                    = link_to icon_path(combined_icon, original_icon_id: original_icon.id, combined_icon_id: combined_icon.id),
-                      data: { turbo_method: :delete, turbo_confirm: 'この合成アイコンを削除します。本当によろしいですか？' },
-                      class: 'inline-flex min-h-11 items-center whitespace-nowrap text-sm font-medium text-gray-500 underline hover:text-gray-700' do
-                      | 削除
-          - else
-            p.text-base.text-gray-500
-              | まだ合成したアイコンがありません
+            h3.mb-3.text-lg.font-semibold.text-gray-800
+              | 合成したアイコン一覧
+            - if combined_icons.present?
+              ul class="grid gap-4 grid-cols-[repeat(auto-fit,minmax(6rem,8rem))]"
+                - combined_icon_download_class = 'compact-action'
+                - combined_icons.each do |combined_icon|
+                  li.flex.flex-col.gap-1
+                    figure.m-0.flex.aspect-square.w-full.items-center.justify-center.frame-border.bg-gray-50.py-2.px-2
+                      = image_tag combined_icon.image.variant(:thumb), class: 'max-w-full rounded', alt: '合成したアイコン画像'
+                      figcaption.sr-only 合成したアイコン
+                    .flex.items-center.justify-end.gap-2.px-2
+                      = link_to rails_blob_path(combined_icon.image, disposition: 'attachment'), class: combined_icon_download_class do
+                        | ダウンロード
+                      = link_to icon_path(combined_icon, original_icon_id: original_icon.id, combined_icon_id: combined_icon.id),
+                        data: { turbo_method: :delete, turbo_confirm: 'この合成アイコンを削除します。本当によろしいですか？' },
+                        class: 'inline-flex min-h-11 items-center whitespace-nowrap text-sm font-medium text-gray-500 underline hover:text-gray-700' do
+                        | 削除
+            - else
+              p.text-base.text-gray-500
+                | まだ合成したアイコンがありません
 
   = render 'icon_change_links', links: @links
