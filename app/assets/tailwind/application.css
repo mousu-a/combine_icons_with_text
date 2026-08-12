@@ -55,7 +55,7 @@
   }
 
   .hero-grid {
-    @apply mt-10 grid items-center gap-8 text-left lg:grid-cols-[minmax(0,0.8fr)_minmax(28rem,1.2fr)] lg:gap-12;
+    @apply mx-auto mt-10 grid max-w-4xl items-center gap-6 text-left lg:grid-cols-[minmax(0,0.8fr)_minmax(28rem,1.2fr)] lg:gap-8;
   }
 
   .hero-copy {
@@ -71,7 +71,7 @@
   }
 
   .hero-visual {
-    @apply flex items-center justify-center gap-3 rounded-3xl p-5 sm:gap-5 sm:p-8;
+    @apply flex items-center justify-center gap-3 sm:gap-5;
   }
 
   .example-card {
