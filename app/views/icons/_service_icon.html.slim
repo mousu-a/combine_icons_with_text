@@ -12,6 +12,6 @@ span.service-icon class="service-icon--#{service_key}" aria-hidden='true'
   - when 'discord'
     = image_tag 'discord-logo.svg', class: 'discord-logo', alt: ''
   - when 'google'
-    span.google-logo-letter G
+    = image_tag 'google-logo.png', class: 'google-logo', alt: ''
   - else
     span = site_name.to_s.first.upcase
