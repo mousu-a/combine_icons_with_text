@@ -21,7 +21,8 @@ RSpec.describe 'Home' do
         get welcome_path
 
         expect(response).to have_http_status(:ok)
-        expect(response.body).to include('logo_mark')
+        hero_logo = response.parsed_body.at_css('.hero-logo img[alt="文字入りアイコンメーカー"]')
+        expect(hero_logo['src']).to include('logo-')
       end
     end
   end
