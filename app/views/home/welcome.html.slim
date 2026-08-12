@@ -3,18 +3,18 @@
 
 .welcome-page
   .mx-auto.max-w-6xl.px-5.py-10.sm:px-8.sm:py-14
-    = link_to root_path, class: 'inline-flex', aria: { label: '文字入りアイコンメーカー トップ' } do
-      = image_tag 'logo.png', class: 'h-auto w-36 sm:w-44', alt: '文字入りアイコンメーカー'
-
     section.hero-grid
       .hero-copy
         p.step-label 登録なしですぐに使えます
-        h1.hero-title
-          span.block オンラインイベント用の
-          span.block
-            span.whitespace-nowrap 文字入りアイコンを
-            wbr
-            span.whitespace-nowrap かんたん作成
+        .hero-heading-row
+          = link_to root_path, class: 'hero-logo', aria: { label: '文字入りアイコンメーカー トップ' } do
+            = image_tag 'logo.png', class: 'h-auto w-full', alt: '文字入りアイコンメーカー'
+          h1.hero-title
+            span.block オンラインイベント用の
+            span.block
+              span.sm:whitespace-nowrap 文字入りアイコンを
+              wbr
+              span.sm:whitespace-nowrap かんたん作成
         p.hero-description
           | アイコンに「ラジオ参加」「離席中」などの文字を追加すれば、声を出さなくても今の状況を伝えられます。画像を選ぶだけで、すぐに作成・ダウンロードできます。
 
