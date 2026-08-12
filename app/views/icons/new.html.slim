@@ -47,11 +47,12 @@
         section
           p.step-label STEP 1
           h2.mb-4.text-xl.font-bold.text-gray-900 アイコンを選択
-          .preview-frame(
+          figure.preview-frame(
             data-preview-target='previewImageFrame'
             data-icons-target='dropZone'
             data-action='dragover->icons#dragOver dragenter->icons#dragEnter dragleave->icons#dragLeave drop->icons#drop'
           )
+            figcaption.sr-only 文字入りアイコンの完成イメージ
             .flex.flex-col.items-center.gap-3.px-5.text-center(data-preview-target='placeholder')
               svg.h-10.w-10.text-gray-500 aria-hidden='true' fill='none' stroke='currentColor' viewBox='0 0 24 24'
                 path stroke-linecap='round' stroke-linejoin='round' stroke-width='1.8' d='M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 002 2h10a2 2 0 002-2v-4'
@@ -65,7 +66,7 @@
             )
           .mt-4.flex.flex-col.items-center.gap-2.text-center
             label.upload-button(for='upload-icon' data-ui-state-target='uploadButton') またはアイコンを選択
-            span.text-sm.text-gray-600(data-icons-target='fileName') 画像はまだ選択されていません
+            output.text-sm.text-gray-600(for='upload-icon' data-icons-target='fileName') 画像はまだ選択されていません
           input#upload-icon.sr-only(
             type='file'
             accept='image/jpeg,image/png,image/webp'
