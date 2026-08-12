@@ -52,8 +52,13 @@
             data-icons-target='dropZone'
             data-action='dragover->icons#dragOver dragenter->icons#dragEnter dragleave->icons#dragLeave drop->icons#drop'
           )
-            .px-5.text-center.text-base.leading-relaxed.text-gray-400(data-preview-target='placeholder')
-              | ここに画像をドラッグ＆ドロップ
+            .flex.flex-col.items-center.gap-3.px-5.text-center(data-preview-target='placeholder')
+              svg.h-10.w-10.text-gray-500 aria-hidden='true' fill='none' stroke='currentColor' viewBox='0 0 24 24'
+                path stroke-linecap='round' stroke-linejoin='round' stroke-width='1.8' d='M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 002 2h10a2 2 0 002-2v-4'
+              p.text-lg.font-bold.leading-relaxed.text-gray-800
+                | アイコン画像をここに
+                br
+                | ドラッグ＆ドロップしてください
             img#icon-preview.hidden.rounded.object-cover(
               data-preview-target='previewImage'
               alt='テキストを合成したアイコンのプレビュー画像'
