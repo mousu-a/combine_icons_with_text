@@ -156,7 +156,7 @@
   }
 
   .benefit-card-action {
-    @apply col-span-2 w-full max-w-64 justify-self-center;
+    @apply col-span-2 w-full max-w-sm justify-self-center;
   }
 
   .benefit-card--primary {
