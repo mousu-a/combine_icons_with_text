@@ -6,7 +6,7 @@ RSpec.describe 'Icons' do
   scenario 'uploads an image and shows the preview' do
     visit new_icon_path
 
-    expect(page).to have_text 'アイコン合成'
+    expect(page).to have_text '文字入りアイコン作成'
     expect(page).to have_no_css('#icon-preview', visible: :visible)
     expect(page).to have_no_link('← アイコン一覧へ')
     expect(page).to have_field('表示する文字', disabled: true)
