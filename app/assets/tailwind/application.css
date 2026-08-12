@@ -38,6 +38,31 @@
     @apply mt-auto border-t border-gray-200 bg-white;
   }
 
+  .footer-link {
+    @apply inline-flex min-h-11 items-center text-gray-600 underline decoration-transparent underline-offset-4 transition;
+  }
+
+  .footer-link:hover,
+  .footer-link:focus-visible {
+    color: var(--brand-dark);
+    text-decoration-color: var(--brand);
+  }
+
+  .footer-icon-link {
+    @apply inline-flex min-h-11 min-w-11 items-center justify-center rounded-full text-gray-600 transition;
+  }
+
+  .footer-icon-link:hover,
+  .footer-icon-link:focus-visible {
+    background: var(--brand-soft);
+    color: var(--brand-dark);
+    transform: translateY(-2px);
+  }
+
+  .footer-icon-link svg {
+    fill: currentColor;
+  }
+
   .welcome-page {
     @apply bg-white;
   }
