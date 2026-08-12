@@ -68,9 +68,13 @@
         section
           p.step-label プレビュー
           h2.mb-4.text-xl.font-bold.text-gray-900 完成イメージ
-          .preview-frame(data-preview-target='previewImageFrame')
+          .preview-frame(
+            data-preview-target='previewImageFrame'
+            data-icons-target='dropZone'
+            data-action='dragover->icons#dragOver dragenter->icons#dragEnter dragleave->icons#dragLeave drop->icons#drop'
+          )
             .px-5.text-center.text-base.leading-relaxed.text-gray-400(data-preview-target='placeholder')
-              | 画像を選ぶと、文字入りアイコンの完成イメージが表示されます
+              | 画像を選ぶか、ここにドラッグ＆ドロップすると、文字入りアイコンの完成イメージが表示されます
             img#icon-preview.hidden.rounded.object-cover(
               data-preview-target='previewImage'
               alt='テキストを合成したアイコンのプレビュー画像'

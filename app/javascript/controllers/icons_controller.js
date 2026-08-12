@@ -9,6 +9,7 @@ export default class extends Controller {
     "downloadLink",
     "existingIcon",
     "fileName",
+    "dropZone",
   ];
   static outlets = ["preview", "canvas"];
 
@@ -21,12 +22,49 @@ export default class extends Controller {
     const uploadFile = this.uploadedImageTarget.files[0];
     if (!uploadFile) return;
 
+    this.useFile(uploadFile);
+  }
+
+  dragOver(event) {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = "copy";
+  }
+
+  dragEnter(event) {
+    event.preventDefault();
+    this.dropZoneTarget.classList.add("is-dragging");
+  }
+
+  dragLeave(event) {
+    if (
+      event.relatedTarget &&
+      event.currentTarget.contains(event.relatedTarget)
+    )
+      return;
+
+    this.dropZoneTarget.classList.remove("is-dragging");
+  }
+
+  drop(event) {
+    event.preventDefault();
+    this.dropZoneTarget.classList.remove("is-dragging");
+
+    const uploadFile = event.dataTransfer.files[0];
+    if (!uploadFile) return;
+
+    if (this.useFile(uploadFile)) {
+      this.uploadedImageTarget.files = event.dataTransfer.files;
+    }
+  }
+
+  useFile(uploadFile) {
     if (!this.validateFile(uploadFile)) {
       alert(`${this.errorMessage}`);
-      throw new Error(this.errorMessage);
+      return false;
     }
 
     this.setup({ uploadFile });
+    return true;
   }
 
   setup({ uploadFile, existingIcon }) {
