@@ -459,22 +459,37 @@
     @apply flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border text-lg font-bold;
   }
 
-  .service-icon--remo,
   .service-icon--default {
     border-color: #0e69f7;
     background: #0e69f7;
     color: white;
   }
 
+  .service-icon--remo {
+    @apply border-gray-200 bg-white;
+  }
+
+  .remo-logo {
+    @apply h-auto w-9;
+  }
+
+  .zoom-logo {
+    @apply h-auto w-9;
+  }
+
   .service-icon--zoom {
-    border-color: #2d8cff;
-    background: #2d8cff;
+    border-color: #0c5cff;
+    background: #0c5cff;
     color: white;
   }
 
-  .service-icon--slack,
   .service-icon--google {
     @apply border-gray-200 bg-white;
+  }
+
+  .service-icon--slack {
+    border-color: #4a154b;
+    background: #4a154b;
   }
 
   .service-icon--discord {
