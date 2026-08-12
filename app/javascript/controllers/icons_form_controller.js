@@ -60,7 +60,9 @@ function setupFormdata(params) {
   );
   fd.append(
     "canvas_preset[bg_color]",
-    params.renderPlan.background?.fillStyle ?? "",
+    params.renderPlan.background?.enabled
+      ? params.renderPlan.background.fillStyle
+      : "",
   );
 
   return fd;

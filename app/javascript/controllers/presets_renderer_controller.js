@@ -15,8 +15,11 @@ export default class extends Controller {
       const textColor = canvas.dataset.textFillStyle;
       const bgColor = canvas.dataset.bgFillStyle;
 
-      ctx.fillStyle = bgColor;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (bgColor) {
+        ctx.fillStyle = bgColor;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
 
       ctx.font = "24px sans-serif";
       ctx.textAlign = "center";

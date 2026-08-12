@@ -1,10 +1,26 @@
 import { Controller } from "@hotwired/stimulus";
 
+const DEFAULT_TEXT_COLOR = "#000000";
+const DEFAULT_BACKGROUND_COLOR = "#000000";
+const DEFAULT_OPACITY = 1;
+
 export default class extends Controller {
-  static targets = ["canvas"];
+  static targets = [
+    "canvas",
+    "textInput",
+    "fontSizeInput",
+    "fontSizeValue",
+    "backgroundToggle",
+    "backgroundOptions",
+    "opacityInput",
+    "opacityValue",
+    "textOption",
+    "textColorValue",
+    "backgroundColorValue",
+  ];
 
   get selectedText() {
-    return this._selectedText;
+    return this.renderPlan?.text?.text || "";
   }
 
   get canvas() {
@@ -12,144 +28,192 @@ export default class extends Controller {
   }
 
   setup(event) {
-    const image = event.detail.originalImage;
-    const canvas = this.canvasTarget;
-    const ctx = canvas.getContext("2d");
-    canvas.width = image.naturalWidth;
-    canvas.height = image.naturalHeight;
-    ctx.drawImage(image, 0, 0);
-
-    this.renderPlan = {};
-    this._selectedText;
-    this.canvasBlob;
-  }
-
-  applyPreset(e) {
-    const preset = e.currentTarget;
-    const text = preset.dataset.text;
-    const textColor = preset.dataset.textFillStyle;
-    const bgColor = preset.dataset.bgFillStyle;
-    this.drawText(null, text, textColor, false);
-    this.drawBackground(null, bgColor, false);
+    this.originalImage = event.detail.originalImage;
+    this.canvas.width = this.originalImage.naturalWidth;
+    this.canvas.height = this.originalImage.naturalHeight;
+    this.renderPlan = this.defaultRenderPlan();
+    this.canvasBlob = null;
+    this.syncControls();
     this.render();
   }
 
-  drawText(e, presetText, presetColor, render = true) {
-    const isFirstUpdate = !Object.hasOwn(this.renderPlan, "text");
-    if (isFirstUpdate) this.dispatch("updated");
-
-    this._selectedText = presetText || e.currentTarget.textContent;
-    const canvas = this.canvasTarget;
-    const y = calcYPosition("text", canvas);
-    const fontSize = calcFontSize(canvas);
-
-    this.renderPlan["text"] = {
-      text: this._selectedText,
-      font: `${fontSize}px sans-serif`,
-      fillStyle: presetColor || "#ffffff",
-      textBaseline: "middle",
-      textAlign: "center",
-      x: canvas.width / 2,
-      y: y,
+  defaultRenderPlan() {
+    return {
+      text: {
+        text: "",
+        fontSize: Math.round(this.canvas.width * 0.13),
+        fillStyle: DEFAULT_TEXT_COLOR,
+      },
+      background: {
+        enabled: false,
+        fillStyle: DEFAULT_BACKGROUND_COLOR,
+        opacity: DEFAULT_OPACITY,
+      },
     };
-    if (render) this.render();
   }
 
-  drawBackground(_, presetBgColor, render = true) {
-    const canvas = this.canvasTarget;
-    const y = calcYPosition("background", canvas);
+  applyPreset(event) {
+    if (!this.originalImage) return;
 
-    this.renderPlan["background"] = {
-      fillStyle: presetBgColor || "#000000",
-      width: canvas.width,
-      height: canvas.height / 3,
-      x: 0,
-      y: y,
-    };
-    if (render) this.render();
+    const preset = event.currentTarget;
+    this.renderPlan.text.text = preset.dataset.text;
+    this.renderPlan.text.fillStyle = preset.dataset.textFillStyle;
+    this.renderPlan.background.enabled = Boolean(preset.dataset.bgFillStyle);
+    if (preset.dataset.bgFillStyle) {
+      this.renderPlan.background.fillStyle = preset.dataset.bgFillStyle;
+    }
+    this.syncControls();
+    this.render();
   }
 
-  async render() {
-    const renderPlan = this.renderPlan;
-    const canvas = this.canvasTarget;
-    const ctx = canvas.getContext("2d");
-    const order = ["opacity", "background", "text"];
-    for (const key of order) {
-      const plan = renderPlan[key];
-      if (!plan) continue;
+  selectText(event) {
+    if (!this.originalImage) return;
 
-      switch (key) {
-        case "opacity": {
-          ctx.globalAlpha = plan.globalAlpha;
-          const bg = renderPlan.background;
-          ctx.clearRect(bg.x, bg.y, bg.width, bg.height);
-          break;
-        }
-        case "background":
-          ctx.fillStyle = plan.fillStyle;
-          ctx.fillRect(plan.x, plan.y, plan.width, plan.height);
-          break;
-        case "text":
-          ctx.font = plan.font;
-          ctx.fillStyle = plan.fillStyle;
-          ctx.textBaseline = plan.textBaseline;
-          ctx.textAlign = plan.textAlign;
-          ctx.fillText(plan.text, plan.x, plan.y);
-          break;
-        default:
-          break;
-      }
-    }
+    this.renderPlan.text.text = event.currentTarget.dataset.text;
+    this.syncControls();
+    this.render();
+  }
 
-    try {
-      this.canvasBlob = await canvasToBlob(canvas);
-      this.dispatch("render", { detail: { canvasBlob: this.canvasBlob } });
-    } catch (e) {
-      console.error(e.message);
-      throw e;
-    }
+  changeText(event) {
+    if (!this.originalImage) return;
+
+    this.renderPlan.text.text = event.target.value;
+    this.updateSelectedTextOption();
+    this.render();
+  }
+
+  changeFontSize(event) {
+    if (!this.originalImage) return;
+
+    this.renderPlan.text.fontSize = Number(event.target.value);
+    this.fontSizeValueTarget.textContent = `${event.target.value}px`;
+    this.render();
+  }
+
+  toggleBackground(event) {
+    if (!this.originalImage) return;
+
+    this.renderPlan.background.enabled = event.target.checked;
+    this.updateBackgroundControls();
+    this.render();
   }
 
   changeTextColor(event) {
-    if ("text" in this.renderPlan) {
-      this.renderPlan["text"].fillStyle = event.target.value;
-      this.render();
-    }
+    if (!this.originalImage) return;
+
+    this.renderPlan.text.fillStyle = event.target.value;
+    this.textColorValueTarget.textContent = event.target.value.toUpperCase();
+    this.render();
   }
 
   changeBackgroundColor(event) {
-    if ("background" in this.renderPlan) {
-      this.renderPlan["background"].fillStyle = event.target.value;
-      this.render();
-    }
-  }
+    if (!this.originalImage) return;
 
-  changeGlobalOpacity(event) {
-    if ("opacity" in this.renderPlan) {
-      this.renderPlan["opacity"].globalAlpha = event.target.value;
-    } else {
-      this.renderPlan["opacity"] = { globalAlpha: event.target.value };
-    }
+    this.renderPlan.background.fillStyle = event.target.value;
+    this.backgroundColorValueTarget.textContent =
+      event.target.value.toUpperCase();
     this.render();
   }
-}
 
-function calcYPosition(type, canvas) {
-  if (type === "text") {
-    const backgroundHeight = canvas.height / 3;
-    const backgroundY = canvas.height - backgroundHeight;
-    const textY = backgroundY + backgroundHeight / 2;
-    return textY;
-  } else if (type === "background") {
-    const height = canvas.height / 3;
-    const backgroundY = canvas.height - height;
-    return backgroundY;
+  changeBackgroundOpacity(event) {
+    if (!this.originalImage) return;
+
+    this.renderPlan.background.opacity = Number(event.target.value);
+    this.opacityValueTarget.textContent = `${Math.round(Number(event.target.value) * 100)}%`;
+    this.render();
   }
-}
 
-function calcFontSize(canvas) {
-  const fontSizeScale = 0.13;
-  return canvas.width * fontSizeScale;
+  syncControls() {
+    this.textInputTarget.value = this.renderPlan.text.text;
+    this.fontSizeInputTarget.value = this.renderPlan.text.fontSize;
+    this.fontSizeInputTarget.min = Math.max(
+      12,
+      Math.round(this.canvas.width * 0.05),
+    );
+    this.fontSizeInputTarget.max = Math.round(this.canvas.width * 0.3);
+    this.fontSizeValueTarget.textContent = `${this.renderPlan.text.fontSize}px`;
+    this.backgroundToggleTarget.checked = this.renderPlan.background.enabled;
+    this.opacityInputTarget.value = this.renderPlan.background.opacity;
+    this.opacityValueTarget.textContent = `${Math.round(this.renderPlan.background.opacity * 100)}%`;
+    this.textColorValueTarget.textContent =
+      this.renderPlan.text.fillStyle.toUpperCase();
+    this.backgroundColorValueTarget.textContent =
+      this.renderPlan.background.fillStyle.toUpperCase();
+    this.updateSelectedTextOption();
+    this.updateBackgroundControls();
+  }
+
+  updateSelectedTextOption() {
+    if (!this.hasTextOptionTarget) return;
+
+    this.textOptionTargets.forEach((button) => {
+      const selected = button.dataset.text === this.renderPlan.text.text;
+      button.setAttribute("aria-pressed", selected.toString());
+      button.classList.toggle("is-selected", selected);
+    });
+  }
+
+  updateBackgroundControls() {
+    const enabled = this.renderPlan.background.enabled;
+    this.backgroundOptionsTarget.disabled = !enabled;
+    this.backgroundOptionsTarget.classList.toggle(
+      "is-disabled-controls",
+      !enabled,
+    );
+  }
+
+  async render() {
+    if (!this.originalImage) return;
+
+    const ctx = this.canvas.getContext("2d");
+    const { text, background } = this.renderPlan;
+    const backgroundHeight = this.canvas.height / 3;
+    const backgroundY = this.canvas.height - backgroundHeight;
+
+    ctx.save();
+    ctx.globalAlpha = 1;
+    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    ctx.drawImage(
+      this.originalImage,
+      0,
+      0,
+      this.canvas.width,
+      this.canvas.height,
+    );
+
+    if (background.enabled) {
+      ctx.globalAlpha = background.opacity;
+      ctx.fillStyle = background.fillStyle;
+      ctx.fillRect(0, backgroundY, this.canvas.width, backgroundHeight);
+      ctx.globalAlpha = 1;
+    }
+
+    if (text.text.trim()) {
+      ctx.font = `700 ${text.fontSize}px sans-serif`;
+      ctx.fillStyle = text.fillStyle;
+      ctx.textBaseline = "middle";
+      ctx.textAlign = "center";
+      ctx.fillText(
+        text.text,
+        this.canvas.width / 2,
+        backgroundY + backgroundHeight / 2,
+        this.canvas.width * 0.94,
+      );
+    }
+    ctx.restore();
+
+    this.dispatch("textChanged", {
+      detail: { hasText: Boolean(text.text.trim()) },
+    });
+
+    try {
+      this.canvasBlob = await canvasToBlob(this.canvas);
+      this.dispatch("render", { detail: { canvasBlob: this.canvasBlob } });
+    } catch (error) {
+      console.error(error.message);
+      throw error;
+    }
+  }
 }
 
 function canvasToBlob(canvas) {
