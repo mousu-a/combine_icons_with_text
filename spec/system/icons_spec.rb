@@ -49,6 +49,14 @@ RSpec.describe 'Icons' do
     original_pixel = canvas_pixel
 
     check '文字に背景をつける'
+    expect(canvas_pixel).not_to eq(original_pixel)
+
+    find_by_id('opacityRange').set(0)
+    expect(canvas_pixel).to eq(original_pixel)
+
+    find_by_id('opacityRange').set(1)
+    expect(canvas_pixel).not_to eq(original_pixel)
+
     find_by_id('opacityRange').set(0)
 
     expect(canvas_pixel).to eq(original_pixel)
