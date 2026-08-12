@@ -45,19 +45,13 @@
     - unless current_user
       section.start-options-section aria-labelledby='start-options-title'
         h2#start-options-title.text-2xl.font-bold.text-gray-900 どちらの方法で始めますか？
-        .mt-5.grid.gap-4.sm:grid-cols-2
-          .start-option.start-option--primary
-            h3 ログインして作る
-            p 作ったアイコンをサイトに保存できます
-            = button_to 'Googleアカウントでログインして作る', '/auth/google_oauth2',
-              method: :post,
-              data: { turbo: false },
-              class: 'primary-cta w-full',
-              form_class: 'mt-auto w-full pt-4'
-          .start-option
-            h3 ログインせずに作る
-            p 登録なしですぐに作成・ダウンロードできます
-            = link_to 'ログインせずに作る', new_icon_path, class: 'secondary-cta mt-auto w-full'
+        .start-options-actions
+          = button_to 'Googleアカウントでログインして作る', '/auth/google_oauth2',
+            method: :post,
+            data: { turbo: false },
+            class: 'primary-cta w-full',
+            form_class: 'w-full sm:w-auto'
+          = link_to 'ログインせずに作る', new_icon_path, class: 'secondary-cta w-full sm:w-auto'
 
     section.mt-16.sm:mt-24 aria-labelledby='benefits-title'
       .max-w-2xl
