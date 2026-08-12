@@ -1,33 +1,73 @@
 - set_meta_tags title: 'ウェルカム'
-- set_meta_tags description: 'サイトの説明とログインをするためのページです。'
+- set_meta_tags description: '文字入りアイコンを登録なしで作成・ダウンロードできます。'
 
-.mx-auto.flex.max-w-2xl.flex-col.items-center.px-6.py-16.text-center
-  header.mb-8.flex.flex-col.items-center
-    h1.mb-6.text-2xl.font-extrabold.tracking-tight.text-gray-900.sm:text-3xl.md:text-4xl
-      | オンラインイベントで
-      br
-      | 「ラジオ参加」を発言せずに伝える
-    p.text-lg.leading-relaxed.text-gray-500
-      | 自分のアイコン画像に「今日はラジオ参加」などのテキストを1クリックで合成し、ダウンロードすることができます。
-      br
-      | 主要なサービスのアイコン変更リンク、ガイドが揃っているのですぐにアイコンを変更することができます。
+.welcome-page
+  .mx-auto.max-w-6xl.px-5.py-10.sm:px-8.sm:py-14
+    = link_to root_path, class: 'inline-flex', aria: { label: '文字入りアイコンメーカー トップ' } do
+      = image_tag 'logo.png', class: 'h-auto w-36 sm:w-44', alt: '文字入りアイコンメーカー'
 
-  blockquote.mb-8.w-full.rounded-md.bg-indigo-50.pl-7.pr-4.py-4.text-left.shadow-sm
-    h3.mb-3.border-b.border-indigo-200.text-lg.font-semibold.text-primary
-      | 登録なしですぐに使えます！
-    ul.list-inside.list-disc.space-y-1.text-base.text-gray-700.pl-2
-      li
-        | ログインせずにアイコンにテキストを追加、ダウンロードすることができます。
-      li
-        | 合成したアイコンをサイトに保存したい場合はログインが必要です。
+    section.hero-grid
+      .hero-copy
+        p.step-label 登録なしですぐに使えます
+        h1.hero-title オンラインイベント用の文字入りアイコンをかんたん作成
+        p.hero-description
+          | アイコンに「ラジオ参加」「離席中」などの文字を追加すれば、声を出さなくても今の状況を伝えられます。画像を選ぶだけで、すぐに作成・ダウンロードできます。
 
-  section.flex.w-full.flex-col.items-center.gap-3
-    - button_class = 'inline-flex w-full max-w-xs items-center justify-center rounded-md px-5 py-3 ' \
-        'text-base font-semibold transition'
-    = link_to 'アイコンに文字を合成する', new_icon_path,
-        class: "#{button_class} bg-indigo-500 text-white hover:bg-indigo-600"
-    - unless current_user
-      = button_to 'Googleアカウントでログイン', '/auth/google_oauth2',
-          method: :post, data: { turbo: false },
-          class: "#{button_class} cursor-pointer border border-gray-300 bg-white text-primary hover:bg-indigo-50",
-          form_class: 'mb-1 w-full max-w-xs'
+        - if current_user
+          .mt-8
+            = link_to 'アイコンに文字を合成する', new_icon_path, class: 'primary-cta'
+        - else
+          .mt-8
+            p.mb-3.text-base.font-semibold.text-gray-900 どちらの方法で始めますか？
+            .grid.gap-3.sm:grid-cols-2
+              .start-option.start-option--primary
+                h2 ログインして作る
+                p 作ったアイコンをサイトに保存できます
+                = button_to 'Googleアカウントでログインして作る', '/auth/google_oauth2',
+                  method: :post,
+                  data: { turbo: false },
+                  class: 'primary-cta w-full',
+                  form_class: 'mt-auto pt-4'
+              .start-option
+                h2 ログインせずに作る
+                p 登録なしですぐに作成・ダウンロードできます
+                = link_to 'ログインせずに作る', new_icon_path, class: 'secondary-cta mt-auto'
+
+      .hero-visual aria-label='文字を追加する前と後のアイコン例'
+        .example-card
+          p.example-label 文字を追加する前
+          .avatar-example
+            svg aria-hidden='true' fill='none' viewBox='0 0 120 120'
+              circle cx='60' cy='43' r='24' fill='currentColor'
+              path d='M20 112c3-29 19-45 40-45s37 16 40 45' fill='currentColor'
+        svg.example-arrow aria-hidden='true' fill='none' stroke='currentColor' viewBox='0 0 24 24'
+          path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m8 5 7 7-7 7'
+        .example-card.example-card--after
+          p.example-label 文字を追加した後
+          .avatar-example
+            svg aria-hidden='true' fill='none' viewBox='0 0 120 120'
+              circle cx='60' cy='43' r='24' fill='currentColor'
+              path d='M20 112c3-29 19-45 40-45s37 16 40 45' fill='currentColor'
+            span.avatar-overlay ラジオ参加
+
+    section.mt-16.sm:mt-24 aria-labelledby='benefits-title'
+      .max-w-2xl
+        p.step-label 使い方を選べます
+        h2#benefits-title.text-3xl.font-bold.leading-snug.text-gray-900 登録なしでも、ログインしても便利
+        p.mt-3.text-base.leading-relaxed.text-gray-600 まず試したい方も、作ったアイコンを残したい方も、自分に合った方法で始められます。
+
+      .mt-8.grid.gap-6.md:grid-cols-2
+        article.benefit-card.benefit-card--primary
+          .benefit-illustration aria-hidden='true'
+            svg fill='none' stroke='currentColor' viewBox='0 0 24 24'
+              path stroke-linecap='round' stroke-linejoin='round' stroke-width='1.8' d='M12 3v12m0 0 4-4m-4 4-4-4M5 20h14'
+          div
+            h3 登録なしで作成・ダウンロード
+            p 画像を選んで文字を追加するだけ。アカウントを作らず、今すぐ利用できます。
+        article.benefit-card
+          .benefit-illustration aria-hidden='true'
+            svg fill='none' stroke='currentColor' viewBox='0 0 24 24'
+              path stroke-linecap='round' stroke-linejoin='round' stroke-width='1.8' d='M5 5h14v14H5zM8 5v6h8V5M8 19v-5h8v5'
+          div
+            h3 ログインでもっと便利に
+            p Googleアカウントでログインすると、作ったアイコンをサイトに保存して、あとから確認できます。
