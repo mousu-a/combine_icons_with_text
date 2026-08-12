@@ -1,10 +1,8 @@
 - set_meta_tags title: 'アイコン合成'
 - set_meta_tags description: 'アイコンにテキストを合成するページです。'
 
-header.page-header
-  h1.header-title アイコン合成
-  - if current_user
-    = link_to '← アイコン一覧へ', icons_path, class: 'link-button'
+- page_actions = current_user ? [{ label: '← アイコン一覧へ', path: icons_path }] : []
+= render 'layouts/page_header', title: 'アイコン合成', actions: page_actions
 
 .mx-auto.max-w-5xl.px-4.pb-10.sm:px-6
   - if @user_icons&.errors&.any?

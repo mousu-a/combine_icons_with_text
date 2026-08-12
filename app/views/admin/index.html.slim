@@ -1,18 +1,13 @@
 - set_meta_tags title: '管理画面'
 
 - if current_user.admin?
-  - label_class = 'block text-base font-medium text-gray-800 mb-1'
-  - input_class = 'text-input'
-  - button_class = 'secondary-button'
+  ruby:
+    label_class = 'block text-base font-medium text-gray-800 mb-1'
+    input_class = 'text-input'
+    button_class = 'secondary-button'
+    page_actions = [{ label: 'アイコンに文字合成画面へ', path: new_icon_path }, { label: '一覧画面へ', path: icons_path }]
 
-  header.page-header
-    h1.header-title
-      | 管理画面
-    .flex.items-center.gap-2.sm:gap-3
-      = link_to new_icon_path, class: 'link-button' do
-        | アイコンに文字合成画面へ
-      = link_to icons_path, class: 'link-button' do
-        | 一覧画面へ
+  = render 'layouts/page_header', title: '管理画面', actions: page_actions
 
   .mx-auto.max-w-5xl.rounded-md.px-6.py-6
     .grid.gap-10.lg:grid-cols-2

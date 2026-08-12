@@ -8,6 +8,8 @@ RSpec.describe 'Icons' do
       get new_icon_path
 
       expect(response).to have_http_status(:ok)
+      expect(response.body).to include('文字入りアイコンメーカー トップ')
+      expect(response.body).to include('アイコン合成')
     end
 
     it 'hides the icon list link when logged out' do

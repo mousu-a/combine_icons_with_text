@@ -18,8 +18,6 @@ html
     = display_meta_tags default_meta_tags
   body.bg-gray-50
     .site-shell
-      - unless current_page?(root_path) || current_page?(welcome_path)
-        = render 'layouts/header'
       main.site-main
         #flash
           = render 'layouts/flash'
