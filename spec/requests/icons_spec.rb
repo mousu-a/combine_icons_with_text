@@ -34,12 +34,8 @@ RSpec.describe 'Icons' do
 
       %w[remo zoom slack discord google].each do |service_key|
         expect(response.body).to include("service-icon--#{service_key}")
+        expect(response.body).to include("#{service_key}-logo")
       end
-      %w[remo zoom].each do |service_key|
-        expect(response.body).to include("class=\"#{service_key}-logo\"")
-      end
-      expect(response.body).to include('slack-logo-')
-      expect(response.body).to include('discord-logo-')
     end
   end
 

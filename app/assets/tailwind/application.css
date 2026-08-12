@@ -506,13 +506,8 @@
     @apply h-auto w-8;
   }
 
-  .google-logo-letter {
-    font-family: Arial, sans-serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    background: conic-gradient(from -45deg, #4285f4 0 25%, #34a853 0 45%, #fbbc05 0 68%, #ea4335 0 82%, #4285f4 0);
-    background-clip: text;
-    color: transparent;
+  .google-logo {
+    @apply h-7 w-auto;
   }
 
   .service-name {
