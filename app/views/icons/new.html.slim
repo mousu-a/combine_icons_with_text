@@ -1,8 +1,8 @@
-- set_meta_tags title: 'アイコン合成'
+- set_meta_tags title: '文字入りアイコン作成'
 - set_meta_tags description: 'アイコンにテキストを合成するページです。'
 
 - page_actions = current_user ? [{ label: '← アイコン一覧へ', path: icons_path }] : []
-= render 'layouts/page_header', title: 'アイコン合成', actions: page_actions
+= render 'layouts/page_header', title: '文字入りアイコン作成', actions: page_actions
 
 .mx-auto.max-w-4xl.px-4.pb-10.sm:px-6
   - if @user_icons&.errors&.any?
@@ -22,7 +22,7 @@
         | から不要なアイコンを削除してください。
 
   section.editor-card(
-    aria-label='アイコン合成ツール'
+    aria-label='文字入りアイコン作成ツール'
     class='canvas preview'
     data-controller='icons icons-form canvas preview presets-renderer'
     data-action='icons:setup->preview#setup icons:setup->canvas#setup canvas:render->preview#render canvas:textChanged->icons#updateDownloadState icons:download->icons-form#submit'
