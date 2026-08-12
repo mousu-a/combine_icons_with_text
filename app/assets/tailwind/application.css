@@ -421,7 +421,7 @@
     display: none;
   }
 
-  .service-guide[open] summary svg {
+  .service-guide[open] .service-guide-chevron {
     transform: rotate(90deg);
   }
 
