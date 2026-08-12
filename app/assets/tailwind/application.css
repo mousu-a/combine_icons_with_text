@@ -113,7 +113,7 @@
 
   .primary-cta,
   .secondary-cta {
-    @apply inline-flex min-h-12 cursor-pointer items-center justify-center rounded-lg px-5 py-3 text-center text-base font-bold transition;
+    @apply inline-flex h-12 cursor-pointer items-center justify-center rounded-lg px-5 text-center text-base font-bold transition;
   }
 
   .primary-cta {
