@@ -29,17 +29,17 @@
           .example-card
             p.example-label 文字を追加する前
             .avatar-example
-              svg aria-hidden='true' fill='none' viewBox='0 0 120 120'
-                circle cx='60' cy='43' r='24' fill='currentColor'
-                path d='M20 112c3-29 19-45 40-45s37 16 40 45' fill='currentColor'
+              = image_tag 'cat-avatar-sample.webp',
+                alt: '文字を追加する前の猫のアイコン',
+                class: 'absolute inset-0 h-full w-full object-cover'
           svg.example-arrow aria-hidden='true' fill='none' stroke='currentColor' viewBox='0 0 24 24'
             path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m8 5 7 7-7 7'
           .example-card.example-card--after
             p.example-label 文字を追加した後
             .avatar-example
-              svg aria-hidden='true' fill='none' viewBox='0 0 120 120'
-                circle cx='60' cy='43' r='24' fill='currentColor'
-                path d='M20 112c3-29 19-45 40-45s37 16 40 45' fill='currentColor'
+              = image_tag 'cat-avatar-sample.webp',
+                alt: '文字を追加した猫のアイコン',
+                class: 'absolute inset-0 h-full w-full object-cover'
               span.avatar-overlay ラジオ参加
 
     - unless current_user

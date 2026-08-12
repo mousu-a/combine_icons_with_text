@@ -103,11 +103,7 @@
   }
 
   .avatar-example {
-    @apply relative aspect-square overflow-hidden rounded-xl bg-gray-100 p-5 text-gray-400;
-  }
-
-  .example-card--after .avatar-example {
-    color: var(--brand);
+    @apply relative aspect-square overflow-hidden rounded-xl bg-gray-100;
   }
 
   .avatar-overlay {
