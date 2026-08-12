@@ -218,12 +218,7 @@
   }
 
   .header-title {
-    @apply text-center text-xl font-bold sm:text-2xl;
-    color: var(--brand);
-  }
-
-  .header-title--neutral {
-    @apply text-gray-900;
+    @apply text-center text-xl font-bold text-gray-900 sm:text-2xl;
   }
 
   @media (max-width: 639px) {
