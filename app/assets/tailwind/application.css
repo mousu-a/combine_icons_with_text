@@ -20,7 +20,7 @@
   }
 
   :focus-visible {
-    outline: 3px solid color-mix(in srgb, var(--brand) 35%, transparent);
+    outline: 3px solid var(--brand-dark);
     outline-offset: 2px;
   }
 }
@@ -60,7 +60,8 @@
   }
 
   .footer-icon-link svg {
-    fill: currentColor;
+
+    fill: currentcolor;
   }
 
   .welcome-page {
