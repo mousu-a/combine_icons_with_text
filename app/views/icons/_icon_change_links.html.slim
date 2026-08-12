@@ -1,16 +1,28 @@
-section.border-t-gray.mt-7.pt-7
-  h2.section-title.mb-2
-    | オンラインイベントサービスなどの各リンクと変更ガイド
+section.guide-card
+  .mb-5
+    p.step-label 次のステップ
+    h2.mb-2.text-2xl.font-bold.text-gray-900 各サービスでアイコンを変更する
+    p.text-base.leading-relaxed.text-gray-600 利用しているサービスを選ぶと、アイコンの変更手順を確認できます。
   - if links.present?
-    ul.grid.list-none.gap-4.p-0.m-0(class="grid-cols-[repeat(auto-fit,minmax(16rem,1fr))]")
+    ul.divide-y.divide-gray-200.list-none.p-0.m-0
       - links.each do |link|
-        li.frame-border.bg-white.p-5.shadow-sm
-          h3
-            = link_to link.site_name, link.url, target: '_blank', rel: 'noopener noreferrer',
-              class: 'mb-2 block break-all text-sm text-primary underline hover:text-indigo-700'
-          ol.list-decimal.space-y-1.pl-5.text-xs.leading-relaxed.text-gray-600
-            - link.guide_text.each_line do |line|
-              li = line
+        li
+          details.service-guide
+            summary
+              span.service-icon aria-hidden='true' = link.site_name.first.upcase
+              span.flex-1
+                span.service-name = link.site_name
+                span.block.text-sm.font-normal.text-gray-500 変更手順を見る
+              svg.h-5.w-5.shrink-0.text-gray-400 aria-hidden='true' fill='none' stroke='currentColor' viewBox='0 0 24 24'
+                path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m9 5 7 7-7 7'
+            .service-guide-content
+              ol.list-decimal.space-y-2.pl-6.text-base.leading-relaxed.text-gray-700
+                - link.guide_text.each_line do |line|
+                  li = line
+              = link_to "#{link.site_name}を開く",
+                link.url,
+                target: '_blank',
+                rel: 'noopener noreferrer',
+                class: 'service-link'
   - else
-    p.text-sm.text-gray-500
-      | 対応しているリンクはまだ登録されていません
+    p.text-base.text-gray-500 対応しているサービスはまだ登録されていません
