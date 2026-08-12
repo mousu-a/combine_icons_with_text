@@ -19,6 +19,8 @@ export default class extends Controller {
 
   upload() {
     const uploadFile = this.uploadedImageTarget.files[0];
+    if (!uploadFile) return;
+
     if (!this.validateFile(uploadFile)) {
       alert(`${this.errorMessage}`);
       throw new Error(this.errorMessage);
