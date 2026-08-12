@@ -41,9 +41,11 @@ export default class extends Controller {
     this._selectedText = presetText || e.currentTarget.textContent;
     const canvas = this.canvasTarget;
     const y = calcYPosition("text", canvas);
+    const fontSize = calcFontSize(canvas);
+
     this.renderPlan["text"] = {
       text: this._selectedText,
-      font: "200px sans-serif",
+      font: `${fontSize}px sans-serif`,
       fillStyle: presetColor || "#ffffff",
       textBaseline: "middle",
       textAlign: "center",
@@ -142,6 +144,11 @@ function calcYPosition(type, canvas) {
     const backgroundY = canvas.height - height;
     return backgroundY;
   }
+}
+
+function calcFontSize(canvas) {
+  const fontSizeScale = 0.13;
+  return canvas.width * fontSizeScale;
 }
 
 function canvasToBlob(canvas) {
