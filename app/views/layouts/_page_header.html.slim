@@ -1,0 +1,25 @@
+- actions ||= []
+
+header.page-header
+  .page-header-brand
+    = link_to root_path, class: 'page-header-logo', aria: { label: '文字入りアイコンメーカー トップ' } do
+      = image_tag 'logo.png', class: 'h-auto w-full', alt: '文字入りアイコンメーカー'
+    h1.header-title = title
+
+  - if actions.present? || current_user
+    .page-header-navigation(data-controller=('dropdown' if current_user))
+      - actions.each do |action|
+        = link_to action.fetch(:label), action.fetch(:path), class: 'link-button'
+
+      - if current_user
+        .flex.items-center.gap-3
+          = button_tag type: 'button',
+            class: 'min-h-11 min-w-11 cursor-pointer',
+            data: { dropdown_target: 'avatarIcon', action: 'click->dropdown#toggleLogoutButton' } do
+            = image_tag current_user.avatar_url,
+              alt: 'アカウントメニューを開く',
+              id: 'avatar-icon',
+              class: 'h-11 w-11 rounded-full'
+          = link_to 'ログアウト', logout_path,
+            data: { turbo_method: :delete, dropdown_target: 'logoutButton' },
+            class: 'logout hidden min-h-11 items-center text-base font-medium text-gray-700 hover:text-gray-900'

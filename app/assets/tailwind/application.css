@@ -192,7 +192,19 @@
   }
 
   .page-header {
-    @apply mb-6 flex min-h-16 items-center justify-between gap-3 border-b border-gray-200 bg-white px-4 py-3 sm:px-6;
+    @apply mb-6 flex min-h-20 flex-wrap items-center justify-between gap-4 border-b border-gray-200 bg-white px-4 py-3 sm:px-6;
+  }
+
+  .page-header-brand {
+    @apply flex min-w-0 items-center gap-4;
+  }
+
+  .page-header-logo {
+    @apply inline-flex w-24 shrink-0 sm:w-28;
+  }
+
+  .page-header-navigation {
+    @apply ml-auto flex flex-wrap items-center justify-end gap-2 sm:gap-3;
   }
 
   .header-title {
