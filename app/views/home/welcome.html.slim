@@ -67,7 +67,7 @@
           .benefit-card-content
             h3 登録なしで作成・ダウンロード
             p 画像を選んで文字を追加するだけ。アカウントを作らず、今すぐ利用できます。
-            = link_to 'ログインせずに始める', new_icon_path, class: 'secondary-cta mt-auto w-full max-w-64 self-center'
+          = link_to 'ログインせずに始める', new_icon_path, class: 'benefit-card-action secondary-cta'
         article.benefit-card.benefit-card--primary
           .benefit-illustration aria-hidden='true'
             svg fill='none' stroke='currentColor' viewBox='0 0 24 24'
@@ -75,8 +75,8 @@
           .benefit-card-content
             h3 ログインでもっと便利に
             p Googleアカウントでログインすると、作ったアイコンをサイトに保存して、あとから確認できます。
-            = button_to 'Googleアカウントでログイン', '/auth/google_oauth2',
-              method: :post,
-              data: { turbo: false },
-              class: 'primary-cta w-full',
-              form_class: 'mt-auto w-full max-w-64 self-center'
+          = button_to 'Googleアカウントでログイン', '/auth/google_oauth2',
+            method: :post,
+            data: { turbo: false },
+            class: 'primary-cta w-full',
+            form_class: 'benefit-card-action'
