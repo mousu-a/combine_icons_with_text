@@ -111,7 +111,7 @@
   }
 
   .avatar-overlay {
-    @apply absolute right-0 bottom-3 left-0 bg-gray-950/80 px-1 py-2 text-center text-sm font-bold text-white sm:text-base;
+    @apply absolute right-0 bottom-0 left-0 bg-gray-950/80 px-1 py-2 text-center text-sm font-bold text-white sm:text-base;
   }
 
   .example-arrow {
