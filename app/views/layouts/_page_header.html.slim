@@ -1,10 +1,10 @@
 - actions ||= []
 
 header.page-header
-  .page-header-brand
-    = link_to root_path, class: 'page-header-logo', aria: { label: '文字入りアイコンメーカー トップ' } do
-      = image_tag 'logo.png', class: 'h-auto w-full', alt: '文字入りアイコンメーカー'
-    h1.header-title = title
+  = link_to root_path, class: 'page-header-logo', aria: { label: '文字入りアイコンメーカー トップ' } do
+    = image_tag 'logo.png', class: 'h-auto w-full', alt: '文字入りアイコンメーカー'
+
+  h1.header-title = title
 
   - if actions.present? || current_user
     .page-header-navigation(data-controller=('dropdown' if current_user))
