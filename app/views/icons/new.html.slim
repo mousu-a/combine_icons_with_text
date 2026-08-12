@@ -2,198 +2,212 @@
 - set_meta_tags description: 'アイコンにテキストを合成するページです。'
 
 header.page-header
-  h1.header-title
-    | アイコン合成
-  = link_to '← アイコン一覧へ', icons_path, class: 'link-button'
+  h1.header-title アイコン合成
+  - if current_user
+    = link_to '← アイコン一覧へ', icons_path, class: 'link-button'
 
-.mx-auto.max-w-5xl.rounded-md.p-6.bg-white
+.mx-auto.max-w-5xl.px-4.pb-10.sm:px-6
   - if @user_icons&.errors&.any?
-    .mb-4.rounded-lg.border.border-red-200.bg-red-50.p-4 role='alert'
-      p.mb-2.font-semibold.text-red-800
-        | 入力内容にエラーがありました
+    .mb-5.rounded-lg.border.border-red-200.bg-red-50.p-4 role='alert'
+      p.mb-2.font-semibold.text-red-800 入力内容にエラーがありました
       ul.list-inside.list-disc.text-sm.text-red-700
         - @user_icons.errors.full_messages.each do |msg|
           li.mb-1 = msg
 
   - if @limit_reached
-    .mb-6.rounded-lg.border.border-amber-200.bg-amber-50.p-4.text-sm.leading-relaxed.text-amber-900 role='status'
+    .mb-6.rounded-lg.border.border-amber-200.bg-amber-50.p-4.text-base.leading-relaxed.text-amber-900 role='status'
       p
-        | すでにサイト上に、アイコンが上限まで保存されております。
+        | サイトに保存できるアイコンの上限に達しています。合成とダウンロードは引き続き利用できます。
         br
-        | 合成やダウンロードは問題なくご使用いただけますが、新たにアイコンを保存することはできませんのでご注意ください。
-        br
-        | 新しく保存したい場合は、お手数ですが、先に既にあるアイコンを
-        = link_to 'アイコン一覧', icons_path, class: 'underline font-medium text-amber-900 hover:text-amber-700'
-        | にて削除していただければと思います。
+        | 新しく保存する場合は、先に
+        = link_to 'アイコン一覧', icons_path, class: 'font-medium underline'
+        | から不要なアイコンを削除してください。
 
-  section(
-    class='canvas preview mb-6'
+  section.editor-card(
     aria-label='アイコン合成ツール'
+    class='canvas preview'
     data-controller='icons icons-form canvas preview presets-renderer'
-    data-action='icons:setup->preview#setup icons:setup->canvas#setup canvas:render->preview#render icons:download->icons-form#submit canvas:updated->icons#enableDownload'
+    data-action='icons:setup->preview#setup icons:setup->canvas#setup canvas:render->preview#render canvas:textChanged->icons#updateDownloadState icons:download->icons-form#submit'
     data-icons-canvas-outlet='.canvas'
     data-icons-preview-outlet='.preview'
-    )
+  )
     #toast
       = render 'layouts/toast'
 
     - if @original_icon
-      div(
-        class='hidden'
+      .hidden(
         data-icons-target='existingIcon'
         data-image-url=url_for(@original_icon.image)
         data-id=@original_icon.id
-        )
+      )
 
-    div data-controller='ui-state' data-action='icons:setup@window->ui-state#change'
-      p class='instruction-text mb-2' data-ui-state-target='instructionText'
-        | まずはアイコンをアップロードしましょう
-      - upload_button_class = 'upload-button inline-flex cursor-pointer items-center justify-center gap-2 rounded-md text-white font-bold px-4 py-2.5 text-sm font-semibold transition'
-      .mb-3.flex.flex-wrap.items-center.gap-3
-        label(class=upload_button_class for='upload-icon' data-ui-state-target='uploadButton')
-          | アイコンを選択
-        ol.list-inside.list-decimal.text-xs.leading-relaxed.text-gray-500
-          li 合成できるアイコンのサイズは5MBまでとなっております。
-          li ファイル形式は JPG, JPEG, PNG, WEBP にのみ対応しています。
-      input#upload-icon.sr-only(
-        type='file'
-        accept='image/jpeg,image/png,image/webp'
-        data-icons-target='uploadedImage'
-        data-action='change->icons#upload'
-        )
+    img#icon.hidden(data-icons-target='originalImage' alt='')
 
-    div class='grid grid-cols-2 gap-2 border-t-gray py-6 lg:grid-cols-[2fr_3fr_4fr]'
-      div
-        h2.frame-label
-          | 元画像
-        .mx-auto.flex.aspect-square.w-full.max-w-40.frame-border.bg-gray-50.p-3(
-          data-icons-target='originalImageFrame'
+    div(data-controller='ui-state' data-action='icons:setup@window->ui-state#change')
+      section.border-b-gray.p-5.sm:p-7
+        p.step-label STEP 1
+        h2.instruction-heading(data-ui-state-target='instructionText') アイコンをアップロード
+        p.mb-4.text-base.text-gray-600 使用する画像を選択してください。
+        .flex.flex-wrap.items-center.gap-3
+          label.upload-button(for='upload-icon' data-ui-state-target='uploadButton') アイコンを選択
+          span.text-sm.text-gray-600(data-icons-target='fileName') 画像はまだ選択されていません
+        input#upload-icon.sr-only(
+          type='file'
+          accept='image/jpeg,image/png,image/webp'
+          data-icons-target='uploadedImage'
+          data-action='change->icons#upload'
         )
-          img(
-            id='icon'
-            class='hidden rounded'
-            data-icons-target='originalImage'
-            alt='アップロードしたアイコン画像'
+        dl.mt-4.flex.flex-wrap.gap-x-6.gap-y-1.text-sm.text-gray-500
+          .flex.gap-1
+            dt.font-medium 最大ファイルサイズ：
+            dd 5MB
+          .flex.gap-1
+            dt.font-medium 対応形式：
+            dd JPG、JPEG、PNG、WEBP
+
+      div(class='grid gap-8 p-5 sm:p-7 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,1fr)]')
+        section
+          p.step-label プレビュー
+          h2.mb-4.text-xl.font-bold.text-gray-900 完成イメージ
+          .preview-frame(data-preview-target='previewImageFrame')
+            .px-5.text-center.text-base.leading-relaxed.text-gray-400(data-preview-target='placeholder')
+              | 画像を選ぶと、文字入りアイコンの完成イメージが表示されます
+            img#icon-preview.hidden.rounded.object-cover(
+              data-preview-target='previewImage'
+              alt='テキストを合成したアイコンのプレビュー画像'
+            )
+          p.mt-3.text-center.text-sm.text-gray-500 設定の変更はすぐにプレビューへ反映されます
+
+        fieldset.is-disabled-controls.border-0.p-0.m-0(disabled data-ui-state-target='editControls')
+          legend.sr-only 合成オプション
+          p.step-label STEP 2
+          h2.mb-5.text-xl.font-bold.text-gray-900 文字と背景を調整する
+
+          .option-section
+            label.option-label(for='overlayText') 表示する文字
+            input#overlayText.text-input(
+              type='text'
+              maxlength='30'
+              placeholder='例：耳だけ参加'
+              data-canvas-target='textInput'
+              data-action='input->canvas#changeText'
+            )
+            p.mt-3.mb-2.text-sm.text-gray-500 よく使われる文字から選ぶ
+            .flex.flex-wrap.gap-2(role='group' aria-label='よく使われる文字')
+              - %w[ラジオ参加 離席中 画面見れません].each do |text|
+                button.btn-text-option(
+                  type='button'
+                  data-text=text
+                  data-canvas-target='textOption'
+                  data-action='click->canvas#selectText'
+                  aria-pressed='false'
+                ) = text
+
+          .option-section
+            .flex.items-center.justify-between.gap-3
+              label.option-label.mb-0(for='fontSize') 文字サイズ
+              output.setting-value(data-canvas-target='fontSizeValue' for='fontSize') —
+            input#fontSize.range-input(
+              type='range'
+              min='12'
+              max='300'
+              value='32'
+              data-canvas-target='fontSizeInput'
+              data-action='input->canvas#changeFontSize'
             )
 
-      div
-        h2.frame-label
-          | プレビュー
-        .mx-auto.flex.aspect-square.w-full.max-w-52.frame-border.bg-gray-50.p-3(
-          data-preview-target='previewImageFrame'
-        )
-          img(
-            id='icon-preview'
-            class='hidden rounded object-cover'
-            data-preview-target='previewImage'
-            alt='テキストを合成したアイコンのプレビュー画像'
-            )
+          .option-section
+            label.flex.min-h-11.cursor-pointer.items-center.gap-3.font-semibold.text-gray-900(for='backgroundToggle')
+              input#backgroundToggle.h-5.w-5.accent-brand(
+                type='checkbox'
+                data-canvas-target='backgroundToggle'
+                data-action='change->canvas#toggleBackground'
+              )
+              | 文字に背景をつける
 
-      canvas(
-        class='max-w-[360px] hidden'
-        data-canvas-target='canvas'
-        )
-
-      .col-span-2.lg:col-span-1
-        h2.frame-label
-          | 合成オプション
-        .mb-4
-          h3.option-heading
-            | テキストを追加
-          div(class='flex flex-wrap gap-2' role='group' aria-label='テキストを追加')
-            button.btn-text-option(
-              type='button'
-              data-action='click->canvas#drawText'
-              )
-              | ラジオ参加
-            button.btn-text-option(
-              type='button'
-              data-action='click->canvas#drawText'
-              )
-              | 離席中
-            button.btn-text-option(
-              type='button'
-              data-action='click->canvas#drawText'
-              )
-              | 画面見れません
-        .mb-4
-          h3.option-heading
-            | 背景を追加
-          - bg_button_class = 'w-full rounded-md border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:border-indigo-300 ' \
-              'hover:bg-indigo-50 hover:text-indigo-700 cursor-pointer'
-          button(
-            type='button'
-            data-canvas-target='background'
-            data-action='click->canvas#drawBackground'
-            class=bg_button_class
-            )
-            | 文字の背景をつける
-
-        fieldset.mb-2.border-0.p-0.m-0
-          legend.mb-2.text-xs.font-medium.text-gray-500.p-0
-            | カラー設定
-          .mb-2.flex.items-center.justify-start.gap-4
-            label.color-picker-label for='textColor'
-              | 文字色
-            input#textColor.color-picker(
-              type='color'
-              value='#000000'
-              data-action='change->canvas#changeTextColor'
-              )
-          .mb-2.flex.items-center.justify-start.gap-4
-            label.color-picker-label for='backgroundColor'
-              | 背景色
-            input#backgroundColor.color-picker(
-              type='color'
-              value='#000000'
-              data-action='change->canvas#changeBackgroundColor'
-              )
-
-        .text-xs.font-medium.text-gray-500
-          label.mb-1 for='opacityRange'
-            | 透明度:
-          input#opacityRange(
-            type='range'
-            min='0'
-            max='1'
-            step='0.01'
-            value='1'
-            class='block w-full cursor-pointer accent-gray-400'
-            data-action='change->canvas#changeGlobalOpacity'
-            )
-
-    - if @canvas_presets.present?
-      .border-t-gray.py-4
-        h2.mb-3.text-sm.font-semibold.text-gray-800
-          | 他の人が作ったプリセット
-        ul.flex.flex-wrap.gap-3.list-none.p-0.m-0
-          - @canvas_presets.each do |canvas_preset|
-            li
-              button(
-                type='button'
-                class='rounded-md border border-transparent p-1 transition cursor-pointer hover:border-indigo-300 hover:bg-indigo-50'
-              )
-                canvas(
-                  class='block w-32 rounded'
-                  data-presets-renderer-target='presetCanvas'
-                  data-action='click->canvas#applyPreset'
-                  data-text=canvas_preset.text
-                  data-text-fill-style=canvas_preset.text_color
-                  data-bg-fill-style=canvas_preset.bg_color
-                  width='150'
-                  height='50'
+            fieldset.mt-4.space-y-4.border-0.p-0.m-0(disabled data-canvas-target='backgroundOptions')
+              legend.sr-only 背景の設定
+              .setting-row
+                label(for='backgroundColor') 背景色
+                .flex.items-center.gap-3
+                  output.setting-value(data-canvas-target='backgroundColorValue' for='backgroundColor') #000000
+                  input#backgroundColor.color-picker(
+                    type='color'
+                    value='#000000'
+                    data-action='input->canvas#changeBackgroundColor'
+                  )
+              .space-y-2
+                .flex.items-center.justify-between.gap-3
+                  label(for='opacityRange') 背景の透明度
+                  output.setting-value(data-canvas-target='opacityValue' for='opacityRange') 100%
+                input#opacityRange.range-input(
+                  type='range'
+                  min='0'
+                  max='1'
+                  step='0.01'
+                  value='1'
+                  data-canvas-target='opacityInput'
+                  data-action='input->canvas#changeBackgroundOpacity'
                 )
 
-    .border-t-gray.py-5
-      small.mb-3.block.text-xs.text-gray-500
-        | ログイン済みの場合、ダウンロードすると画像がサイトに保存されます。
-      - download_link_class = 'is-disabled inline-flex items-center justify-center rounded-md bg-indigo-600 px-5 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700 ' \
-          'aria-disabled:cursor-not-allowed aria-disabled:bg-gray-300 aria-disabled:hover:bg-gray-300'
-      = link_to '画像をダウンロード',
-        '#',
-        download: true,
-        class: download_link_class,
-        aria: { disabled: true },
-        data: { action: 'click->icons#download', icons_target: 'downloadLink' }
+          .option-section
+            .setting-row
+              label(for='textColor') 文字色
+              .flex.items-center.gap-3
+                output.setting-value(data-canvas-target='textColorValue' for='textColor') #000000
+                input#textColor.color-picker(
+                  type='color'
+                  value='#000000'
+                  data-action='input->canvas#changeTextColor'
+                )
+
+          - if @canvas_presets.present?
+            section.option-section
+              h3.option-label 他の人が作ったプリセットを使う
+              p.mb-3.text-sm.text-gray-500 好きなデザインを選ぶと、文字色や背景色を適用できます。
+              ul.flex.flex-wrap.gap-3.list-none.p-0.m-0
+                - @canvas_presets.each do |canvas_preset|
+                  li
+                    button.preset-button(
+                      type='button'
+                      aria-label="#{canvas_preset.text}のプリセットを使う"
+                      data-action='click->canvas#applyPreset'
+                      data-text=canvas_preset.text
+                      data-text-fill-style=canvas_preset.text_color
+                      data-bg-fill-style=canvas_preset.bg_color
+                    )
+                      canvas.block.w-36.rounded(
+                        data-presets-renderer-target='presetCanvas'
+                        data-text=canvas_preset.text
+                        data-text-fill-style=canvas_preset.text_color
+                        data-bg-fill-style=canvas_preset.bg_color
+                        width='180'
+                        height='60'
+                      )
+
+      section.download-section
+        p.step-label STEP 3
+        h2.mb-2.text-xl.font-bold.text-gray-900 完成した画像をダウンロード
+        p.mb-5.text-base.text-gray-600 文字を追加するとダウンロードできます。
+        = link_to '#',
+          download: true,
+          class: 'download-button is-disabled',
+          aria: { disabled: true },
+          data: { action: 'click->icons#download', icons_target: 'downloadLink' } do
+          svg.h-5.w-5 aria-hidden='true' fill='none' stroke='currentColor' viewBox='0 0 24 24'
+            path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 4v11m0 0 4-4m-4 4-4-4M5 20h14'
+          | 完成した画像をダウンロード
+
+  - unless current_user
+    section.login-benefit
+      div
+        p.step-label ログインでもっと便利に
+        h2.mb-2.text-xl.font-bold.text-gray-900 作ったアイコンを保存して、あとから確認できます
+        p.text-base.leading-relaxed.text-gray-600 Googleアカウントでログインすると、合成したアイコンをサイトに保存できます。
+      = button_to 'Googleアカウントでログインする', '/auth/google_oauth2',
+        method: :post,
+        data: { turbo: false },
+        class: 'secondary-button',
+        form_class: 'shrink-0'
 
   = render 'icon_change_links', links: @links

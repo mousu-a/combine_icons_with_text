@@ -1,36 +1,74 @@
 @import "tailwindcss";
 
-@layer components {
-  .frame-label {
-    @apply mb-2 text-center text-sm font-semibold text-gray-800;
+:root {
+  --brand: #0e69f7;
+  --brand-dark: #0957cf;
+  --brand-soft: #eef5ff;
+  --brand-border: #bad5ff;
+}
+
+@layer base {
+  body {
+    @apply text-base text-gray-800 antialiased;
   }
 
-  .option-heading {
-    @apply mb-2 text-xs font-medium text-gray-500;
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  :focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--brand) 35%, transparent);
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .frame-label {
+    @apply mb-2 text-center text-base font-semibold text-gray-800;
+  }
+
+  .option-heading,
+  .option-label {
+    @apply mb-2 block text-base font-semibold text-gray-900;
   }
 
   .btn-text-option {
-    @apply cursor-pointer rounded-md border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-700;
+    @apply min-h-11 cursor-pointer rounded-lg border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-800 transition;
+  }
+
+  .btn-text-option:hover,
+  .btn-text-option.is-selected {
+    border-color: var(--brand);
+    background: var(--brand-soft);
+    color: var(--brand-dark);
+  }
+
+  .btn-text-option.is-selected {
+    box-shadow: inset 0 0 0 1px var(--brand);
   }
 
   .color-picker-label {
-    @apply text-sm font-medium text-gray-800;
+    @apply text-base font-medium text-gray-800;
   }
 
   .color-picker {
-    @apply h-8 w-12 cursor-pointer rounded-md border border-gray-200 bg-white hover:border-indigo-300 hover:bg-indigo-50;
+    @apply h-11 w-14 cursor-pointer rounded-lg border border-gray-300 bg-white p-1;
   }
 
   .link-button {
-    @apply inline-flex items-center gap-1 rounded-md border border-gray-200 bg-white px-2 py-1.5 text-xs font-medium text-gray-700 transition hover:border-gray-300 hover:bg-gray-50 sm:px-4 sm:py-2 sm:text-sm;
+    @apply inline-flex min-h-11 items-center gap-1 rounded-lg border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 transition hover:border-gray-400 hover:bg-gray-50;
   }
 
   .page-header {
-    @apply flex h-auto min-h-[3.4rem] items-center justify-between gap-2 border-b border-gray-200 bg-white px-3 py-2 mb-6 sm:h-[4.2rem] sm:gap-0 sm:px-6 sm:py-0;
+    @apply mb-6 flex min-h-16 items-center justify-between gap-3 border-b border-gray-200 bg-white px-4 py-3 sm:px-6;
   }
 
   .header-title {
-    @apply text-base font-bold text-indigo-600 sm:text-2xl;
+    @apply text-xl font-bold sm:text-2xl;
+    color: var(--brand);
   }
 
   .border-t-gray {
@@ -42,19 +80,21 @@
   }
 
   .frame-border {
-    @apply rounded-lg border border-gray-200;
+    @apply rounded-xl border border-gray-200;
   }
 
   .text-primary {
-    @apply text-indigo-600;
+    color: var(--brand);
   }
 
   .flash-message {
-    @apply fixed top-2 right-4 z-50 rounded-lg border px-5 py-3 text-sm font-medium shadow-md backdrop-blur-sm pointer-events-none;
+    @apply pointer-events-none fixed top-2 right-4 z-50 rounded-lg border px-5 py-3 text-base font-medium shadow-md backdrop-blur-sm;
   }
 
   .flash-message--notice {
-    @apply border-indigo-200 bg-indigo-50/75 text-indigo-600;
+    color: var(--brand-dark);
+    border-color: var(--brand-border);
+    background: color-mix(in srgb, var(--brand-soft) 85%, transparent);
   }
 
   .flash-message--alert {
@@ -62,7 +102,7 @@
   }
 
   .section-title {
-    @apply mb-1.5 border-b border-indigo-100 pb-0.5 text-lg font-semibold text-gray-900;
+    @apply mb-3 border-b border-gray-200 pb-2 text-xl font-semibold text-gray-900;
   }
 
   .alpha-list {
@@ -75,23 +115,153 @@
     list-style-type: lower-roman;
   }
 
-  .upload-button {
-    @apply bg-indigo-600 hover:bg-indigo-700;
+  .editor-card,
+  .guide-card {
+    @apply overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm;
   }
 
-  .upload-button.is-muted {
-    @apply bg-gray-400 hover:bg-gray-500;
+  .guide-card {
+    @apply mt-8 p-5 sm:p-7;
   }
 
-  .instruction-text {
-    @apply font-bold text-gray-800;
+  .step-label {
+    @apply mb-1 text-sm font-bold tracking-wide uppercase;
+    color: var(--brand);
   }
 
-  .instruction-text.is-muted {
-    @apply font-normal text-gray-500;
+  .instruction-heading {
+    @apply mb-2 text-2xl font-bold text-gray-900;
+  }
+
+  .upload-button,
+  .download-button,
+  .secondary-button {
+    @apply inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-lg px-5 py-3 text-base font-bold transition;
+  }
+
+  .upload-button,
+  .download-button {
+    background: var(--brand);
+    color: white;
+  }
+
+  .upload-button:hover,
+  .download-button:hover {
+    background: var(--brand-dark);
+  }
+
+  .upload-button.is-secondary,
+  .secondary-button {
+    border: 1px solid var(--brand);
+    background: white;
+    color: var(--brand-dark);
+  }
+
+  .upload-button.is-secondary:hover,
+  .secondary-button:hover {
+    background: var(--brand-soft);
+  }
+
+  .preview-frame {
+    @apply mx-auto flex aspect-square w-full max-w-md items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50 p-4;
+  }
+
+  .preview-frame img {
+    @apply h-full w-full object-cover;
+  }
+
+  .option-section {
+    @apply border-b border-gray-200 py-5 first:pt-0 last:border-b-0 last:pb-0;
+  }
+
+  .text-input {
+    @apply min-h-12 w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-base text-gray-900 placeholder:text-gray-400;
+  }
+
+  .text-input:focus {
+    border-color: var(--brand);
+  }
+
+  .range-input {
+    @apply mt-3 block h-6 w-full cursor-pointer;
+    accent-color: var(--brand);
+  }
+
+  .accent-brand {
+    accent-color: var(--brand);
+  }
+
+  .setting-row {
+    @apply flex min-h-11 items-center justify-between gap-4 text-base font-medium text-gray-800;
+  }
+
+  .setting-value {
+    @apply font-mono text-sm font-semibold text-gray-600;
+  }
+
+  .preset-button {
+    @apply cursor-pointer rounded-lg border border-gray-300 bg-white p-1.5 transition;
+  }
+
+  .preset-button:hover {
+    border-color: var(--brand);
+    background: var(--brand-soft);
+  }
+
+  .download-section {
+    @apply border-t border-gray-200 bg-gray-50 p-5 sm:p-7;
+  }
+
+  .download-button {
+    @apply w-full sm:w-auto;
+  }
+
+  .login-benefit {
+    @apply mt-8 flex flex-col items-start justify-between gap-5 rounded-2xl border p-5 sm:flex-row sm:items-center sm:p-7;
+    border-color: var(--brand-border);
+    background: var(--brand-soft);
   }
 
   .is-disabled {
-    @apply pointer-events-none opacity-50 cursor-not-allowed;
+    @apply pointer-events-none cursor-not-allowed opacity-45;
+  }
+
+  .is-disabled-controls {
+    @apply opacity-45;
+  }
+
+  .service-guide summary {
+    @apply flex min-h-16 cursor-pointer list-none items-center gap-4 py-3;
+  }
+
+  .service-guide summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .service-guide[open] summary svg {
+    transform: rotate(90deg);
+  }
+
+  .service-icon {
+    @apply flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-lg font-bold text-white;
+    background: var(--brand);
+  }
+
+  .service-name {
+    @apply text-lg font-bold text-gray-900;
+  }
+
+  .service-guide-content {
+    @apply pb-6 pl-15;
+  }
+
+  .service-link {
+    @apply mt-5 inline-flex min-h-11 items-center rounded-lg border px-4 py-2 text-base font-semibold transition;
+    border-color: var(--brand);
+    color: var(--brand-dark);
+  }
+
+  .service-link:hover {
+    background: var(--brand-soft);
   }
 }

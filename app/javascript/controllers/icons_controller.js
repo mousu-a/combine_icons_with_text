@@ -8,7 +8,7 @@ export default class extends Controller {
     "originalImage",
     "downloadLink",
     "existingIcon",
-    "originalImageFrame",
+    "fileName",
   ];
   static outlets = ["preview", "canvas"];
 
@@ -34,13 +34,7 @@ export default class extends Controller {
     );
     const originalImage = this.originalImageTarget;
     originalImage.src = this.originalImageUrl;
-
-    const originalImageFrame =
-      this.originalImageFrameTarget.getBoundingClientRect();
-    originalImage.width = originalImageFrame.width - 20;
-    originalImage.height = originalImageFrame.height - 20;
-
-    originalImage.style.display = "inline";
+    this.fileNameTarget.textContent = uploadFile?.name || "保存済みの画像";
 
     originalImage.onload = () => {
       this.dispatch("setup", { detail: { originalImage } });
@@ -118,9 +112,12 @@ export default class extends Controller {
     });
   }
 
-  // dispatchでのみ呼ばれる
-  enableDownload() {
-    enableLink(this.downloadLinkTarget);
+  updateDownloadState(event) {
+    if (event.detail.hasText) {
+      enableLink(this.downloadLinkTarget);
+    } else {
+      disableLink(this.downloadLinkTarget);
+    }
   }
 }
 
