@@ -35,15 +35,17 @@ export default class extends Controller {
   }
 
   drawText(e, presetText, presetColor, render = true) {
-    const hasText = Object.hasOwn(this.renderPlan, "text");
-    if (!hasText) this.dispatch("textAdded");
+    const isFirstUpdate = !Object.hasOwn(this.renderPlan, "text");
+    if (isFirstUpdate) this.dispatch("updated");
 
     this._selectedText = presetText || e.currentTarget.textContent;
     const canvas = this.canvasTarget;
     const y = calcYPosition("text", canvas);
+    const fontSize = calcFontSize(canvas);
+
     this.renderPlan["text"] = {
       text: this._selectedText,
-      font: "200px sans-serif",
+      font: `${fontSize}px sans-serif`,
       fillStyle: presetColor || "#ffffff",
       textBaseline: "middle",
       textAlign: "center",
@@ -56,6 +58,7 @@ export default class extends Controller {
   drawBackground(_, presetBgColor, render = true) {
     const canvas = this.canvasTarget;
     const y = calcYPosition("background", canvas);
+
     this.renderPlan["background"] = {
       fillStyle: presetBgColor || "#000000",
       width: canvas.width,
@@ -142,6 +145,11 @@ function calcYPosition(type, canvas) {
     const backgroundY = canvas.height - height;
     return backgroundY;
   }
+}
+
+function calcFontSize(canvas) {
+  const fontSizeScale = 0.13;
+  return canvas.width * fontSizeScale;
 }
 
 function canvasToBlob(canvas) {
