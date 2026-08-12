@@ -58,6 +58,7 @@ export default class extends Controller {
   drawBackground(_, presetBgColor, render = true) {
     const canvas = this.canvasTarget;
     const y = calcYPosition("background", canvas);
+
     this.renderPlan["background"] = {
       fillStyle: presetBgColor || "#000000",
       width: canvas.width,
