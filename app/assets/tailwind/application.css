@@ -387,8 +387,44 @@
   }
 
   .service-icon {
-    @apply flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-lg font-bold text-white;
-    background: var(--brand);
+    @apply flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border text-lg font-bold;
+  }
+
+  .service-icon--remo,
+  .service-icon--default {
+    border-color: #0e69f7;
+    background: #0e69f7;
+    color: white;
+  }
+
+  .service-icon--zoom {
+    border-color: #2d8cff;
+    background: #2d8cff;
+    color: white;
+  }
+
+  .service-icon--slack,
+  .service-icon--google {
+    @apply border-gray-200 bg-white;
+  }
+
+  .service-icon--discord {
+    border-color: #5865f2;
+    background: #5865f2;
+    color: white;
+  }
+
+  .service-logo-svg {
+    @apply h-7 w-7;
+  }
+
+  .google-logo-letter {
+    font-family: Arial, sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    background: conic-gradient(from -45deg, #4285f4 0 25%, #34a853 0 45%, #fbbc05 0 68%, #ea4335 0 82%, #4285f4 0);
+    background-clip: text;
+    color: transparent;
   }
 
   .service-name {
