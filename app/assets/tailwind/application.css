@@ -502,6 +502,10 @@
     @apply h-7 w-7;
   }
 
+  .discord-logo {
+    @apply h-auto w-8;
+  }
+
   .google-logo-letter {
     font-family: Arial, sans-serif;
     font-size: 1.6rem;
