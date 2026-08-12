@@ -9,8 +9,8 @@ html
     = csrf_meta_tags
     = csp_meta_tag
     = yield :head
-    = favicon_link_tag 'logo_icon.png', type: 'image/png'
-    = favicon_link_tag 'logo_icon.png', rel: 'apple-touch-icon'
+    = favicon_link_tag 'logo_mark.png', type: 'image/png', sizes: '512x512'
+    = favicon_link_tag 'logo_mark.png', rel: 'apple-touch-icon'
     / Includes all stylesheet files in app/assets/stylesheets
     = stylesheet_link_tag :app, 'data-turbo-track': 'reload'
     = stylesheet_link_tag 'tailwind', 'data-turbo-track': 'reload'
