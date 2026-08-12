@@ -21,22 +21,6 @@
         - if current_user
           .mt-8
             = link_to 'アイコンに文字を合成する', new_icon_path, class: 'primary-cta'
-        - else
-          .mt-8
-            p.mb-3.text-base.font-semibold.text-gray-900 どちらの方法で始めますか？
-            .grid.gap-3.sm:grid-cols-2
-              .start-option.start-option--primary
-                h2 ログインして作る
-                p 作ったアイコンをサイトに保存できます
-                = button_to 'Googleアカウントでログインして作る', '/auth/google_oauth2',
-                  method: :post,
-                  data: { turbo: false },
-                  class: 'primary-cta w-full',
-                  form_class: 'mt-auto pt-4'
-              .start-option
-                h2 ログインせずに作る
-                p 登録なしですぐに作成・ダウンロードできます
-                = link_to 'ログインせずに作る', new_icon_path, class: 'secondary-cta mt-auto'
 
       .hero-visual aria-label='文字を追加する前と後のアイコン例'
         .example-card
@@ -54,6 +38,23 @@
               circle cx='60' cy='43' r='24' fill='currentColor'
               path d='M20 112c3-29 19-45 40-45s37 16 40 45' fill='currentColor'
             span.avatar-overlay ラジオ参加
+
+    - unless current_user
+      section.start-options-section aria-labelledby='start-options-title'
+        h2#start-options-title.text-2xl.font-bold.text-gray-900 どちらの方法で始めますか？
+        .mt-5.grid.gap-4.sm:grid-cols-2
+          .start-option.start-option--primary
+            h3 ログインして作る
+            p 作ったアイコンをサイトに保存できます
+            = button_to 'Googleアカウントでログインして作る', '/auth/google_oauth2',
+              method: :post,
+              data: { turbo: false },
+              class: 'primary-cta w-full',
+              form_class: 'mt-auto w-full pt-4'
+          .start-option
+            h3 ログインせずに作る
+            p 登録なしですぐに作成・ダウンロードできます
+            = link_to 'ログインせずに作る', new_icon_path, class: 'secondary-cta mt-auto w-full'
 
     section.mt-16.sm:mt-24 aria-labelledby='benefits-title'
       .max-w-2xl
