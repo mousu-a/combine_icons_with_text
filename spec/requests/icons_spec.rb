@@ -26,19 +26,19 @@ RSpec.describe 'Icons' do
     end
 
     it 'shows recognizable icons for supported services' do
-      %w[Remo Zoom Slack Discord Google].each_with_index do |site_name, index|
-        IconChangeLink.create!(
-          site_name:,
-          url: "https://example.com/#{index}",
-          guide_text: 'プロフィール設定を開く'
-        )
-      end
+      create_supported_service_links
 
       get new_icon_path
 
       %w[remo zoom slack discord google].each do |service_key|
         expect(response.body).to include("service-icon--#{service_key}")
       end
+    end
+  end
+
+  def create_supported_service_links
+    %w[Remo Zoom Slack Discord Google].each_with_index do |site_name, index|
+      IconChangeLink.create!(site_name:, url: "https://example.com/#{index}", guide_text: 'プロフィール設定を開く')
     end
   end
 
