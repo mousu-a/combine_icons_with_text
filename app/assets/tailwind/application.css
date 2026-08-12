@@ -43,7 +43,7 @@
   }
 
   .hero-grid {
-    @apply mt-10 grid items-center gap-12 lg:mt-14 lg:grid-cols-[minmax(0,1.05fr)_minmax(28rem,0.95fr)];
+    @apply mt-10 grid items-center gap-12 lg:mt-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(28rem,0.85fr)];
   }
 
   .hero-copy {
@@ -51,7 +51,7 @@
   }
 
   .hero-title {
-    @apply max-w-3xl text-3xl font-extrabold leading-[1.4] tracking-tight text-gray-950 sm:text-4xl lg:text-5xl;
+    @apply max-w-3xl text-3xl font-extrabold leading-[1.4] tracking-tight text-gray-950 sm:text-4xl lg:text-[2.65rem];
   }
 
   .hero-description {
