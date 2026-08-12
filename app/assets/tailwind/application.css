@@ -42,28 +42,32 @@
     @apply bg-white;
   }
 
-  .hero-grid {
-    @apply mt-10 grid items-center gap-12 lg:mt-14 lg:grid-cols-[minmax(0,1.15fr)_minmax(28rem,0.85fr)];
-  }
-
-  .hero-copy {
-    @apply text-left;
-  }
-
-  .hero-heading-row {
-    @apply grid grid-cols-[4rem_minmax(0,1fr)] items-center gap-3 sm:grid-cols-[7rem_minmax(0,1fr)] sm:gap-5;
+  .hero-section {
+    @apply text-center;
   }
 
   .hero-logo {
-    @apply inline-flex w-full;
+    @apply mx-auto inline-flex w-32 sm:w-40;
+  }
+
+  .hero-heading {
+    @apply mt-8;
+  }
+
+  .hero-grid {
+    @apply mt-10 grid items-center gap-8 text-left lg:grid-cols-[minmax(0,0.8fr)_minmax(28rem,1.2fr)] lg:gap-12;
+  }
+
+  .hero-copy {
+    @apply mx-auto max-w-xl lg:mx-0;
   }
 
   .hero-title {
-    @apply max-w-3xl text-2xl font-extrabold leading-[1.4] tracking-tight text-gray-950 sm:text-4xl lg:text-[2.65rem];
+    @apply mx-auto max-w-3xl text-3xl font-extrabold leading-[1.4] tracking-tight text-gray-950 sm:text-4xl lg:text-[2.65rem];
   }
 
   .hero-description {
-    @apply mt-6 max-w-2xl text-lg leading-[1.9] text-gray-600;
+    @apply text-lg leading-[1.9] text-gray-600;
   }
 
   .hero-visual {
