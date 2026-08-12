@@ -68,6 +68,10 @@ export default class extends Controller {
   }
 
   setup({ uploadFile, existingIcon }) {
+    if (this.originalImageUrl?.startsWith("blob:")) {
+      URL.revokeObjectURL(this.originalImageUrl);
+    }
+
     this.originalImageUrl = this.setupOriginalImageUrl(
       uploadFile,
       existingIcon,

@@ -26,4 +26,11 @@ export default class extends Controller {
     this.renderedImageUrl = URL.createObjectURL(event.detail.canvasBlob);
     this.previewImageTarget.src = this.renderedImageUrl;
   }
+
+  disconnect() {
+    if (!this.renderedImageUrl) return;
+
+    URL.revokeObjectURL(this.renderedImageUrl);
+    this.renderedImageUrl = null;
+  }
 }
