@@ -1,0 +1,21 @@
+FROM ruby:4.0.6
+
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+      libpq-dev postgresql-client \
+      nodejs npm && \
+    rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+RUN npx playwright install --with-deps
+
+COPY . .
+
+CMD ["npx", "playwright", "test"]
