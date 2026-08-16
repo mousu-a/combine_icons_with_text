@@ -1,0 +1,28 @@
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: combine_icons_with_text_test
+      POSTGRES_USER: rails
+      POSTGRES_PASSWORD: password
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "rails"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  e2e:
+    build:
+      context: .
+      dockerfile: Dockerfile.e2e
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://rails:password@postgres:5432/combine_icons_with_text_test
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3100:3100"
