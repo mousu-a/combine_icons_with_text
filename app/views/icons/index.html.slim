@@ -48,7 +48,7 @@
                         | ダウンロード
                       = link_to icon_path(combined_icon, original_icon_id: original_icon.id, combined_icon_id: combined_icon.id),
                         data: { turbo_method: :delete, turbo_confirm: 'この合成アイコンを削除します。本当によろしいですか？' },
-                        class: 'inline-flex min-h-11 items-center whitespace-nowrap text-sm font-medium text-gray-500 underline hover:text-gray-700' do
+                        class: 'inline-flex min-h-8 items-center whitespace-nowrap text-sm font-medium text-gray-500 underline hover:text-gray-700' do
                         | 削除
             - else
               p.text-base.text-gray-500
