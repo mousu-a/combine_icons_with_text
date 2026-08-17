@@ -41,7 +41,10 @@ RSpec.describe 'Icons' do
 
   def create_supported_service_links
     %w[Remo Zoom Slack Discord Google].each_with_index do |site_name, index|
-      IconChangeLink.create!(site_name:, url: "https://example.com/#{index}", guide_text: 'プロフィール設定を開く')
+      IconChangeLink.find_or_create_by!(site_name:) do |record|
+        record.url = "https://example.com/#{index}"
+        record.guide_text = 'プロフィール設定を開く'
+      end
     end
   end
 
