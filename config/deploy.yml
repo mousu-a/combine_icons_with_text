@@ -45,7 +45,7 @@ ssh:
 
 accessories:
   db:
-    image: postgres:17-bookworm
+    image: postgres:18
     roles:
       - web
     env:
