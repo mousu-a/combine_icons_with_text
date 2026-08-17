@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-unless Rails.env.development?
-  Rails.logger.info('Skip loading seed data outside the development environment.')
+if Rails.env.production?
+  Rails.logger.info('Skip loading seed data in the production environment.')
   return
 end
 
