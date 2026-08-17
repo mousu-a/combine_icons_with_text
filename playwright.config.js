@@ -69,7 +69,7 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: {
     command:
-      'RAILS_ENV=test bin/rails db:prepare && RAILS_ENV=test bin/rails server -p 3100',
+      'RAILS_ENV=test bin/rails db:prepare && RAILS_ENV=test bin/rails db:seed && bin/rails tailwindcss:build && RAILS_ENV=test bin/rails server -p 3100',
     url: 'http://localhost:3100',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
