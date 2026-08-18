@@ -18,9 +18,12 @@ class IconsController < ApplicationController
   end
 
   def create
-    save_canvas_preset(canvas_preset_params)
-    return render json: { message: '画像をダウンロードしました。' }, status: :ok unless current_user&.saveable?(original_icon_params)
+    unless current_user&.saveable?(original_icon_params)
+      return render json: { message: '画像をダウンロードしました。' },
+                    status: :ok
+    end
 
+    save_canvas_preset(canvas_preset_params)
     @user_icons = UserIcons.new(current_user)
     if @user_icons.save_all(original_icon_params, combined_icon_params)
       render json: { message: '画像を保存しました。' }, status: :ok
