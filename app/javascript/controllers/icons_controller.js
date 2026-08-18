@@ -1,6 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 const MAX_FILE_SIZE_MB = 5;
+const DEFAULT_DELAY_MS = 3000;
 
 export default class extends Controller {
   static targets = [
@@ -132,11 +133,11 @@ export default class extends Controller {
 
     setTimeout(() => {
       enableLink(this.downloadLinkTarget);
-    }, 3000);
+    }, DEFAULT_DELAY_MS);
     setTimeout(() => {
       URL.revokeObjectURL(this.originalImageUrl);
       URL.revokeObjectURL(previewImageUrl);
-    }, 3000);
+    }, DEFAULT_DELAY_MS);
   }
 
   async triggerSubmit(combinedIconName) {
