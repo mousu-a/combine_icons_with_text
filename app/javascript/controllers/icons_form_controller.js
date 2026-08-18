@@ -1,5 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
+const DEFAULT_DELAY_MS = 3000;
+
 export default class extends Controller {
   static targets = ["toast", "toastMessage"];
 
@@ -35,7 +37,7 @@ export default class extends Controller {
 
     setTimeout(() => {
       this.toastTarget.classList.add("hidden");
-    }, 3000);
+    }, DEFAULT_DELAY_MS);
   }
 }
 
