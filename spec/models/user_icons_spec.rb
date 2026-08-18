@@ -8,7 +8,11 @@ RSpec.describe UserIcons do
   let(:user) { create(:user) }
 
   describe '#save_all' do
-    subject(:save_all) { user_icons.save_all(original_icon_params, combined_icon_params) }
+    subject(:save_all) { user_icons.save_all(original_icon_params, combined_icon_params, canvas_preset_params) }
+
+    let(:canvas_preset_params) do
+      { text: 'sample text', text_color: '#000000', bg_color: '#ffffff' }
+    end
 
     context 'when creating a new original_icon' do
       let(:original_icon_params) do
@@ -54,7 +58,9 @@ RSpec.describe UserIcons do
     end
 
     context 'when params are invalid' do
-      subject(:save_all) { user_icons.save_all(original_icon_params, invalid_combined_icon_params) }
+      subject(:save_all) do
+        user_icons.save_all(original_icon_params, invalid_combined_icon_params, canvas_preset_params)
+      end
 
       let(:original_icon_params) do
         attributes_for(:original_icon).merge(

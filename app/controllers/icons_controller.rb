@@ -23,9 +23,8 @@ class IconsController < ApplicationController
                     status: :ok
     end
 
-    save_canvas_preset(canvas_preset_params)
     @user_icons = UserIcons.new(current_user)
-    if @user_icons.save_all(original_icon_params, combined_icon_params)
+    if @user_icons.save_all(original_icon_params, combined_icon_params, canvas_preset_params)
       render json: { message: '画像を保存しました。' }, status: :ok
     else
       render json: { error_message: @user_icons.errors.full_messages.join("\n") }, status: :unprocessable_content
@@ -64,9 +63,5 @@ class IconsController < ApplicationController
 
   def canvas_preset_params
     params.expect(canvas_preset: %i[text text_color bg_color])
-  end
-
-  def save_canvas_preset(preset_params)
-    ActiveSupport::Notifications.instrument('icons.create', canvas_preset_params: preset_params)
   end
 end
