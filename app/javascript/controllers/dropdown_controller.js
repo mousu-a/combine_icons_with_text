@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["avatarIcon", "logoutButton"];
+  static targets = ["logoutButton"];
 
   toggleLogoutButton() {
     this.logoutButtonTarget.classList.toggle("hidden");

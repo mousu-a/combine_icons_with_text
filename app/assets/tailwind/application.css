@@ -203,11 +203,6 @@
     @apply mt-2 pb-2 text-base leading-relaxed text-gray-600;
   }
 
-  .frame-label {
-    @apply mb-2 text-center text-base font-semibold text-gray-800;
-  }
-
-  .option-heading,
   .option-label {
     @apply mb-2 block text-base font-semibold text-gray-900;
   }
@@ -225,10 +220,6 @@
 
   .btn-text-option.is-selected {
     box-shadow: inset 0 0 0 1px var(--brand);
-  }
-
-  .color-picker-label {
-    @apply text-base font-medium text-gray-800;
   }
 
   .color-picker {
@@ -265,20 +256,12 @@
     }
   }
 
-  .border-t-gray {
-    @apply border-t border-gray-200;
-  }
-
   .border-b-gray {
     @apply border-b border-gray-200;
   }
 
   .frame-border {
     @apply rounded-xl border border-gray-200;
-  }
-
-  .text-primary {
-    color: var(--brand);
   }
 
   .flash-message {
@@ -343,10 +326,6 @@
   .step-label {
     @apply mb-1 text-sm font-bold tracking-wide uppercase;
     color: var(--brand);
-  }
-
-  .instruction-heading {
-    @apply mb-2 text-2xl font-bold text-gray-900;
   }
 
   .upload-button,
