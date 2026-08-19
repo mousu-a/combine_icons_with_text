@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class IconChangeLinksController < ApplicationController
+  class IconChangeLinksController < Admin::BaseController
     before_action :require_admin, only: :create
     before_action :set_admin_managed_resources, only: :create
 
@@ -19,11 +19,6 @@ module Admin
 
     def icon_change_link_params
       params.expect(icon_change_link: %i[url site_name guide_text])
-    end
-
-    def set_admin_managed_resources
-      @icon_change_links = IconChangeLink.all
-      @overlay_texts = OverlayText.all
     end
   end
 end

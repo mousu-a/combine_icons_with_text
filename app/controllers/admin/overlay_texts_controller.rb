@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Admin
-  class OverlayTextsController < ApplicationController
+  class OverlayTextsController < Admin::BaseController
     before_action :require_admin, only: :create
     before_action :set_admin_managed_resources, only: :create
 
@@ -19,11 +19,6 @@ module Admin
 
     def overlay_text_params
       params.expect(overlay_text: [:text])
-    end
-
-    def set_admin_managed_resources
-      @icon_change_links = IconChangeLink.all
-      @overlay_texts = OverlayText.all
     end
   end
 end
