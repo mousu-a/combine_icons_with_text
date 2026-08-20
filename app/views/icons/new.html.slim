@@ -42,164 +42,163 @@
     img#icon.hidden(data-icons-target='originalImage' alt='')
     canvas.hidden(data-canvas-target='canvas')
 
-    div
-      div(class='grid gap-8 p-5 sm:p-7 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,1fr)]')
-        section
-          p.step-label STEP 1
-          h2.mb-4.text-xl.font-bold.text-gray-900 アイコンを選択
-          figure.preview-frame(
-            data-preview-target='previewImageFrame'
-            data-icons-target='dropZone'
-            data-action='dragover->icons#dragOver dragenter->icons#dragEnter dragleave->icons#dragLeave drop->icons#drop'
+    div(class='grid gap-8 p-5 sm:p-7 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,1fr)]')
+      section
+        p.step-label STEP 1
+        h2.mb-4.text-xl.font-bold.text-gray-900 アイコンを選択
+        figure.preview-frame(
+          data-preview-target='previewImageFrame'
+          data-icons-target='dropZone'
+          data-action='dragover->icons#dragOver dragenter->icons#dragEnter dragleave->icons#dragLeave drop->icons#drop'
+        )
+          figcaption.sr-only 文字入りアイコンの完成イメージ
+          .flex.flex-col.items-center.gap-3.px-5.text-center(data-preview-target='placeholder')
+            svg.h-10.w-10.text-gray-500 aria-hidden='true' fill='none' stroke='currentColor' viewBox='0 0 24 24'
+              path stroke-linecap='round' stroke-linejoin='round' stroke-width='1.8' d='M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 002 2h10a2 2 0 002-2v-4'
+            p.text-lg.font-bold.leading-relaxed.text-gray-800
+              | アイコン画像をここに
+              br
+              | ドラッグ＆ドロップ
+          img#icon-preview.hidden.rounded.object-cover(
+            data-preview-target='previewImage'
+            alt='テキストを合成したアイコンのプレビュー画像'
           )
-            figcaption.sr-only 文字入りアイコンの完成イメージ
-            .flex.flex-col.items-center.gap-3.px-5.text-center(data-preview-target='placeholder')
-              svg.h-10.w-10.text-gray-500 aria-hidden='true' fill='none' stroke='currentColor' viewBox='0 0 24 24'
-                path stroke-linecap='round' stroke-linejoin='round' stroke-width='1.8' d='M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 14v4a2 2 0 002 2h10a2 2 0 002-2v-4'
-              p.text-lg.font-bold.leading-relaxed.text-gray-800
-                | アイコン画像をここに
-                br
-                | ドラッグ＆ドロップ
-            img#icon-preview.hidden.rounded.object-cover(
-              data-preview-target='previewImage'
-              alt='テキストを合成したアイコンのプレビュー画像'
-            )
-          .mt-4.flex.flex-col.items-center.gap-2.text-center
-            label.upload-button(for='upload-icon' data-ui-state-target='uploadButton') またはアイコンを選択
-            output.text-sm.text-gray-600(for='upload-icon' data-icons-target='fileName') 画像はまだ選択されていません
-          input#upload-icon.sr-only(
-            type='file'
-            accept='image/jpeg,image/png,image/webp'
-            data-icons-target='uploadedImage'
-            data-action='change->icons#upload'
+        .mt-4.flex.flex-col.items-center.gap-2.text-center
+          label.upload-button(for='upload-icon' data-ui-state-target='uploadButton') またはアイコンを選択
+          output.text-sm.text-gray-600(for='upload-icon' data-icons-target='fileName') 画像はまだ選択されていません
+        input#upload-icon.sr-only(
+          type='file'
+          accept='image/jpeg,image/png,image/webp'
+          data-icons-target='uploadedImage'
+          data-action='change->icons#upload'
+        )
+        dl.mt-4.space-y-1.text-sm.text-gray-500
+          .flex.gap-1
+            dt.font-medium 最大ファイルサイズ：
+            dd 5MB
+          .flex.gap-1
+            dt.font-medium 対応形式：
+            dd JPG、JPEG、PNG、WEBP
+
+      fieldset.is-disabled-controls.border-0.p-0.m-0(disabled data-ui-state-target='editControls')
+        legend.sr-only 合成オプション
+        p.step-label STEP 2
+        h2.mb-5.text-xl.font-bold.text-gray-900 文字と背景を設定
+
+        .option-section
+          label.option-label(for='overlayText') 表示する文字
+          input#overlayText.text-input(
+            type='text'
+            maxlength='30'
+            placeholder='例：耳だけ参加'
+            data-canvas-target='textInput'
+            data-action='input->canvas#changeText'
           )
-          dl.mt-4.space-y-1.text-sm.text-gray-500
-            .flex.gap-1
-              dt.font-medium 最大ファイルサイズ：
-              dd 5MB
-            .flex.gap-1
-              dt.font-medium 対応形式：
-              dd JPG、JPEG、PNG、WEBP
+          p.mt-3.mb-2.text-sm.text-gray-500 よく使われる文字から選ぶ
+          .flex.flex-wrap.gap-2(role='group' aria-label='よく使われる文字')
+            - %w[ラジオ参加 離席中 画面見れません].each do |text|
+              button.btn-text-option(
+                type='button'
+                data-text=text
+                data-canvas-target='textOption'
+                data-action='click->canvas#selectText'
+                aria-pressed='false'
+              ) = text
 
-        fieldset.is-disabled-controls.border-0.p-0.m-0(disabled data-ui-state-target='editControls')
-          legend.sr-only 合成オプション
-          p.step-label STEP 2
-          h2.mb-5.text-xl.font-bold.text-gray-900 文字と背景を設定
+        .option-section
+          .flex.items-center.justify-between.gap-3
+            label.option-label.mb-0(for='fontSize') 文字サイズ
+            output.setting-value(data-canvas-target='fontSizeValue' for='fontSize') —
+          input#fontSize.range-input(
+            type='range'
+            min='12'
+            max='300'
+            value='32'
+            data-canvas-target='fontSizeInput'
+            data-action='input->canvas#changeFontSize'
+          )
 
-          .option-section
-            label.option-label(for='overlayText') 表示する文字
-            input#overlayText.text-input(
-              type='text'
-              maxlength='30'
-              placeholder='例：耳だけ参加'
-              data-canvas-target='textInput'
-              data-action='input->canvas#changeText'
+        .option-section
+          .setting-row
+            label(for='textColor') 文字色
+            .flex.items-center.gap-3
+              output.setting-value(data-canvas-target='textColorValue' for='textColor') #000000
+              input#textColor.color-picker(
+                type='color'
+                value='#000000'
+                data-action='input->canvas#changeTextColor'
+              )
+
+        .option-section
+          label.flex.min-h-11.cursor-pointer.items-center.gap-3.font-semibold.text-gray-900(for='backgroundToggle')
+            input#backgroundToggle.h-5.w-5.accent-brand(
+              type='checkbox'
+              data-canvas-target='backgroundToggle'
+              data-action='change->canvas#toggleBackground'
             )
-            p.mt-3.mb-2.text-sm.text-gray-500 よく使われる文字から選ぶ
-            .flex.flex-wrap.gap-2(role='group' aria-label='よく使われる文字')
-              - %w[ラジオ参加 離席中 画面見れません].each do |text|
-                button.btn-text-option(
-                  type='button'
-                  data-text=text
-                  data-canvas-target='textOption'
-                  data-action='click->canvas#selectText'
-                  aria-pressed='false'
-                ) = text
+            | 文字に背景をつける
 
-          .option-section
-            .flex.items-center.justify-between.gap-3
-              label.option-label.mb-0(for='fontSize') 文字サイズ
-              output.setting-value(data-canvas-target='fontSizeValue' for='fontSize') —
-            input#fontSize.range-input(
-              type='range'
-              min='12'
-              max='300'
-              value='32'
-              data-canvas-target='fontSizeInput'
-              data-action='input->canvas#changeFontSize'
-            )
-
-          .option-section
+          fieldset.mt-4.space-y-4.border-0.p-0.m-0(disabled data-canvas-target='backgroundOptions')
+            legend.sr-only 背景の設定
             .setting-row
-              label(for='textColor') 文字色
+              label(for='backgroundColor') 背景色
               .flex.items-center.gap-3
-                output.setting-value(data-canvas-target='textColorValue' for='textColor') #000000
-                input#textColor.color-picker(
+                output.setting-value(data-canvas-target='backgroundColorValue' for='backgroundColor') #000000
+                input#backgroundColor.color-picker(
                   type='color'
                   value='#000000'
-                  data-action='input->canvas#changeTextColor'
+                  data-action='input->canvas#changeBackgroundColor'
                 )
-
-          .option-section
-            label.flex.min-h-11.cursor-pointer.items-center.gap-3.font-semibold.text-gray-900(for='backgroundToggle')
-              input#backgroundToggle.h-5.w-5.accent-brand(
-                type='checkbox'
-                data-canvas-target='backgroundToggle'
-                data-action='change->canvas#toggleBackground'
+            .space-y-2
+              .flex.items-center.justify-between.gap-3
+                label(for='opacityRange') 背景の透明度
+                output.setting-value(data-canvas-target='opacityValue' for='opacityRange') 100%
+              input#opacityRange.range-input(
+                type='range'
+                min='0'
+                max='1'
+                step='0.01'
+                value='1'
+                data-canvas-target='opacityInput'
+                data-action='input->canvas#changeBackgroundOpacity'
               )
-              | 文字に背景をつける
 
-            fieldset.mt-4.space-y-4.border-0.p-0.m-0(disabled data-canvas-target='backgroundOptions')
-              legend.sr-only 背景の設定
-              .setting-row
-                label(for='backgroundColor') 背景色
-                .flex.items-center.gap-3
-                  output.setting-value(data-canvas-target='backgroundColorValue' for='backgroundColor') #000000
-                  input#backgroundColor.color-picker(
-                    type='color'
-                    value='#000000'
-                    data-action='input->canvas#changeBackgroundColor'
+        - if @canvas_presets.present?
+          section.option-section
+            h3.option-label 他の人が作ったプリセットを使う
+            p.mb-3.text-sm.text-gray-500 好きなデザインを選ぶと、文字色や背景色を適用できます。
+            ul.flex.flex-wrap.gap-3.list-none.p-0.m-0
+              - @canvas_presets.each do |canvas_preset|
+                li
+                  button.preset-button(
+                    type='button'
+                    aria-label="#{canvas_preset.text}のプリセットを使う"
+                    data-action='click->canvas#applyPreset'
+                    data-text=canvas_preset.text
+                    data-text-fill-style=canvas_preset.text_color
+                    data-bg-fill-style=canvas_preset.bg_color
                   )
-              .space-y-2
-                .flex.items-center.justify-between.gap-3
-                  label(for='opacityRange') 背景の透明度
-                  output.setting-value(data-canvas-target='opacityValue' for='opacityRange') 100%
-                input#opacityRange.range-input(
-                  type='range'
-                  min='0'
-                  max='1'
-                  step='0.01'
-                  value='1'
-                  data-canvas-target='opacityInput'
-                  data-action='input->canvas#changeBackgroundOpacity'
-                )
-
-          - if @canvas_presets.present?
-            section.option-section
-              h3.option-label 他の人が作ったプリセットを使う
-              p.mb-3.text-sm.text-gray-500 好きなデザインを選ぶと、文字色や背景色を適用できます。
-              ul.flex.flex-wrap.gap-3.list-none.p-0.m-0
-                - @canvas_presets.each do |canvas_preset|
-                  li
-                    button.preset-button(
-                      type='button'
-                      aria-label="#{canvas_preset.text}のプリセットを使う"
-                      data-action='click->canvas#applyPreset'
+                    canvas.block.w-36.rounded(
+                      data-presets-renderer-target='presetCanvas'
                       data-text=canvas_preset.text
                       data-text-fill-style=canvas_preset.text_color
                       data-bg-fill-style=canvas_preset.bg_color
+                      width='180'
+                      height='60'
                     )
-                      canvas.block.w-36.rounded(
-                        data-presets-renderer-target='presetCanvas'
-                        data-text=canvas_preset.text
-                        data-text-fill-style=canvas_preset.text_color
-                        data-bg-fill-style=canvas_preset.bg_color
-                        width='180'
-                        height='60'
-                      )
 
-      section.download-section
-        p.step-label STEP 3
-        h2.mb-2.text-xl.font-bold.text-gray-900 完成した画像をダウンロード
-        p.mb-5.text-base.text-gray-600 文字を追加するとダウンロードできます。
-        = link_to '#',
-          download: true,
-          class: 'download-button is-disabled',
-          aria: { disabled: true },
-          data: { action: 'click->icons#download', icons_target: 'downloadLink' } do
-          svg.h-5.w-5 aria-hidden='true' fill='none' stroke='currentColor' viewBox='0 0 24 24'
-            path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 4v11m0 0 4-4m-4 4-4-4M5 20h14'
-          | 完成した画像をダウンロード
+    section.download-section
+      p.step-label STEP 3
+      h2.mb-2.text-xl.font-bold.text-gray-900 完成した画像をダウンロード
+      p.mb-5.text-base.text-gray-600 文字を追加するとダウンロードできます。
+      = link_to '#',
+        download: true,
+        class: 'download-button is-disabled',
+        aria: { disabled: true },
+        data: { action: 'click->icons#download', icons_target: 'downloadLink' } do
+        svg.h-5.w-5 aria-hidden='true' fill='none' stroke='currentColor' viewBox='0 0 24 24'
+          path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 4v11m0 0 4-4m-4 4-4-4M5 20h14'
+        | 完成した画像をダウンロード
 
   - unless current_user
     section.login-benefit
