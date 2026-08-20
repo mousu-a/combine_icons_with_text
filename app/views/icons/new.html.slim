@@ -24,8 +24,8 @@
   section.editor-card(
     aria-label='文字入りアイコン作成ツール'
     class='canvas preview'
-    data-controller='icons icons-form canvas preview presets-renderer'
-    data-action='icons:setup->preview#setup icons:setup->canvas#setup canvas:render->preview#render canvas:textChanged->icons#updateDownloadState icons:download->icons-form#submit'
+    data-controller='icons icons-form canvas preview presets-renderer ui-state'
+    data-action='icons:setup->preview#setup icons:setup->canvas#setup icons:setup->ui-state#change canvas:render->preview#render canvas:textChanged->icons#updateDownloadState icons:download->icons-form#submit'
     data-icons-canvas-outlet='.canvas'
     data-icons-preview-outlet='.preview'
   )
@@ -42,7 +42,7 @@
     img#icon.hidden(data-icons-target='originalImage' alt='')
     canvas.hidden(data-canvas-target='canvas')
 
-    div(data-controller='ui-state' data-action='icons:setup@window->ui-state#change')
+    div
       div(class='grid gap-8 p-5 sm:p-7 lg:grid-cols-[minmax(0,1fr)_minmax(22rem,1fr)]')
         section
           p.step-label STEP 1
