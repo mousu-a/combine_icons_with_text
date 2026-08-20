@@ -53,8 +53,6 @@ export default class extends Controller {
   }
 
   applyPreset(event) {
-    if (!this.originalImage) return;
-
     const preset = event.currentTarget;
     this.renderPlan.text.text = preset.dataset.text;
     this.renderPlan.text.fillStyle = preset.dataset.textFillStyle;
@@ -67,48 +65,36 @@ export default class extends Controller {
   }
 
   selectText(event) {
-    if (!this.originalImage) return;
-
     this.renderPlan.text.text = event.currentTarget.dataset.text;
     this.syncControls();
     this.render();
   }
 
   changeText(event) {
-    if (!this.originalImage) return;
-
     this.renderPlan.text.text = event.target.value;
     this.updateSelectedTextOption();
     this.render();
   }
 
   changeFontSize(event) {
-    if (!this.originalImage) return;
-
     this.renderPlan.text.fontSize = Number(event.target.value);
     this.fontSizeValueTarget.textContent = `${event.target.value}px`;
     this.render();
   }
 
   toggleBackground(event) {
-    if (!this.originalImage) return;
-
     this.renderPlan.background.enabled = event.target.checked;
     this.updateBackgroundControls();
     this.render();
   }
 
   changeTextColor(event) {
-    if (!this.originalImage) return;
-
     this.renderPlan.text.fillStyle = event.target.value;
     this.textColorValueTarget.textContent = event.target.value.toUpperCase();
     this.render();
   }
 
   changeBackgroundColor(event) {
-    if (!this.originalImage) return;
-
     this.renderPlan.background.fillStyle = event.target.value;
     this.backgroundColorValueTarget.textContent =
       event.target.value.toUpperCase();
@@ -116,8 +102,6 @@ export default class extends Controller {
   }
 
   changeBackgroundOpacity(event) {
-    if (!this.originalImage) return;
-
     this.renderPlan.background.opacity = Number(event.target.value);
     this.opacityValueTarget.textContent = `${Math.round(Number(event.target.value) * 100)}%`;
     this.render();
@@ -163,8 +147,6 @@ export default class extends Controller {
   }
 
   async render() {
-    if (!this.originalImage) return;
-
     const ctx = this.canvas.getContext("2d");
     const { text, background } = this.renderPlan;
     const backgroundHeight = this.canvas.height / 3;
