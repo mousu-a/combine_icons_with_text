@@ -59,8 +59,9 @@ export default class extends Controller {
     const preset = event.currentTarget;
     this.renderPlan.text.text = preset.dataset.text;
     this.renderPlan.text.fillStyle = preset.dataset.textFillStyle;
-    this.renderPlan.background.enabled = Boolean(preset.dataset.bgFillStyle);
-    if (preset.dataset.bgFillStyle) {
+    const hasBgFillStyle = Boolean(preset.dataset.bgFillStyle);
+    if (hasBgFillStyle) {
+      this.renderPlan.background.enabled = true
       this.renderPlan.background.fillStyle = preset.dataset.bgFillStyle;
     }
     this.syncControls();
