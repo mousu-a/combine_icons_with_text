@@ -3,6 +3,9 @@ import { Controller } from "@hotwired/stimulus";
 const DEFAULT_TEXT_COLOR = "#000000";
 const DEFAULT_BACKGROUND_COLOR = "#000000";
 const DEFAULT_OPACITY = 1;
+const FONT_SIZE_MIN_RATIO = 0.05;
+const FONT_SIZE_DEFAULT_RATIO = 0.13;
+const FONT_SIZE_MAX_RATIO = 0.3;
 
 export default class extends Controller {
   static targets = [
@@ -41,7 +44,7 @@ export default class extends Controller {
     return {
       text: {
         text: "",
-        fontSize: Math.round(this.canvas.width * 0.13),
+        fontSize: fontSizeFromRatio(this.canvas.width, FONT_SIZE_DEFAULT_RATIO),
         fillStyle: DEFAULT_TEXT_COLOR,
       },
       background: {
@@ -112,9 +115,12 @@ export default class extends Controller {
     this.fontSizeInputTarget.value = this.renderPlan.text.fontSize;
     this.fontSizeInputTarget.min = Math.max(
       12,
-      Math.round(this.canvas.width * 0.05),
+      fontSizeFromRatio(this.canvas.width, FONT_SIZE_MIN_RATIO),
     );
-    this.fontSizeInputTarget.max = Math.round(this.canvas.width * 0.3);
+    this.fontSizeInputTarget.max = fontSizeFromRatio(
+      this.canvas.width,
+      FONT_SIZE_MAX_RATIO,
+    );
     this.fontSizeValueTarget.textContent = `${this.renderPlan.text.fontSize}px`;
     this.backgroundOptionsToggleTarget.checked =
       this.renderPlan.background.enabled;
@@ -197,6 +203,10 @@ export default class extends Controller {
       throw error;
     }
   }
+}
+
+function fontSizeFromRatio(canvasWidth, ratio) {
+  return Math.round(canvasWidth * ratio);
 }
 
 function canvasToBlob(canvas) {
