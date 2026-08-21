@@ -10,8 +10,8 @@ export default class extends Controller {
     "textInput",
     "fontSizeInput",
     "fontSizeValue",
-    "backgroundToggle",
     "backgroundOptions",
+    "backgroundOptionsToggle",
     "opacityInput",
     "opacityValue",
     "textOption",
@@ -116,7 +116,8 @@ export default class extends Controller {
     );
     this.fontSizeInputTarget.max = Math.round(this.canvas.width * 0.3);
     this.fontSizeValueTarget.textContent = `${this.renderPlan.text.fontSize}px`;
-    this.backgroundToggleTarget.checked = this.renderPlan.background.enabled;
+    this.backgroundOptionsToggleTarget.checked =
+      this.renderPlan.background.enabled;
     this.opacityInputTarget.value = this.renderPlan.background.opacity;
     this.opacityValueTarget.textContent = `${Math.round(this.renderPlan.background.opacity * 100)}%`;
     this.textColorValueTarget.textContent =
