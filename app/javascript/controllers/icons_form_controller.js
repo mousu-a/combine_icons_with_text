@@ -55,7 +55,7 @@ function setupFormdata(params) {
     fd.append("original_icon[image]", params.originalIconFile);
   }
 
-  fd.append("canvas_preset[text]", params.renderPlan.text?.text ?? "");
+  fd.append("canvas_preset[text]", params.renderPlan.text?.fillText ?? "");
   fd.append(
     "canvas_preset[text_color]",
     params.renderPlan.text?.fillStyle ?? "",

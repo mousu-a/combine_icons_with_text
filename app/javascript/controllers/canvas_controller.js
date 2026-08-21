@@ -23,7 +23,7 @@ export default class extends Controller {
   ];
 
   get selectedText() {
-    return this.renderPlan?.text?.text || "";
+    return this.renderPlan?.text?.fillText || "";
   }
 
   get canvas() {
@@ -43,7 +43,7 @@ export default class extends Controller {
   defaultRenderPlan() {
     return {
       text: {
-        text: "",
+        fillText: "",
         fontSize: fontSizeFromRatio(this.canvas.width, FONT_SIZE_DEFAULT_RATIO),
         fillStyle: DEFAULT_TEXT_COLOR,
       },
@@ -57,7 +57,7 @@ export default class extends Controller {
 
   applyPreset(event) {
     const preset = event.currentTarget;
-    this.renderPlan.text.text = preset.dataset.text;
+    this.renderPlan.text.fillText = preset.dataset.text;
     this.renderPlan.text.fillStyle = preset.dataset.textFillStyle;
     const hasBgFillStyle = Boolean(preset.dataset.bgFillStyle);
     if (hasBgFillStyle) {
@@ -69,13 +69,13 @@ export default class extends Controller {
   }
 
   selectText(event) {
-    this.renderPlan.text.text = event.currentTarget.dataset.text;
+    this.renderPlan.text.fillText = event.currentTarget.dataset.text;
     this.syncControls();
     this.render();
   }
 
   changeText(event) {
-    this.renderPlan.text.text = event.target.value;
+    this.renderPlan.text.fillText = event.target.value;
     this.updateSelectedTextOption();
     this.render();
   }
@@ -112,7 +112,7 @@ export default class extends Controller {
   }
 
   syncControls() {
-    this.textInputTarget.value = this.renderPlan.text.text;
+    this.textInputTarget.value = this.renderPlan.text.fillText;
     this.fontSizeInputTarget.value = this.renderPlan.text.fontSize;
     this.fontSizeInputTarget.min = Math.max(
       12,
@@ -139,7 +139,7 @@ export default class extends Controller {
     if (!this.hasTextOptionTarget) return;
 
     this.textOptionTargets.forEach((button) => {
-      const selected = button.dataset.text === this.renderPlan.text.text;
+      const selected = button.dataset.text === this.renderPlan.text.fillText;
       button.setAttribute("aria-pressed", selected.toString());
       button.classList.toggle("is-selected", selected);
     });
@@ -178,13 +178,13 @@ export default class extends Controller {
       ctx.globalAlpha = 1;
     }
 
-    if (text.text.trim()) {
+    if (text.fillText.trim()) {
       ctx.font = `700 ${text.fontSize}px sans-serif`;
       ctx.fillStyle = text.fillStyle;
       ctx.textBaseline = "middle";
       ctx.textAlign = "center";
       ctx.fillText(
-        text.text,
+        text.fillText,
         this.canvas.width / 2,
         backgroundY + backgroundHeight / 2,
         this.canvas.width * 0.94,
@@ -193,7 +193,7 @@ export default class extends Controller {
     ctx.restore();
 
     this.dispatch("textChanged", {
-      detail: { hasText: Boolean(text.text.trim()) },
+      detail: { hasText: Boolean(text.fillText.trim()) },
     });
 
     try {
