@@ -57,8 +57,8 @@ export default class extends Controller {
     };
   }
 
-  applyPreset(event) {
-    const preset = event.currentTarget;
+  applyPreset(e) {
+    const preset = e.currentTarget;
     this.renderPlan.text.fillText = preset.dataset.text;
     this.renderPlan.text.fillStyle = preset.dataset.textFillStyle;
     const hasBgFillStyle = Boolean(preset.dataset.bgFillStyle);
@@ -70,46 +70,46 @@ export default class extends Controller {
     this.render();
   }
 
-  selectText(event) {
-    this.renderPlan.text.fillText = event.currentTarget.dataset.text;
+  selectText(e) {
+    this.renderPlan.text.fillText = e.currentTarget.dataset.text;
     this.syncTextControls();
     this.render();
   }
 
-  changeText(event) {
-    this.renderPlan.text.fillText = event.target.value;
+  changeText(e) {
+    this.renderPlan.text.fillText = e.target.value;
     this.updateSelectedTextOption();
     this.render();
   }
 
-  changeFontSize(event) {
-    this.renderPlan.text.fontSize = Number(event.target.value);
-    this.fontSizeValueTarget.textContent = `${event.target.value}px`;
+  changeFontSize(e) {
+    this.renderPlan.text.fontSize = Number(e.target.value);
+    this.fontSizeValueTarget.textContent = `${e.target.value}px`;
     this.render();
   }
 
-  toggleBackground(event) {
-    this.renderPlan.background.enabled = event.target.checked;
+  toggleBackground(e) {
+    this.renderPlan.background.enabled = e.target.checked;
     this.updateBackgroundEnabled();
     this.render();
   }
 
-  changeTextColor(event) {
-    this.renderPlan.text.fillStyle = event.target.value;
-    this.textColorLabelTarget.textContent = event.target.value.toUpperCase();
+  changeTextColor(e) {
+    this.renderPlan.text.fillStyle = e.target.value;
+    this.textColorLabelTarget.textContent = e.target.value.toUpperCase();
     this.render();
   }
 
-  changeBackgroundColor(event) {
-    this.renderPlan.background.fillStyle = event.target.value;
+  changeBackgroundColor(e) {
+    this.renderPlan.background.fillStyle = e.target.value;
     this.backgroundColorLabelTarget.textContent =
-      event.target.value.toUpperCase();
+      e.target.value.toUpperCase();
     this.render();
   }
 
-  changeBackgroundOpacity(event) {
-    this.renderPlan.background.opacity = Number(event.target.value);
-    this.opacityValueTarget.textContent = `${Math.round(Number(event.target.value) * 100)}%`;
+  changeBackgroundOpacity(e) {
+    this.renderPlan.background.opacity = Number(e.target.value);
+    this.opacityValueTarget.textContent = `${Math.round(Number(e.target.value) * 100)}%`;
     this.render();
   }
 
