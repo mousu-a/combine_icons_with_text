@@ -131,6 +131,7 @@ export default class extends Controller {
     this.opacityValueTarget.textContent = `${Math.round(this.renderPlan.background.opacity * 100)}%`;
     this.textColorLabelTarget.textContent =
       this.renderPlan.text.fillStyle.toUpperCase();
+    this.textColorValueTarget.value = this.renderPlan.text.fillStyle;
     this.backgroundColorLabelTarget.textContent =
       this.renderPlan.background.fillStyle.toUpperCase();
     this.backgroundColorValueTarget.value =
