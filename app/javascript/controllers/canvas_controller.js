@@ -18,6 +18,7 @@ export default class extends Controller {
     "opacityInput",
     "opacityValue",
     "textOption",
+    "textColorLabel",
     "textColorValue",
     "backgroundColorValue",
   ];
@@ -94,7 +95,7 @@ export default class extends Controller {
 
   changeTextColor(event) {
     this.renderPlan.text.fillStyle = event.target.value;
-    this.textColorValueTarget.textContent = event.target.value.toUpperCase();
+    this.textColorLabelTarget.textContent = event.target.value.toUpperCase();
     this.render();
   }
 
@@ -127,7 +128,7 @@ export default class extends Controller {
       this.renderPlan.background.enabled;
     this.opacityInputTarget.value = this.renderPlan.background.opacity;
     this.opacityValueTarget.textContent = `${Math.round(this.renderPlan.background.opacity * 100)}%`;
-    this.textColorValueTarget.textContent =
+    this.textColorLabelTarget.textContent =
       this.renderPlan.text.fillStyle.toUpperCase();
     this.backgroundColorValueTarget.textContent =
       this.renderPlan.background.fillStyle.toUpperCase();
@@ -137,7 +138,8 @@ export default class extends Controller {
 
   syncControls() {
     this.textInputTarget.value = this.renderPlan.text.fillText;
-    this.textColorValueTarget.textContent = this.renderPlan.text.fillStyle;
+    this.textColorLabelTarget.textContent = this.renderPlan.text.fillStyle;
+    this.textColorValueTarget.value = this.renderPlan.text.fillStyle;
 
     this.updateSelectedTextOption();
     this.updateBackgroundControls();

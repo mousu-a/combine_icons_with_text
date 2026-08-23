@@ -122,10 +122,11 @@
           .setting-row
             label(for='textColor') 文字色
             .flex.items-center.gap-3
-              output.setting-value(data-canvas-target='textColorValue' for='textColor') #000000
+              output.setting-value(data-canvas-target='textColorLabel' for='textColor') #000000
               input#textColor.color-picker(
                 type='color'
                 value='#000000'
+                data-canvas-target='textColorValue'
                 data-action='input->canvas#changeTextColor'
               )
 
