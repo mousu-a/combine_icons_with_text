@@ -20,6 +20,7 @@ export default class extends Controller {
     "textOption",
     "textColorLabel",
     "textColorValue",
+    "backgroundColorLabel",
     "backgroundColorValue",
   ];
 
@@ -101,7 +102,7 @@ export default class extends Controller {
 
   changeBackgroundColor(event) {
     this.renderPlan.background.fillStyle = event.target.value;
-    this.backgroundColorValueTarget.textContent =
+    this.backgroundColorLabelTarget.textContent =
       event.target.value.toUpperCase();
     this.render();
   }
@@ -130,8 +131,10 @@ export default class extends Controller {
     this.opacityValueTarget.textContent = `${Math.round(this.renderPlan.background.opacity * 100)}%`;
     this.textColorLabelTarget.textContent =
       this.renderPlan.text.fillStyle.toUpperCase();
-    this.backgroundColorValueTarget.textContent =
+    this.backgroundColorLabelTarget.textContent =
       this.renderPlan.background.fillStyle.toUpperCase();
+    this.backgroundColorValueTarget.value =
+      this.renderPlan.background.fillStyle;
     this.updateSelectedTextOption();
     this.updateBackgroundEnabled();
   }
@@ -140,6 +143,13 @@ export default class extends Controller {
     this.textInputTarget.value = this.renderPlan.text.fillText;
     this.textColorLabelTarget.textContent = this.renderPlan.text.fillStyle;
     this.textColorValueTarget.value = this.renderPlan.text.fillStyle;
+
+    this.backgroundOptionsToggleTarget.checked =
+      this.renderPlan.background.enabled;
+    this.backgroundColorLabelTarget.textContent =
+      this.renderPlan.background.fillStyle.toUpperCase();
+    this.backgroundColorValueTarget.value =
+      this.renderPlan.background.fillStyle;
 
     this.updateSelectedTextOption();
     this.updateBackgroundEnabled();
