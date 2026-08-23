@@ -11,11 +11,11 @@ export default class extends Controller {
   static targets = [
     "canvas",
     "textInput",
-    "fontSizeInput",
+    "fontSizeLabel",
     "fontSizeValue",
     "backgroundOptions",
     "backgroundOptionsToggle",
-    "opacityInput",
+    "opacityLabel",
     "opacityValue",
     "textOption",
     "textColorLabel",
@@ -84,7 +84,7 @@ export default class extends Controller {
 
   changeFontSize(e) {
     this.renderPlan.text.fontSize = Number(e.target.value);
-    this.fontSizeValueTarget.textContent = `${e.target.value}px`;
+    this.fontSizeLabelTarget.textContent = `${e.target.value}px`;
     this.render();
   }
 
@@ -109,26 +109,26 @@ export default class extends Controller {
 
   changeBackgroundOpacity(e) {
     this.renderPlan.background.opacity = Number(e.target.value);
-    this.opacityValueTarget.textContent = `${Math.round(Number(e.target.value) * 100)}%`;
+    this.opacityLabelTarget.textContent = `${Math.round(Number(e.target.value) * 100)}%`;
     this.render();
   }
 
   initializeControls() {
     this.textInputTarget.value = this.renderPlan.text.fillText;
-    this.fontSizeInputTarget.value = this.renderPlan.text.fontSize;
-    this.fontSizeInputTarget.min = Math.max(
+    this.fontSizeValueTarget.value = this.renderPlan.text.fontSize;
+    this.fontSizeValueTarget.min = Math.max(
       12,
       fontSizeFromRatio(this.canvas.width, FONT_SIZE_MIN_RATIO),
     );
-    this.fontSizeInputTarget.max = fontSizeFromRatio(
+    this.fontSizeValueTarget.max = fontSizeFromRatio(
       this.canvas.width,
       FONT_SIZE_MAX_RATIO,
     );
-    this.fontSizeValueTarget.textContent = `${this.renderPlan.text.fontSize}px`;
+    this.fontSizeLabelTarget.textContent = `${this.renderPlan.text.fontSize}px`;
     this.backgroundOptionsToggleTarget.checked =
       this.renderPlan.background.enabled;
-    this.opacityInputTarget.value = this.renderPlan.background.opacity;
-    this.opacityValueTarget.textContent = `${Math.round(this.renderPlan.background.opacity * 100)}%`;
+    this.opacityValueTarget.value = this.renderPlan.background.opacity;
+    this.opacityLabelTarget.textContent = `${Math.round(this.renderPlan.background.opacity * 100)}%`;
     this.textColorLabelTarget.textContent =
       this.renderPlan.text.fillStyle.toUpperCase();
     this.textColorValueTarget.value = this.renderPlan.text.fillStyle;
