@@ -36,7 +36,7 @@ export default class extends Controller {
     this.canvas.height = this.originalImage.naturalHeight;
     this.renderPlan = this.defaultRenderPlan();
     this.canvasBlob = null;
-    this.syncControls();
+    this.initializeControls();
     this.render();
   }
 
@@ -61,7 +61,7 @@ export default class extends Controller {
     this.renderPlan.text.fillStyle = preset.dataset.textFillStyle;
     const hasBgFillStyle = Boolean(preset.dataset.bgFillStyle);
     if (hasBgFillStyle) {
-      this.renderPlan.background.enabled = true
+      this.renderPlan.background.enabled = true;
       this.renderPlan.background.fillStyle = preset.dataset.bgFillStyle;
     }
     this.syncControls();
@@ -70,7 +70,7 @@ export default class extends Controller {
 
   selectText(event) {
     this.renderPlan.text.fillText = event.currentTarget.dataset.text;
-    this.syncControls();
+    this.syncTextControls();
     this.render();
   }
 
@@ -111,7 +111,7 @@ export default class extends Controller {
     this.render();
   }
 
-  syncControls() {
+  initializeControls() {
     this.textInputTarget.value = this.renderPlan.text.fillText;
     this.fontSizeInputTarget.value = this.renderPlan.text.fontSize;
     this.fontSizeInputTarget.min = Math.max(
@@ -133,6 +133,19 @@ export default class extends Controller {
       this.renderPlan.background.fillStyle.toUpperCase();
     this.updateSelectedTextOption();
     this.updateBackgroundControls();
+  }
+
+  syncControls() {
+    this.textInputTarget.value = this.renderPlan.text.fillText;
+    this.textColorValueTarget.textContent = this.renderPlan.text.fillStyle;
+
+    this.updateSelectedTextOption();
+    this.updateBackgroundControls();
+  }
+
+  syncTextControls() {
+    this.textInputTarget.value = this.renderPlan.text.fillText;
+    this.updateSelectedTextOption();
   }
 
   updateSelectedTextOption() {
