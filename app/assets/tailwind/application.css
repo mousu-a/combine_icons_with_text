@@ -426,7 +426,7 @@
     @apply pointer-events-none cursor-not-allowed opacity-45;
   }
 
-  .is-disabled-controls {
+  fieldset:disabled {
     @apply opacity-45;
   }
 

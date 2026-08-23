@@ -89,7 +89,7 @@ export default class extends Controller {
 
   toggleBackground(event) {
     this.renderPlan.background.enabled = event.target.checked;
-    this.updateBackgroundControls();
+    this.updateBackgroundEnabled();
     this.render();
   }
 
@@ -133,7 +133,7 @@ export default class extends Controller {
     this.backgroundColorValueTarget.textContent =
       this.renderPlan.background.fillStyle.toUpperCase();
     this.updateSelectedTextOption();
-    this.updateBackgroundControls();
+    this.updateBackgroundEnabled();
   }
 
   syncControls() {
@@ -142,7 +142,7 @@ export default class extends Controller {
     this.textColorValueTarget.value = this.renderPlan.text.fillStyle;
 
     this.updateSelectedTextOption();
-    this.updateBackgroundControls();
+    this.updateBackgroundEnabled();
   }
 
   syncTextControls() {
@@ -160,13 +160,8 @@ export default class extends Controller {
     });
   }
 
-  updateBackgroundControls() {
-    const enabled = this.renderPlan.background.enabled;
-    this.backgroundOptionsTarget.disabled = !enabled;
-    this.backgroundOptionsTarget.classList.toggle(
-      "is-disabled-controls",
-      !enabled,
-    );
+  updateBackgroundEnabled() {
+    this.backgroundOptionsTarget.disabled = !this.renderPlan.background.enabled;
   }
 
   async render() {

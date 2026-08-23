@@ -7,6 +7,5 @@ export default class extends Controller {
     this.uploadButtonTarget.textContent = "画像を変更";
     this.uploadButtonTarget.classList.add("is-secondary");
     this.editControlsTarget.disabled = false;
-    this.editControlsTarget.classList.remove("is-disabled-controls");
   }
 }
