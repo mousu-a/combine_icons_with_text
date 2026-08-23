@@ -141,7 +141,8 @@ export default class extends Controller {
 
   syncControls() {
     this.textInputTarget.value = this.renderPlan.text.fillText;
-    this.textColorLabelTarget.textContent = this.renderPlan.text.fillStyle;
+    this.textColorLabelTarget.textContent =
+      this.renderPlan.text.fillStyle.toUpperCase();
     this.textColorValueTarget.value = this.renderPlan.text.fillStyle;
 
     this.backgroundOptionsToggleTarget.checked =
