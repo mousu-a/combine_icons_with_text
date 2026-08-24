@@ -87,8 +87,6 @@ export default class extends Controller {
   }
 
   updateSelectedTextOption() {
-    if (!this.hasTextOptionTarget) return;
-
     this.textOptionTargets.forEach((button) => {
       const selected = button.dataset.text === this.renderPlan.text.fillText;
       button.setAttribute("aria-pressed", selected.toString());
