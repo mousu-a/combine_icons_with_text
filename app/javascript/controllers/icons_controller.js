@@ -26,35 +26,31 @@ export default class extends Controller {
     this.useFile(uploadFile);
   }
 
-  dragOver(event) {
-    event.preventDefault();
-    event.dataTransfer.dropEffect = "copy";
+  dragOver(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "copy";
   }
 
-  dragEnter(event) {
-    event.preventDefault();
+  dragEnter(e) {
+    e.preventDefault();
     this.dropZoneTarget.classList.add("is-dragging");
   }
 
-  dragLeave(event) {
-    if (
-      event.relatedTarget &&
-      event.currentTarget.contains(event.relatedTarget)
-    )
-      return;
+  dragLeave(e) {
+    if (e.relatedTarget && e.currentTarget.contains(e.relatedTarget)) return;
 
     this.dropZoneTarget.classList.remove("is-dragging");
   }
 
-  drop(event) {
-    event.preventDefault();
+  drop(e) {
+    e.preventDefault();
     this.dropZoneTarget.classList.remove("is-dragging");
 
-    const uploadFile = event.dataTransfer.files[0];
+    const uploadFile = e.dataTransfer.files[0];
     if (!uploadFile) return;
 
     if (this.useFile(uploadFile)) {
-      this.uploadedImageTarget.files = event.dataTransfer.files;
+      this.uploadedImageTarget.files = e.dataTransfer.files;
     }
   }
 
