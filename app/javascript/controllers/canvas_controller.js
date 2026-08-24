@@ -57,6 +57,49 @@ export default class extends Controller {
     };
   }
 
+  initializeControls() {
+    this.textInputTarget.value = this.renderPlan.text.fillText;
+    this.fontSizeValueTarget.value = this.renderPlan.text.fontSize;
+    this.fontSizeValueTarget.min = Math.max(
+      12,
+      fontSizeFromRatio(this.canvas.width, FONT_SIZE_MIN_RATIO),
+    );
+    this.fontSizeValueTarget.max = fontSizeFromRatio(
+      this.canvas.width,
+      FONT_SIZE_MAX_RATIO,
+    );
+    this.fontSizeLabelTarget.textContent = `${this.renderPlan.text.fontSize}px`;
+    this.backgroundOptionsToggleTarget.checked =
+      this.renderPlan.background.enabled;
+    this.opacityValueTarget.value = this.renderPlan.background.opacity;
+    this.opacityLabelTarget.textContent = toPercentText(
+      this.renderPlan.background.opacity,
+    );
+    this.textColorLabelTarget.textContent =
+      this.renderPlan.text.fillStyle.toUpperCase();
+    this.textColorValueTarget.value = this.renderPlan.text.fillStyle;
+    this.backgroundColorLabelTarget.textContent =
+      this.renderPlan.background.fillStyle.toUpperCase();
+    this.backgroundColorValueTarget.value =
+      this.renderPlan.background.fillStyle;
+    this.updateSelectedTextOption();
+    this.updateBackgroundEnabled();
+  }
+
+  updateSelectedTextOption() {
+    if (!this.hasTextOptionTarget) return;
+
+    this.textOptionTargets.forEach((button) => {
+      const selected = button.dataset.text === this.renderPlan.text.fillText;
+      button.setAttribute("aria-pressed", selected.toString());
+      button.classList.toggle("is-selected", selected);
+    });
+  }
+
+  updateBackgroundEnabled() {
+    this.backgroundOptionsTarget.disabled = !this.renderPlan.background.enabled;
+  }
+
   applyPreset(e) {
     const preset = e.currentTarget;
     this.renderPlan.text.fillText = preset.dataset.text;
@@ -112,35 +155,6 @@ export default class extends Controller {
     this.render();
   }
 
-  initializeControls() {
-    this.textInputTarget.value = this.renderPlan.text.fillText;
-    this.fontSizeValueTarget.value = this.renderPlan.text.fontSize;
-    this.fontSizeValueTarget.min = Math.max(
-      12,
-      fontSizeFromRatio(this.canvas.width, FONT_SIZE_MIN_RATIO),
-    );
-    this.fontSizeValueTarget.max = fontSizeFromRatio(
-      this.canvas.width,
-      FONT_SIZE_MAX_RATIO,
-    );
-    this.fontSizeLabelTarget.textContent = `${this.renderPlan.text.fontSize}px`;
-    this.backgroundOptionsToggleTarget.checked =
-      this.renderPlan.background.enabled;
-    this.opacityValueTarget.value = this.renderPlan.background.opacity;
-    this.opacityLabelTarget.textContent = toPercentText(
-      this.renderPlan.background.opacity,
-    );
-    this.textColorLabelTarget.textContent =
-      this.renderPlan.text.fillStyle.toUpperCase();
-    this.textColorValueTarget.value = this.renderPlan.text.fillStyle;
-    this.backgroundColorLabelTarget.textContent =
-      this.renderPlan.background.fillStyle.toUpperCase();
-    this.backgroundColorValueTarget.value =
-      this.renderPlan.background.fillStyle;
-    this.updateSelectedTextOption();
-    this.updateBackgroundEnabled();
-  }
-
   syncControls() {
     this.textInputTarget.value = this.renderPlan.text.fillText;
     this.textColorLabelTarget.textContent =
@@ -161,20 +175,6 @@ export default class extends Controller {
   syncTextControls() {
     this.textInputTarget.value = this.renderPlan.text.fillText;
     this.updateSelectedTextOption();
-  }
-
-  updateSelectedTextOption() {
-    if (!this.hasTextOptionTarget) return;
-
-    this.textOptionTargets.forEach((button) => {
-      const selected = button.dataset.text === this.renderPlan.text.fillText;
-      button.setAttribute("aria-pressed", selected.toString());
-      button.classList.toggle("is-selected", selected);
-    });
-  }
-
-  updateBackgroundEnabled() {
-    this.backgroundOptionsTarget.disabled = !this.renderPlan.background.enabled;
   }
 
   async render() {
