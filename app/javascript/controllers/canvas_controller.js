@@ -102,8 +102,7 @@ export default class extends Controller {
 
   changeBackgroundColor(e) {
     this.renderPlan.background.fillStyle = e.target.value;
-    this.backgroundColorLabelTarget.textContent =
-      e.target.value.toUpperCase();
+    this.backgroundColorLabelTarget.textContent = e.target.value.toUpperCase();
     this.render();
   }
 
@@ -129,7 +128,7 @@ export default class extends Controller {
       this.renderPlan.background.enabled;
     this.opacityValueTarget.value = this.renderPlan.background.opacity;
     this.opacityLabelTarget.textContent = toPercentText(
-      this.renderPlan.background.opacity
+      this.renderPlan.background.opacity,
     );
     this.textColorLabelTarget.textContent =
       this.renderPlan.text.fillStyle.toUpperCase();
@@ -181,16 +180,25 @@ export default class extends Controller {
   async render() {
     const ctx = this.canvas.getContext("2d");
     const { text, background } = this.renderPlan;
-    const backgroundHeight = this.canvas.height / 3;
-    const backgroundY = this.canvas.height - backgroundHeight;
+    const defaultStartPoint = 0;
+    const defaultBgRatio = 3;
+    const backgroundHeight = this.canvas.height / defaultBgRatio;
+    const backgroundStartY = this.canvas.height - backgroundHeight;
 
     ctx.save();
     ctx.globalAlpha = 1;
-    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+    ctx.clearRect(
+      defaultStartPoint,
+      defaultStartPoint,
+      this.canvas.width,
+      this.canvas.height,
+    );
+
     ctx.drawImage(
       this.originalImage,
-      0,
-      0,
+      defaultStartPoint,
+      defaultStartPoint,
       this.canvas.width,
       this.canvas.height,
     );
@@ -198,27 +206,38 @@ export default class extends Controller {
     if (background.enabled) {
       ctx.globalAlpha = background.opacity;
       ctx.fillStyle = background.fillStyle;
-      ctx.fillRect(0, backgroundY, this.canvas.width, backgroundHeight);
+      ctx.fillRect(
+        defaultStartPoint,
+        backgroundStartY,
+        this.canvas.width,
+        backgroundHeight,
+      );
+      // 透明度の変更に対応しているのは背景だけなので、以降の工程では不透明度を元に戻す
       ctx.globalAlpha = 1;
     }
 
-    if (text.fillText.trim()) {
-      ctx.font = `700 ${text.fontSize}px sans-serif`;
+    const hasText = Boolean(text.fillText.trim());
+    if (hasText) {
+      const defaultFont = `700 ${text.fontSize}px sans-serif`;
+      const canvasCenterX = this.canvas.width / 2;
+      const backgroundCenterY = backgroundStartY + backgroundHeight / 2;
+      const textMaxWidth = this.canvas.width * 0.94;
+
+      ctx.font = defaultFont;
       ctx.fillStyle = text.fillStyle;
       ctx.textBaseline = "middle";
       ctx.textAlign = "center";
+
       ctx.fillText(
         text.fillText,
-        this.canvas.width / 2,
-        backgroundY + backgroundHeight / 2,
-        this.canvas.width * 0.94,
+        canvasCenterX,
+        backgroundCenterY,
+        textMaxWidth,
       );
     }
     ctx.restore();
 
-    this.dispatch("textChanged", {
-      detail: { hasText: Boolean(text.fillText.trim()) },
-    });
+    this.dispatch("textChanged", { detail: { hasText } });
 
     try {
       this.canvasBlob = await canvasToBlob(this.canvas);
