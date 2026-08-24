@@ -109,7 +109,7 @@ export default class extends Controller {
 
   changeBackgroundOpacity(e) {
     this.renderPlan.background.opacity = Number(e.target.value);
-    this.opacityLabelTarget.textContent = `${Math.round(Number(e.target.value) * 100)}%`;
+    this.opacityLabelTarget.textContent = toPercentText(e.target.value);
     this.render();
   }
 
@@ -128,7 +128,9 @@ export default class extends Controller {
     this.backgroundOptionsToggleTarget.checked =
       this.renderPlan.background.enabled;
     this.opacityValueTarget.value = this.renderPlan.background.opacity;
-    this.opacityLabelTarget.textContent = `${Math.round(this.renderPlan.background.opacity * 100)}%`;
+    this.opacityLabelTarget.textContent = toPercentText(
+      this.renderPlan.background.opacity
+    );
     this.textColorLabelTarget.textContent =
       this.renderPlan.text.fillStyle.toUpperCase();
     this.textColorValueTarget.value = this.renderPlan.text.fillStyle;
@@ -230,6 +232,10 @@ export default class extends Controller {
 
 function fontSizeFromRatio(canvasWidth, ratio) {
   return Math.round(canvasWidth * ratio);
+}
+
+function toPercentText(value) {
+  return `${Math.round(Number(value) * 100)}%`;
 }
 
 function canvasToBlob(canvas) {
