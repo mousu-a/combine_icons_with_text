@@ -23,7 +23,7 @@ export default class extends Controller {
     const uploadFile = this.uploadedImageTarget.files[0];
     if (!uploadFile) return;
 
-    this.useFile(uploadFile);
+    this.setup({ uploadFile });
   }
 
   dragOver(e) {
@@ -49,22 +49,16 @@ export default class extends Controller {
     const uploadFile = e.dataTransfer.files[0];
     if (!uploadFile) return;
 
-    if (this.useFile(uploadFile)) {
-      this.uploadedImageTarget.files = e.dataTransfer.files;
-    }
+    const isSetup = this.setup({ uploadFile });
+    if (isSetup) this.uploadedImageTarget.files = e.dataTransfer.files;
   }
 
-  useFile(uploadFile) {
-    if (!this.validateFile(uploadFile)) {
+  setup({ uploadFile, existingIcon }) {
+    if (uploadFile && !this.validateFile(uploadFile)) {
       alert(`${this.errorMessage}`);
       return false;
     }
 
-    this.setup({ uploadFile });
-    return true;
-  }
-
-  setup({ uploadFile, existingIcon }) {
     if (this.originalImageUrl?.startsWith("blob:")) {
       URL.revokeObjectURL(this.originalImageUrl);
     }
@@ -80,6 +74,8 @@ export default class extends Controller {
     originalImage.onload = () => {
       this.dispatch("setup", { detail: { originalImage } });
     };
+
+    return true;
   }
 
   setupOriginalImageUrl(uploadFile, existingIcon) {
