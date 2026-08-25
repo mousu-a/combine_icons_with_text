@@ -8,15 +8,15 @@ export default class extends Controller {
     "uploadedImage",
     "originalImage",
     "downloadLink",
-    "existingIcon",
-    "fileName",
+    "existingIconRecord",
+    "fileNameLabel",
     "dropZone",
   ];
   static outlets = ["preview", "canvas"];
 
   connect() {
-    if (this.hasExistingIconTarget)
-      this.setup({ existingIcon: this.existingIconTarget });
+    if (this.hasExistingIconRecordTarget)
+      this.setup({ existingIconRecord: this.existingIconRecordTarget });
   }
 
   upload() {
@@ -53,23 +53,23 @@ export default class extends Controller {
     if (isSetup) this.uploadedImageTarget.files = e.dataTransfer.files;
   }
 
-  setup({ uploadFile, existingIcon }) {
+  setup({ uploadFile, existingIconRecord }) {
     if (uploadFile && !this.validateFile(uploadFile)) {
       alert(`${this.errorMessage}`);
       return false;
     }
 
-    if (this.originalImageUrl?.startsWith("blob:")) {
-      URL.revokeObjectURL(this.originalImageUrl);
-    }
+    const hasPreviousUploadImageUrl =
+      this.originalImageUrl?.startsWith("blob:");
+    if (hasPreviousUploadImageUrl) URL.revokeObjectURL(this.originalImageUrl);
 
     this.originalImageUrl = this.setupOriginalImageUrl(
       uploadFile,
-      existingIcon,
+      existingIconRecord,
     );
     const originalImage = this.originalImageTarget;
     originalImage.src = this.originalImageUrl;
-    this.fileNameTarget.textContent = uploadFile?.name || "保存済みの画像";
+    this.fileNameLabelTarget.textContent = uploadFile?.name || "保存済みの画像";
 
     originalImage.onload = () => {
       this.dispatch("setup", { detail: { originalImage } });
@@ -78,10 +78,10 @@ export default class extends Controller {
     return true;
   }
 
-  setupOriginalImageUrl(uploadFile, existingIcon) {
+  setupOriginalImageUrl(uploadFile, existingIconRecord) {
     if (uploadFile) return URL.createObjectURL(uploadFile);
 
-    if (existingIcon) return existingIcon.dataset.imageUrl;
+    if (existingIconRecord) return existingIconRecord.dataset.imageUrl;
   }
 
   validateFile(file) {
@@ -137,8 +137,8 @@ export default class extends Controller {
     const uploadedFile = this.uploadedImageTarget.files?.[0];
     if (uploadedFile) {
       params.originalIconFile = uploadedFile;
-    } else if (this.hasExistingIconTarget) {
-      params.originalIconId = this.existingIconTarget.dataset.id;
+    } else if (this.hasExistingIconRecordTarget) {
+      params.originalIconId = this.existingIconRecordTarget.dataset.id;
     }
     params.combinedIconFile = this.canvasOutlet.canvasBlob;
     params.combinedIconName = combinedIconName;
