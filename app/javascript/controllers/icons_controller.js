@@ -63,10 +63,7 @@ export default class extends Controller {
       this.originalImageUrl?.startsWith("blob:");
     if (hasPreviousUploadImageUrl) URL.revokeObjectURL(this.originalImageUrl);
 
-    this.originalImageUrl = this.setupOriginalImageUrl(
-      uploadFile,
-      existingIconRecord,
-    );
+    this.originalImageUrl = setupOriginalImageUrl(uploadFile, existingIconRecord);
     const originalImage = this.originalImageTarget;
     originalImage.src = this.originalImageUrl;
     this.fileNameLabelTarget.textContent = uploadFile?.name || "保存済みの画像";
@@ -76,12 +73,6 @@ export default class extends Controller {
     };
 
     return true;
-  }
-
-  setupOriginalImageUrl(uploadFile, existingIconRecord) {
-    if (uploadFile) return URL.createObjectURL(uploadFile);
-
-    if (existingIconRecord) return existingIconRecord.dataset.imageUrl;
   }
 
   validateFile(file) {
@@ -156,6 +147,12 @@ export default class extends Controller {
       disableLink(this.downloadLinkTarget);
     }
   }
+}
+
+function setupOriginalImageUrl(uploadFile, existingIconRecord) {
+  if (uploadFile) return URL.createObjectURL(uploadFile);
+
+  if (existingIconRecord) return existingIconRecord.dataset.imageUrl;
 }
 
 function enableLink(link) {
