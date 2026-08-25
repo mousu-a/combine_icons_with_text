@@ -34,7 +34,7 @@
 
     - if @original_icon
       .hidden(
-        data-icons-target='existingIcon'
+        data-icons-target='existingIconRecord'
         data-image-url=url_for(@original_icon.image)
         data-id=@original_icon.id
       )
@@ -65,7 +65,7 @@
           )
         .mt-4.flex.flex-col.items-center.gap-2.text-center
           label.upload-button(for='upload-icon' data-ui-state-target='uploadButton') またはアイコンを選択
-          output.text-sm.text-gray-600(for='upload-icon' data-icons-target='fileName') 画像はまだ選択されていません
+          output.text-sm.text-gray-600(for='upload-icon' data-icons-target='fileNameLabel') 画像はまだ選択されていません
         input#upload-icon.sr-only(
           type='file'
           accept='image/jpeg,image/png,image/webp'
