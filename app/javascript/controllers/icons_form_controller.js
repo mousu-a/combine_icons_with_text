@@ -49,7 +49,8 @@ function setupFormdata(params) {
     params.combinedIconName,
   );
 
-  if (params.originalIconId) {
+  const isExistingIconRecord = Boolean(params.originalIconId);
+  if (isExistingIconRecord) {
     fd.append("original_icon[id]", params.originalIconId);
   } else {
     fd.append("original_icon[image]", params.originalIconFile);
