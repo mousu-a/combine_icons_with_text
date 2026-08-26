@@ -3,10 +3,10 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["uploadButton", "editControls", "dropZone"];
 
-  change() {
+  enableEditMode() {
+    this.editControlsTarget.disabled = false;
     this.uploadButtonTarget.textContent = "画像を変更";
     this.uploadButtonTarget.classList.add("is-secondary");
-    this.editControlsTarget.disabled = false;
   }
 
   dragOver(e) {
