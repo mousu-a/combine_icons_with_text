@@ -15,7 +15,6 @@ export default class extends Controller {
       const textColor = canvas.dataset.textFillStyle;
       const bgColor = canvas.dataset.bgFillStyle;
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
       if (bgColor) {
         ctx.fillStyle = bgColor;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
