@@ -24,4 +24,8 @@ export default class extends Controller {
 
     this.dropZoneTarget.classList.remove("is-dragging");
   }
+
+  drop() {
+    this.dropZoneTarget.classList.remove("is-dragging");
+  }
 }

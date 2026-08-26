@@ -25,7 +25,7 @@
     aria-label='文字入りアイコン作成ツール'
     class='canvas preview'
     data-controller='icons icons-form canvas preview presets-renderer ui-state'
-    data-action='icons:setup->preview#setup icons:setup->canvas#setup icons:setup->ui-state#change canvas:render->preview#render canvas:textChanged->icons#updateDownloadState icons:download->icons-form#submit'
+    data-action='icons:setup->preview#setup icons:setup->canvas#setup icons:setup->ui-state#change canvas:render->preview#render canvas:textChanged->icons#updateDownloadState icons:download->icons-form#submit icons:drop->ui-state#drop'
     data-icons-canvas-outlet='.canvas'
     data-icons-preview-outlet='.preview'
   )
@@ -48,7 +48,6 @@
         h2.mb-4.text-xl.font-bold.text-gray-900 アイコンを選択
         figure.preview-frame(
           data-preview-target='previewImageFrame'
-          data-icons-target='dropZone'
           data-ui-state-target='dropZone'
           data-action='dragover->ui-state#dragOver dragenter->ui-state#dragEnter dragleave->ui-state#dragLeave drop->icons#drop'
         )
