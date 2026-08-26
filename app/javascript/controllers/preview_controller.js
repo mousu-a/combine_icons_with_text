@@ -13,8 +13,9 @@ export default class extends Controller {
 
     const previewImageFrame =
       this.previewImageFrameTarget.getBoundingClientRect();
-    previewImage.width = previewImageFrame.width - 20;
-    previewImage.height = previewImageFrame.height - 20;
+    const padding = 20;
+    previewImage.width = previewImageFrame.width - padding;
+    previewImage.height = previewImageFrame.height - padding;
 
     previewImage.style.display = "inline";
     this.placeholderTarget.classList.add("hidden");
