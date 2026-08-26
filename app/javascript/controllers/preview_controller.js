@@ -22,7 +22,8 @@ export default class extends Controller {
   }
 
   render(event) {
-    if (this.renderedImageUrl) URL.revokeObjectURL(this.renderedImageUrl);
+    const hasPreviousRenderedImageUrl = this.renderedImageUrl;
+    if (hasPreviousRenderedImageUrl) URL.revokeObjectURL(this.renderedImageUrl);
 
     this.renderedImageUrl = URL.createObjectURL(event.detail.canvasBlob);
     this.previewImageTarget.src = this.renderedImageUrl;
