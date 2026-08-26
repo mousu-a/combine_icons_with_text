@@ -49,7 +49,8 @@
         figure.preview-frame(
           data-preview-target='previewImageFrame'
           data-icons-target='dropZone'
-          data-action='dragover->icons#dragOver dragenter->icons#dragEnter dragleave->icons#dragLeave drop->icons#drop'
+          data-ui-state-target='dropZone'
+          data-action='dragover->ui-state#dragOver dragenter->ui-state#dragEnter dragleave->ui-state#dragLeave drop->icons#drop'
         )
           figcaption.sr-only 文字入りアイコンの完成イメージ
           .flex.flex-col.items-center.gap-3.px-5.text-center(data-preview-target='placeholder')

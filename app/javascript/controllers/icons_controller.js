@@ -26,22 +26,6 @@ export default class extends Controller {
     this.setup({ uploadFile });
   }
 
-  dragOver(e) {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = "copy";
-  }
-
-  dragEnter(e) {
-    e.preventDefault();
-    this.dropZoneTarget.classList.add("is-dragging");
-  }
-
-  dragLeave(e) {
-    if (e.relatedTarget && e.currentTarget.contains(e.relatedTarget)) return;
-
-    this.dropZoneTarget.classList.remove("is-dragging");
-  }
-
   drop(e) {
     e.preventDefault();
     this.dropZoneTarget.classList.remove("is-dragging");
