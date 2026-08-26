@@ -83,7 +83,7 @@ RSpec.describe 'Icons' do
         );
         const file = new File([bytes], 'drop-sample.png', { type: 'image/png' });
         const transfer = new DataTransfer();
-        const dropZone = document.querySelector('[data-icons-target="dropZone"]');
+        const dropZone = document.querySelector('[data-ui-state-target="dropZone"]');
         transfer.items.add(file);
         dropZone.dispatchEvent(new DragEvent('dragenter', { bubbles: true, dataTransfer: transfer }));
         dropZone.dispatchEvent(new DragEvent('drop', { bubbles: true, dataTransfer: transfer }));

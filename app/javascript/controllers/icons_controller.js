@@ -10,7 +10,6 @@ export default class extends Controller {
     "downloadLink",
     "existingIconRecord",
     "fileNameLabel",
-    "dropZone",
   ];
   static outlets = ["preview", "canvas"];
 
@@ -24,17 +23,6 @@ export default class extends Controller {
     if (!uploadFile) return;
 
     this.setup({ uploadFile });
-  }
-
-  drop(e) {
-    e.preventDefault();
-    this.dropZoneTarget.classList.remove("is-dragging");
-
-    const uploadFile = e.dataTransfer.files[0];
-    if (!uploadFile) return;
-
-    const isSetup = this.setup({ uploadFile });
-    if (isSetup) this.uploadedImageTarget.files = e.dataTransfer.files;
   }
 
   setup({ uploadFile, existingIconRecord }) {
@@ -121,6 +109,17 @@ export default class extends Controller {
     this.dispatch("download", {
       detail: { params },
     });
+  }
+
+  drop(e) {
+    e.preventDefault();
+    this.dispatch("drop");
+
+    const uploadFile = e.dataTransfer.files[0];
+    if (!uploadFile) return;
+
+    const isSetup = this.setup({ uploadFile });
+    if (isSetup) this.uploadedImageTarget.files = e.dataTransfer.files;
   }
 
   updateDownloadState(event) {
