@@ -30,9 +30,6 @@ export default class extends Controller {
   }
 
   disconnect() {
-    if (!this.renderedImageUrl) return;
-
     URL.revokeObjectURL(this.renderedImageUrl);
-    this.renderedImageUrl = null;
   }
 }
