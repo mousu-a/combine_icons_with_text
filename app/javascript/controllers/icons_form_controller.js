@@ -17,11 +17,11 @@ export default class extends Controller {
         },
         credentials: "same-origin",
       });
-      const responseData = await response.json();
+      const body = await response.json();
       if (response.ok) {
-        this.displayToast(responseData.message);
+        this.displayToast(body.message);
       } else {
-        alert(responseData.error_message);
+        alert(body.error_message);
       }
     } catch (error) {
       console.error("Upload error:", error);
