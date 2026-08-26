@@ -115,11 +115,10 @@ export default class extends Controller {
     this.triggerSubmit(combinedIconName);
 
     setTimeout(() => {
-      enableLink(this.downloadLinkTarget);
-    }, DEFAULT_DELAY_MS);
-    setTimeout(() => {
       URL.revokeObjectURL(this.originalImageUrl);
       URL.revokeObjectURL(previewImageUrl);
+
+      enableLink(this.downloadLinkTarget);
     }, DEFAULT_DELAY_MS);
   }
 
