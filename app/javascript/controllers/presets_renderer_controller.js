@@ -4,10 +4,10 @@ export default class extends Controller {
   static targets = ["presetCanvas"];
 
   connect() {
-    this.presetsRender();
+    this.render();
   }
 
-  presetsRender() {
+  render() {
     this.presetCanvasTargets.forEach((canvas) => {
       const ctx = canvas.getContext("2d");
 
