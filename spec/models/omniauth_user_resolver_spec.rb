@@ -25,15 +25,4 @@ RSpec.describe OmniAuthUserResolver do
       end
     end
   end
-
-  def auth_hash_for(uid:, provider:)
-    OmniAuth::AuthHash.new(
-      info: {
-        name: 'test_user',
-        image: 'https://example.com/test_user.jpg'
-      },
-      uid: uid,
-      provider: provider
-    )
-  end
 end
