@@ -23,6 +23,15 @@ RSpec.describe CombinedIcon do
       end
     end
 
+    context 'when the file size exceeds the limit' do
+      let(:combined_icon) { build(:combined_icon, :exceeds_size_limit) }
+
+      it 'is invalid' do
+        expect(combined_icon).not_to be_valid
+        expect(combined_icon.errors[:image]).to include("がサイズ制限を超えてしまっています。\n申し訳ありませんが、合成アイコンは#{CombinedIcon::MAX_FILE_SIZE}MB以下になりますようお願いします。")
+      end
+    end
+
     context 'when the count is within the limit' do
       let(:original_icon) { build(:original_icon) }
       let(:combined_icon) { create(:combined_icon, original_icon: original_icon) }
@@ -50,23 +59,6 @@ RSpec.describe CombinedIcon do
         expect(combined_icon).not_to be_valid
         expect(combined_icon.errors[:base]).to include("合成アイコンを保存できるのは、1つの元アイコンごとに#{CombinedIcon::MAX_COMBINED_ICONS_COUNT}個までです")
       end
-    end
-  end
-
-  context 'when the file size is within the limit' do
-    let(:combined_icon) { build(:combined_icon, :within_size_limit) }
-
-    it 'is valid' do
-      expect(combined_icon).to be_valid
-    end
-  end
-
-  context 'when the file size exceeds the limit' do
-    let(:combined_icon) { build(:combined_icon, :exceeds_size_limit) }
-
-    it 'is invalid' do
-      expect(combined_icon).not_to be_valid
-      expect(combined_icon.errors[:image]).to include("がサイズ制限を超えてしまっています。\n申し訳ありませんが、合成アイコンは#{CombinedIcon::MAX_FILE_SIZE}MB以下になりますようお願いします。")
     end
   end
 end
