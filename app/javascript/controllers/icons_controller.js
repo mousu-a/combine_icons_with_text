@@ -35,7 +35,10 @@ export default class extends Controller {
       this.originalImageUrl?.startsWith("blob:");
     if (hasPreviousUploadImageUrl) URL.revokeObjectURL(this.originalImageUrl);
 
-    this.originalImageUrl = setupOriginalImageUrl(uploadFile, existingIconRecord);
+    this.originalImageUrl = setupOriginalImageUrl(
+      uploadFile,
+      existingIconRecord,
+    );
     const originalImage = this.originalImageTarget;
     originalImage.src = this.originalImageUrl;
     this.fileNameLabelTarget.textContent = uploadFile?.name || "保存済みの画像";
