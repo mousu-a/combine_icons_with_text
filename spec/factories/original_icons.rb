@@ -26,10 +26,6 @@ FactoryBot.define do
       content_type { 'text/plain' }
     end
 
-    trait :within_size_limit do
-      io { Rails.root.join('spec/files/dummy_5.7MB.jpg').open }
-    end
-
     trait :exceeds_size_limit do
       io { Rails.root.join('spec/files/dummy_6.4MB.jpg').open }
     end

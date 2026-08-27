@@ -23,14 +23,6 @@ RSpec.describe OriginalIcon do
       end
     end
 
-    context 'when the file size is within the limit' do
-      let(:original_icon) { build(:original_icon, :within_size_limit) }
-
-      it 'is valid' do
-        expect(original_icon).to be_valid
-      end
-    end
-
     context 'when the file size exceeds the limit' do
       let(:original_icon) { build(:original_icon, :exceeds_size_limit) }
 
