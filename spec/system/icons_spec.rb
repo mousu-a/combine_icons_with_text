@@ -3,14 +3,17 @@
 require 'rails_helper'
 
 RSpec.describe 'Icons' do
-  scenario 'uploads an image and shows the preview' do
+  scenario 'uploads an image, shows the preview, and enables the editing features' do
     visit new_icon_path
     expect(page).to have_text '文字入りアイコン作成'
+
+    edit_controls = 'fieldset[data-ui-state-target="editControls"]'
+    expect(page).to have_css("#{edit_controls}[disabled]")
 
     attach_file 'upload-icon', Rails.root.join('spec/files/dummy_3MB.jpg')
 
     expect(page).to have_css('#icon-preview', visible: :visible)
-    expect(page).to have_field('表示する文字', disabled: false)
+    expect(page).to have_css("#{edit_controls}:not([disabled])")
   end
 
   scenario 'enables the download after entering text' do

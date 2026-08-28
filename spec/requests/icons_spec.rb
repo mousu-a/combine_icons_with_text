@@ -76,6 +76,19 @@ RSpec.describe 'Icons' do
       expect(response).to have_http_status(:ok)
       expect(response.body).to include('画像を保存しました。')
     end
+
+    it 'does not save the combined icon if params are invalid' do
+      expect do
+        post icons_path, params: {
+          original_icon: { id: original_icon.id },
+          combined_icon: { image: fixture_file_upload('spec/files/sample.txt', 'text/plain') },
+          canvas_preset: { text: 'sample', text_color: '#000000', bg_color: '#ffffff' }
+        }
+      end.not_to change(CombinedIcon, :count)
+
+      expect(response).to have_http_status(:unprocessable_content)
+      expect(response.body).to include('text/plain は許可されていない形式です')
+    end
   end
 
   describe 'DELETE /icons/:id' do
