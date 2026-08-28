@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Icons' do
+  let(:user) { create(:user) }
+
   describe 'GET /icons/new' do
     it 'returns http success' do
       get new_icon_path
@@ -20,7 +22,7 @@ RSpec.describe 'Icons' do
     end
 
     it 'shows the icon list link when logged in' do
-      login create(:user)
+      login user
 
       get new_icon_path
 
@@ -58,7 +60,6 @@ RSpec.describe 'Icons' do
   end
 
   describe 'POST /icons' do
-    let(:user) { create(:user) }
     let(:original_icon) { create(:original_icon, user:) }
 
     before { login user }
@@ -78,7 +79,6 @@ RSpec.describe 'Icons' do
   end
 
   describe 'DELETE /icons/:id' do
-    let(:user) { create(:user) }
     let(:original_icon) { create(:original_icon, user:) }
 
     before { login user }
