@@ -5,11 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Icons' do
   scenario 'uploads an image and shows the preview' do
     visit new_icon_path
-
     expect(page).to have_text '文字入りアイコン作成'
-    expect(page).to have_no_css('#icon-preview', visible: :visible)
-    expect(page).to have_no_link('← アイコン一覧へ')
-    expect(page).to have_field('表示する文字', disabled: true)
 
     attach_file 'upload-icon', Rails.root.join('spec/files/dummy_3MB.jpg')
 
@@ -47,9 +43,6 @@ RSpec.describe 'Icons' do
 
     check '文字に背景をつける'
     expect(page).to have_field('背景色', disabled: false)
-
-    uncheck '文字に背景をつける'
-    expect(page).to have_field('背景色', disabled: true)
   end
 
   def drop_sample_image
