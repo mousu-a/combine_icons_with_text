@@ -31,6 +31,21 @@ test.describe("icons#new", () => {
     await expect(previewImage).toBeVisible();
   });
 
+  test("dropping an image onto the drop zone shows the image in the preview", async ({ page, }) => {
+    await page
+      .locator('[data-ui-state-target="dropZone"]')
+      .drop({ files: SAMPLE_ICON_PATH });
+
+    const previewImage = page.getByRole("img", {
+      name: "テキストを合成したアイコンのプレビュー画像",
+    });
+
+    await expect(previewImage).toBeVisible();
+    await expect(page.locator('output[for="upload-icon"]')).toHaveText(
+      path.basename(SAMPLE_ICON_PATH),
+    );
+  });
+
   test("can add text to the preview", async ({ page }) => {
     const previewImage = await uploadIcon(page);
 
