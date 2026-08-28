@@ -25,6 +25,7 @@ RSpec.describe 'Icons' do
       get new_icon_path
 
       expect(response.body).to include('← アイコン一覧へ')
+      expect(response.body).not_to include('Googleアカウントでログインする')
     end
 
     it 'shows recognizable icons for supported services' do

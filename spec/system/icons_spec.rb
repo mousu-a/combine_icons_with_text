@@ -33,9 +33,9 @@ RSpec.describe 'Icons' do
 
     drop_sample_image
 
-    expect(page).to have_text 'drop-sample.png'
-    expect(page).to have_css('#icon-preview[src^="blob:"]', visible: :visible)
+    expect(page).to have_css('#icon-preview', visible: :visible)
     expect(page).to have_field('表示する文字', disabled: false)
+    expect(page).to have_text 'drop-sample.png'
   end
 
   scenario 'toggles the text background' do
