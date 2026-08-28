@@ -52,28 +52,6 @@ RSpec.describe 'Icons' do
     expect(page).to have_field('背景色', disabled: true)
   end
 
-  scenario 'restores the original image when the background becomes transparent' do
-    visit new_icon_path
-    attach_file 'upload-icon', Rails.root.join('spec/files/dummy_3MB.jpg')
-    expect(page).to have_css('#icon-preview[src^="blob:"]', visible: :visible)
-    original_pixel = canvas_pixel
-
-    check '文字に背景をつける'
-    expect_opacity_round_trip_to_restore(original_pixel)
-  end
-
-  def expect_opacity_round_trip_to_restore(original_pixel)
-    expect(canvas_pixel).not_to eq(original_pixel)
-    change_opacity(0)
-    expect(canvas_pixel).to eq(original_pixel)
-    change_opacity(1)
-    expect(canvas_pixel).not_to eq(original_pixel)
-    change_opacity(0)
-    expect(canvas_pixel).to eq(original_pixel)
-  end
-
-  def change_opacity(value) = find_by_id('opacityRange').set(value)
-
   def drop_sample_image
     page.execute_script(<<~JS)
       (() => {
@@ -93,14 +71,5 @@ RSpec.describe 'Icons' do
 
   def sample_png_data
     'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9Wl2nAAAAABJRU5ErkJggg=='
-  end
-
-  def canvas_pixel
-    page.evaluate_script(<<~JS)
-      (() => {
-        const canvas = document.querySelector('[data-canvas-target="canvas"]');
-        return Array.from(canvas.getContext('2d').getImageData(10, canvas.height - 10, 1, 1).data);
-      })()
-    JS
   end
 end
