@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class OriginalIcon < ApplicationRecord
-  # サーバー側ではフロント側よりバッファをとったサイズ上限を設定している(「JSで通ったのにRailsで通らない」といったことが万が一にも起こらないために)
   MAX_FILE_SIZE = 6
   MAX_ORIGINAL_ICONS_COUNT = 3
 
