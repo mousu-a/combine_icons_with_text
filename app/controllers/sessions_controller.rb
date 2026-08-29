@@ -26,8 +26,4 @@ class SessionsController < ApplicationController
   def login(user)
     session[:user_id] = user.id
   end
-
-  def reset_session
-    session.delete(:user_id)
-  end
 end
