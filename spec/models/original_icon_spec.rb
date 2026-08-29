@@ -35,7 +35,7 @@ RSpec.describe OriginalIcon do
     context 'when the count is within the limit' do
       let(:user) { build(:user) }
       let(:original_icon) { create(:original_icon, user: user) }
-      let(:limit) { OriginalIcon::MAX_ORIGINAL_ICONS_COUNT }
+      let(:limit) { OriginalIcon::MAX_ICONS_COUNT }
 
       before do
         create_list(:original_icon, limit - 1, user: user)
@@ -49,7 +49,7 @@ RSpec.describe OriginalIcon do
     context 'when the count exceeds the limit' do
       let(:user) { build(:user) }
       let(:original_icon) { build(:original_icon, user: user) }
-      let(:limit) { OriginalIcon::MAX_ORIGINAL_ICONS_COUNT }
+      let(:limit) { OriginalIcon::MAX_ICONS_COUNT }
 
       before do
         create_list(:original_icon, limit, user: user)
@@ -57,7 +57,7 @@ RSpec.describe OriginalIcon do
 
       it 'is invalid' do
         expect(original_icon).not_to be_valid
-        expect(original_icon.errors[:base]).to include("元アイコンを保存できるのは#{OriginalIcon::MAX_ORIGINAL_ICONS_COUNT}個までです")
+        expect(original_icon.errors[:base]).to include("元アイコンを保存できるのは#{OriginalIcon::MAX_ICONS_COUNT}個までです")
       end
     end
   end

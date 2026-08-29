@@ -14,9 +14,9 @@ class User < ApplicationRecord
 
   def icons_limit_reached?(target_icon: nil)
     if target_icon
-      target_icon.combined_icons.count >= CombinedIcon::MAX_COMBINED_ICONS_COUNT
+      target_icon.combined_icons.count >= CombinedIcon::MAX_ICONS_COUNT
     else
-      original_icons.count >= OriginalIcon::MAX_ORIGINAL_ICONS_COUNT
+      original_icons.count >= OriginalIcon::MAX_ICONS_COUNT
     end
   end
 end
