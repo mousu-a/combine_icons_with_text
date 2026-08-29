@@ -35,7 +35,7 @@ RSpec.describe CombinedIcon do
     context 'when the count is within the limit' do
       let(:original_icon) { build(:original_icon) }
       let(:combined_icon) { create(:combined_icon, original_icon: original_icon) }
-      let(:limit) { CombinedIcon::MAX_COMBINED_ICONS_COUNT }
+      let(:limit) { CombinedIcon::MAX_ICONS_COUNT }
 
       before do
         create_list(:combined_icon, limit - 1, original_icon: original_icon)
@@ -49,7 +49,7 @@ RSpec.describe CombinedIcon do
     context 'when the count exceeds the limit' do
       let(:original_icon) { build(:original_icon) }
       let(:combined_icon) { build(:combined_icon, original_icon: original_icon) }
-      let(:limit) { CombinedIcon::MAX_COMBINED_ICONS_COUNT }
+      let(:limit) { CombinedIcon::MAX_ICONS_COUNT }
 
       before do
         create_list(:combined_icon, limit, original_icon: original_icon)
@@ -57,7 +57,7 @@ RSpec.describe CombinedIcon do
 
       it 'is invalid' do
         expect(combined_icon).not_to be_valid
-        expect(combined_icon.errors[:base]).to include("合成アイコンを保存できるのは、1つの元アイコンごとに#{CombinedIcon::MAX_COMBINED_ICONS_COUNT}個までです")
+        expect(combined_icon.errors[:base]).to include("合成アイコンを保存できるのは、1つの元アイコンごとに#{CombinedIcon::MAX_ICONS_COUNT}個までです")
       end
     end
   end

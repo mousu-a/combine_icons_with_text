@@ -2,7 +2,7 @@
 
 class OriginalIcon < ApplicationRecord
   MAX_FILE_SIZE = 6
-  MAX_ORIGINAL_ICONS_COUNT = 3
+  MAX_ICONS_COUNT = 3
 
   belongs_to :user
   has_many :combined_icons, dependent: :destroy
@@ -18,8 +18,8 @@ class OriginalIcon < ApplicationRecord
   private
 
   def limit_per_user
-    return unless user.original_icons.count >= MAX_ORIGINAL_ICONS_COUNT
+    return unless user.original_icons.count >= MAX_ICONS_COUNT
 
-    errors.add(:base, :limit_per_user, max_icons_count: MAX_ORIGINAL_ICONS_COUNT)
+    errors.add(:base, :limit_per_user, max_icons_count: MAX_ICONS_COUNT)
   end
 end

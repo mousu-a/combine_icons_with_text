@@ -14,7 +14,7 @@ RSpec.describe User do
       it 'returns false before reaching the limit' do
         create_list(
           :combined_icon,
-          CombinedIcon::MAX_COMBINED_ICONS_COUNT - 1,
+          CombinedIcon::MAX_ICONS_COUNT - 1,
           original_icon:
         )
 
@@ -24,7 +24,7 @@ RSpec.describe User do
       it 'returns true after reaching the limit' do
         create_list(
           :combined_icon,
-          CombinedIcon::MAX_COMBINED_ICONS_COUNT,
+          CombinedIcon::MAX_ICONS_COUNT,
           original_icon:
         )
 
@@ -38,7 +38,7 @@ RSpec.describe User do
       it 'returns false before reaching the limit' do
         create_list(
           :original_icon,
-          OriginalIcon::MAX_ORIGINAL_ICONS_COUNT - 1,
+          OriginalIcon::MAX_ICONS_COUNT - 1,
           user:
         )
 
@@ -48,7 +48,7 @@ RSpec.describe User do
       it 'returns true after reaching the limit' do
         create_list(
           :original_icon,
-          OriginalIcon::MAX_ORIGINAL_ICONS_COUNT,
+          OriginalIcon::MAX_ICONS_COUNT,
           user:
         )
 
@@ -67,7 +67,7 @@ RSpec.describe User do
       it 'returns true when the found original_icon has not reached the combined_icon limit' do
         create_list(
           :combined_icon,
-          CombinedIcon::MAX_COMBINED_ICONS_COUNT - 1,
+          CombinedIcon::MAX_ICONS_COUNT - 1,
           original_icon:
         )
 
@@ -77,7 +77,7 @@ RSpec.describe User do
       it 'returns false when the found original_icon has reached the combined_icon limit' do
         create_list(
           :combined_icon,
-          CombinedIcon::MAX_COMBINED_ICONS_COUNT,
+          CombinedIcon::MAX_ICONS_COUNT,
           original_icon:
         )
 
@@ -91,7 +91,7 @@ RSpec.describe User do
       it 'returns true when the user has not reached the original_icon limit' do
         create_list(
           :original_icon,
-          OriginalIcon::MAX_ORIGINAL_ICONS_COUNT - 1,
+          OriginalIcon::MAX_ICONS_COUNT - 1,
           user:
         )
 
@@ -105,7 +105,7 @@ RSpec.describe User do
       it 'returns true when the user has not reached the original_icon limit' do
         create_list(
           :original_icon,
-          OriginalIcon::MAX_ORIGINAL_ICONS_COUNT - 1,
+          OriginalIcon::MAX_ICONS_COUNT - 1,
           user:
         )
 
