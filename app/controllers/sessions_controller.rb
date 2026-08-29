@@ -18,7 +18,6 @@ class SessionsController < ApplicationController
   end
 
   def auth_failure
-    reset_session
     redirect_to root_path, alert: 'Googleログインがキャンセルされました', status: :see_other
   end
 
