@@ -11,8 +11,4 @@ class ApplicationController < ActionController::Base
 
     @current_user = User.find_by(id: session[:user_id])
   end
-
-  def require_admin
-    redirect_to icons_path, alert: '権限がありません' unless current_user&.admin?
-  end
 end
