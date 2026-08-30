@@ -39,7 +39,7 @@ class IconsController < ApplicationController
   private
 
   def set_my_icon
-    original_icon = current_user.original_icons.find(params[:original_icon_id])
+    original_icon = current_user.original_icons.find(params.expect(:original_icon_id))
 
     @icon =
       if params[:combined_icon_id]
