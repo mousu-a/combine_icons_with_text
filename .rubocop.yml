@@ -33,6 +33,9 @@ Style/Documentation:
 Rails/I18nLocaleTexts:
   Enabled: false
 
+Rails/StrongParametersExpect:
+  Enabled: false
+
 RSpec/MultipleExpectations:
   Enabled: false
 
