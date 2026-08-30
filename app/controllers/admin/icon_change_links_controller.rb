@@ -2,7 +2,6 @@
 
 module Admin
   class IconChangeLinksController < Admin::BaseController
-    before_action :require_admin, only: :create
     before_action :set_admin_managed_resources, only: :create
 
     def create
