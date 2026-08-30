@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 // フロント側ではサーバー側より小さいサイズ上限を設定している(「JSで通ったのにRailsで通らない」といったことが万が一にも起こらないために)
-const MAX_FILE_SIZE = 5;
+const MAX_FILE_SIZE_MB = 5;
 const DEFAULT_DELAY_MS = 3000;
 
 export default class extends Controller {
@@ -71,7 +71,7 @@ export default class extends Controller {
     }
 
     if (!validateByteSize(file)) {
-      this.errorMessage = `画像は${MAX_FILE_SIZE}MB以下にしてください`;
+      this.errorMessage = `画像は${MAX_FILE_SIZE_MB}MB以下にしてください`;
       return false;
     }
 
@@ -152,6 +152,6 @@ function disableLink(link) {
 }
 
 function validateByteSize(file) {
-  const limitSizeMB = MAX_FILE_SIZE * 1024 * 1024;
+  const limitSizeMB = MAX_FILE_SIZE_MB * 1024 * 1024;
   return file.size < limitSizeMB;
 }
