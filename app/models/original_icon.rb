@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class OriginalIcon < ApplicationRecord
-  MAX_FILE_SIZE = 6
+  MAX_FILE_SIZE_MB = 6
   MAX_ICONS_COUNT = 3
 
   belongs_to :user
@@ -12,7 +12,7 @@ class OriginalIcon < ApplicationRecord
   end
 
   validates :image, presence: true
-  validates :image, image_content: { max_file_size: MAX_FILE_SIZE }
+  validates :image, image_content: { max_file_size: MAX_FILE_SIZE_MB }
   validate :limit_per_user, on: :create
 
   private
