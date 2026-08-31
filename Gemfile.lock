@@ -449,11 +449,6 @@ GEM
     snaky_hash (2.0.3)
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
-    solid_cable (3.0.12)
-      actioncable (>= 7.2)
-      activejob (>= 7.2)
-      activerecord (>= 7.2)
-      railties (>= 7.2)
     solid_cache (1.0.10)
       activejob (>= 7.2)
       activerecord (>= 7.2)
@@ -560,7 +555,6 @@ DEPENDENCIES
   selenium-webdriver
   slim-rails
   slim_lint
-  solid_cable
   solid_cache
   solid_queue
   stimulus-rails
