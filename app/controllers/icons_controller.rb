@@ -18,7 +18,7 @@ class IconsController < ApplicationController
   end
 
   def create
-    unless current_user&.saveable?(original_icon_params)
+    unless current_user&.saveable?(original_icon_params[:id])
       return render json: { message: '画像をダウンロードしました。' },
                     status: :ok
     end
