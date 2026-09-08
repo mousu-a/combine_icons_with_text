@@ -8,6 +8,8 @@ class ImageContentValidator < ActiveModel::EachValidator
     validate_byte_size(record, attribute, value)
   end
 
+  private
+
   def validate_content_type(record, attribute, value)
     allowed_mime_types = %w[image/jpeg image/png image/webp]
     return if allowed_mime_types.include?(value.blob.content_type)
