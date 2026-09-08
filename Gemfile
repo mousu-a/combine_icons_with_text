@@ -52,6 +52,10 @@ gem 'tailwindcss-rails', '~> 4.6'
 
 gem 'meta-tags'
 
+# 3系で破壊的変更があり、まだRailsが対応できてておらず内部で壊れてしまうので2.x系に固定
+# https://bugs.ruby-lang.org/issues/22241
+gem 'json', '< 3'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'
