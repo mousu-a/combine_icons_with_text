@@ -7,8 +7,8 @@ class User < ApplicationRecord
   validates :uid, uniqueness: { scope: :provider }
   validates :uid, :provider, presence: true
 
-  def saveable?(original_icon_params)
-    original_icon = original_icons.find_by(id: original_icon_params[:id])
+  def saveable?(original_icon_id)
+    original_icon = original_icons.find_by(id: original_icon_id)
     !icons_limit_reached?(target_icon: original_icon)
   end
 

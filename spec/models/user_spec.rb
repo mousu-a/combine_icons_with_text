@@ -58,10 +58,10 @@ RSpec.describe User do
   end
 
   describe '#saveable?' do
-    subject(:saveable?) { user.saveable?(original_icon_params) }
+    subject(:saveable?) { user.saveable?(original_icon_id) }
 
     context 'when original_icon id is present' do
-      let(:original_icon_params) { { id: original_icon.id } }
+      let(:original_icon_id) { original_icon.id }
       let!(:original_icon) { create(:original_icon, user:) }
 
       it 'returns true when the found original_icon has not reached the combined_icon limit' do
@@ -86,7 +86,7 @@ RSpec.describe User do
     end
 
     context 'when original_icon id is absent' do
-      let(:original_icon_params) { { image: fixture_file_upload('spec/files/dummy_3MB.jpg', 'image/jpeg') } }
+      let(:original_icon_id) { nil }
 
       it 'returns true when the user has not reached the original_icon limit' do
         create_list(
@@ -100,7 +100,7 @@ RSpec.describe User do
     end
 
     context 'when original_icon id is present but does not exist' do
-      let(:original_icon_params) { { id: 99_999 } }
+      let(:original_icon_id) { 99_999 }
 
       it 'returns true when the user has not reached the original_icon limit' do
         create_list(
