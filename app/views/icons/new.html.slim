@@ -25,6 +25,7 @@
     aria-label='文字入りアイコン作成ツール'
     class='canvas preview'
     data-controller='icons icons-form canvas preview presets-renderer ui-state toast'
+    data-icons-logged-in-value=current_user.present?
     data-action='icons:setup->preview#setup
                  icons:setup->canvas#setup
                  icons:setup->ui-state#enableEditMode
