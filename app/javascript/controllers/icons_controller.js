@@ -13,6 +13,7 @@ export default class extends Controller {
     "fileNameLabel",
   ];
   static outlets = ["preview", "canvas"];
+  static values = { loggedIn: Boolean };
 
   connect() {
     if (this.hasExistingIconRecordTarget)
@@ -90,7 +91,13 @@ export default class extends Controller {
     e.currentTarget.href = previewImageUrl;
     e.currentTarget.download = combinedIconName;
 
-    this.triggerSubmit(combinedIconName);
+    if (this.loggedInValue) {
+      this.triggerSubmit(combinedIconName);
+    } else {
+      this.dispatch("notify", {
+        detail: { success: true, message: "画像をダウンロードしました" },
+      });
+    }
 
     setTimeout(() => {
       URL.revokeObjectURL(this.originalImageUrl);
