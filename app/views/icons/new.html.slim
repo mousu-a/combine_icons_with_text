@@ -24,14 +24,16 @@
   section.editor-card(
     aria-label='文字入りアイコン作成ツール'
     class='canvas preview'
-    data-controller='icons icons-form canvas preview presets-renderer ui-state'
+    data-controller='icons icons-form canvas preview presets-renderer ui-state toast'
     data-action='icons:setup->preview#setup
                  icons:setup->canvas#setup
                  icons:setup->ui-state#enableEditMode
                  canvas:render->preview#render
                  canvas:textChanged->icons#updateDownloadState
                  icons:download->icons-form#submit
-                 icons:drop->ui-state#drop'
+                 icons:drop->ui-state#drop
+                 icons:notify->toast#show
+                 icons-form:notify->toast#show'
     data-icons-canvas-outlet='.canvas'
     data-icons-preview-outlet='.preview'
   )
