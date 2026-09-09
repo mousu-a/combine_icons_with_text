@@ -1,10 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
 
-const DEFAULT_DELAY_MS = 3000;
-
 export default class extends Controller {
-  static targets = ["toast", "toastMessage"];
-
   async submit(event) {
     const fd = setupFormdata(event.detail.params);
     const token = document.querySelector('meta[name="csrf-token"]').content;
@@ -18,26 +14,22 @@ export default class extends Controller {
         credentials: "same-origin",
       });
       const body = await response.json();
-      if (response.ok) {
-        this.displayToast(body.message);
-      } else {
-        alert(body.error_message);
-      }
+      this.dispatch("notify", {
+        detail: {
+          success: response.ok,
+          message: response.ok ? body.message : body.error_message,
+        },
+      });
     } catch (error) {
       console.error("Upload error:", error);
-      alert(
-        "通信エラーが発生したため画像を保存出来ませんでした。\n画像を保存したい場合は時間を置いて再度ダウンロードボタンを押してください。",
-      );
+      this.dispatch("notify", {
+        detail: {
+          success: false,
+          message:
+            "通信エラーが発生したため画像を保存出来ませんでした。\n画像を保存したい場合は時間を置いて再度ダウンロードボタンを押してください。",
+        },
+      });
     }
-  }
-
-  displayToast(message) {
-    this.toastMessageTarget.textContent = message;
-    this.toastTarget.classList.remove("hidden");
-
-    setTimeout(() => {
-      this.toastTarget.classList.add("hidden");
-    }, DEFAULT_DELAY_MS);
   }
 }
 

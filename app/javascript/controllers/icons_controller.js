@@ -28,7 +28,9 @@ export default class extends Controller {
 
   setup({ uploadFile, existingIconRecord }) {
     if (uploadFile && !this.validateFile(uploadFile)) {
-      alert(`${this.errorMessage}`);
+      this.dispatch("notify", {
+        detail: { success: false, message: this.errorMessage },
+      });
       return false;
     }
 
