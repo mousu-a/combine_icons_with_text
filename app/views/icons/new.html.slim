@@ -105,14 +105,14 @@
           )
           p.mt-3.mb-2.text-sm.text-gray-500 よく使われる文字から選ぶ
           .flex.flex-wrap.gap-2(role='group' aria-label='よく使われる文字')
-            - %w[ラジオ参加 離席中 画面見れません].each do |text|
+            - @overlay_texts.each do |overlay_text|
               button.btn-text-option(
                 type='button'
-                data-text=text
+                data-text=overlay_text.text
                 data-canvas-target='textOption'
                 data-action='click->canvas#selectText'
                 aria-pressed='false'
-              ) = text
+              ) = overlay_text.text
 
         .option-section
           .flex.items-center.justify-between.gap-3

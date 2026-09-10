@@ -40,6 +40,15 @@ RSpec.describe 'Icons' do
         expect(response.body).to include("#{service_key}-logo")
       end
     end
+
+    it 'shows overlay texts registered in the database as text options' do
+      OverlayText.find_or_create_by!(text: 'よく使われる文字')
+
+      get new_icon_path
+
+      page = Capybara::Node::Simple.new(response.body)
+      expect(page).to have_css('.btn-text-option', text: 'よく使われる文字')
+    end
   end
 
   def create_supported_service_links

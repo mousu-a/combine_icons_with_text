@@ -7,3 +7,4 @@ end
 
 load Rails.root.join('db/seeds/icon_change_links.rb')
 load Rails.root.join('db/seeds/canvas_presets.rb')
+load Rails.root.join('db/seeds/overlay_texts.rb')
