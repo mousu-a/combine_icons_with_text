@@ -8,6 +8,6 @@ class InsertDefaultOverlayTexts < ActiveRecord::Migration[8.1]
   end
 
   def down
-    OverlayText.where(text: TEXTS).destroy_all
+    raise ActiveRecord::IrreversibleMigration
   end
 end
