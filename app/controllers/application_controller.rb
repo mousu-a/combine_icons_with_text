@@ -11,4 +11,8 @@ class ApplicationController < ActionController::Base
 
     @current_user = User.find_by(id: session[:user_id])
   end
+
+  def require_login
+    redirect_to root_path, alert: 'ログインしてください' unless current_user
+  end
 end

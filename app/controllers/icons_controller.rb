@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 class IconsController < ApplicationController
+  before_action :require_login, only: %i[index destroy]
   before_action :set_icon_change_links, only: %i[index new]
   before_action :set_my_icon, only: :destroy
   def index
-    @saved_icons = {}
-    return unless current_user
-
     @saved_icons = UserIcons.new(current_user).saved_icons
   end
 
