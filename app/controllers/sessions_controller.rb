@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SessionsController < ApplicationController
+  before_action :require_login, only: :destroy
+
   def create
     auth = request.env['omniauth.auth']
     user = OmniAuthUserResolver.find_or_create_user(auth)

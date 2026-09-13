@@ -61,10 +61,24 @@ RSpec.describe 'Icons' do
   end
 
   describe 'GET /icons' do
-    it 'returns http success' do
-      get icons_path
+    context 'when logged in' do
+      before { login user }
 
-      expect(response).to have_http_status(:ok)
+      it 'returns http success' do
+        get icons_path
+
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context 'when logged out' do
+      it 'redirects to the root page' do
+        get icons_path
+
+        expect(response).to redirect_to(root_path)
+        follow_redirect!
+        expect(response.body).to include('ログインしてください')
+      end
     end
   end
 
@@ -103,28 +117,44 @@ RSpec.describe 'Icons' do
   describe 'DELETE /icons/:id' do
     let(:original_icon) { create(:original_icon, user:) }
 
-    before { login user }
+    context 'when logged in' do
+      before { login user }
 
-    it 'deletes the icon' do
-      original_icon_id = original_icon.id
+      it 'deletes the icon' do
+        original_icon_id = original_icon.id
 
-      expect do
-        delete icon_path(original_icon_id, original_icon_id:)
-      end.to change(OriginalIcon, :count).by(-1)
+        expect do
+          delete icon_path(original_icon, original_icon_id:)
+        end.to change(OriginalIcon, :count).by(-1)
 
-      expect(response).to redirect_to(icons_url)
-      follow_redirect!
-      expect(response.body).to include('アイコンを削除しました。')
+        expect(response).to redirect_to(icons_url)
+        follow_redirect!
+        expect(response.body).to include('アイコンを削除しました。')
+      end
+
+      it 'does not delete the icon if unauthorized' do
+        other_user_icon = create(:original_icon)
+
+        expect do
+          delete icon_path(other_user_icon, original_icon_id: other_user_icon.id)
+        end.not_to change(OriginalIcon, :count)
+
+        expect(response).to have_http_status(:not_found)
+      end
     end
 
-    it 'does not delete the icon if unauthorized' do
-      other_user_icon = create(:original_icon)
+    context 'when logged out' do
+      it 'does not delete the icon and redirects' do
+        original_icon_id = original_icon.id
 
-      expect do
-        delete icon_path(other_user_icon, original_icon_id: other_user_icon.id)
-      end.not_to change(OriginalIcon, :count)
+        expect do
+          delete icon_path(original_icon, original_icon_id:)
+        end.not_to change(OriginalIcon, :count)
 
-      expect(response).to have_http_status(:not_found)
+        expect(response).to redirect_to(root_path)
+        follow_redirect!
+        expect(response.body).to include('ログインしてください')
+      end
     end
   end
 end
