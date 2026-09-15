@@ -42,7 +42,7 @@ gem 'kamal', require: false
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem 'thruster', require: false
 
-gem 'aws-sdk-s3', '~> 1.231'
+gem 'aws-sdk-s3', '~> 1.232'
 gem 'slim-rails'
 
 gem 'omniauth-google-oauth2'
