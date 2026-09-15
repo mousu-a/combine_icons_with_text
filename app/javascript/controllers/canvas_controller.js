@@ -1,6 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
 
-const DEFAULT_TEXT_COLOR = "#000000";
+const DEFAULT_TEXT_COLOR = "#ffffff";
 const DEFAULT_BACKGROUND_COLOR = "#000000";
 const DEFAULT_OPACITY = 1;
 const FONT_SIZE_MIN_RATIO = 0.05;
