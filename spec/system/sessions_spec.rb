@@ -10,6 +10,7 @@ RSpec.describe 'Sessions' do
       login user
 
       expect(page).to have_text 'ログインしました'
+      expect(page).to have_current_path(new_icon_path)
     end
 
     scenario 'cancels logging in' do
