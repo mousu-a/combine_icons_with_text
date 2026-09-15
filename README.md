@@ -38,6 +38,7 @@ UPした自分のアイコンに「今日はラジオ参加」などのあらか
 - Ruby 4.0.6
 - Ruby on Rails 8.1.3
 - Stimulus
+- Docker
 
 
 ### 環境構築
@@ -83,8 +84,16 @@ bin/setup
 bin/lint
 ```
 
-- Test
+- テスト（RSpec）
 
 ```bash
 bundle exec rspec
+```
+
+- E2Eテスト（Playwright）
+
+Docker Desktopを起動した状態で以下を実行します。
+
+```bash
+docker compose run --rm e2e
 ```
