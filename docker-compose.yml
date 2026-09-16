@@ -21,6 +21,7 @@ services:
     environment:
       RAILS_ENV: test
       DATABASE_URL: postgres://rails:password@postgres:5432/combine_icons_with_text_test
+      CI: ${CI:-}
     volumes:
       - .:/app
       - /app/node_modules
